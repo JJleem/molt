@@ -89,7 +89,7 @@ const WormholeMesh = () => {
 const WormholeBackground = () => {
   return (
     // fixed로 변경하여 스크롤과 상관없이 화면에 고정
-    <div className="fixed inset-0 bg-resume-bg overflow-hidden pointer-events-none ">
+    <div className="absolute h-full inset-0 bg-resume-bg overflow-hidden pointer-events-none ">
       {/* 카메라를 왼쪽 위로 옮겨서 오른쪽 아래를 바라보게 설정 */}
       <Canvas
         camera={{ position: [-10, 10, 20], fov: 45 }}
