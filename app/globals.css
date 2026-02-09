@@ -1,26 +1,28 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* 여기에 이력서 색상 변수를 등록하면 끝입니다 */
+  --font-sans: var(--font-pretendard), ui-sans-serif, system-ui, sans-serif;
+  --color-resume-bg: #f8fafc; /* 배경색 */
+  --color-resume-card: #ffffff; /* 카드 배경 */
+
+  --color-resume-primary: #6366f1; /* 메인: 인디고 블루 */
+  --color-resume-secondary: #6d70f2; /* 서브: 블루 */
+  --color-resume-accent-purple: #5531a7;
+
+  --color-resume-text-main: #1f2937; /* 진한 글씨 */
+  --color-resume-text-sub: #6b7280; /* 연한 글씨 */
+
+  --color-resume-badge-bg: #eef2ff; /* 뱃지 배경 */
+  --color-resume-badge-text: #4f46e5; /* 뱃지 글씨 */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* 이렇게 하면 자동으로 아래 클래스들이 생성됩니다:
+  bg-resume-bg
+  text-resume-primary
+  bg-resume-card
+*/
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-pretendard), sans-serif !important;
 }
