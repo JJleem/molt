@@ -217,6 +217,9 @@ const ProjectDetail_CaseStudy = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
+            <h1 className="text-4xl md:text-5xl font-bold text-resume-text-main mb-8 tracking-tight border-b border-b-resume-primary pb-2  ">
+              <span className="text-resume-primary">Work Experience.</span>
+            </h1>
             {/* 태그 & 타이틀 */}
             <div className="flex items-center gap-2 mb-4">
               <span className="px-2 py-1 bg-white border border-slate-200 text-resume-text-sub rounded text-xs font-medium flex items-center gap-1">
