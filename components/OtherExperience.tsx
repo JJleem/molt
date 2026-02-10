@@ -16,14 +16,15 @@ const EXPERIENCES = [
   {
     id: 1,
     company: "(주)미디어그룹 사람과숲",
-    role: "IT 영업지원",
+    role: "IT 영업지원 ",
     period: "2022.10 - 2024.01",
     location: "서울시, 구로구",
+
     description:
-      "NIA 공공 데이터 및 배송 로봇 데이터 구축 사업을 관리했습니다. 고객은 기술 자체가 아니라 '기술이 해결하는 문제'에 지갑을 연다는 비즈니스 마인드를 체득했습니다.",
-    tags: ["Project Management", "Client Communication"],
+      "배송 로봇 데이터 사업의 관리를 수행하였고, 이후 IT 영업지원으로 제안서를 작성해 NIA 국회 정보 개방 등 공공 사업을 수주하였습니다. 비즈니스와 기술의 연결 고리를 체득했습니다.",
+    tags: ["Proposal & Bidding", "Project Management", "Business Cycle"],
     icon: Briefcase,
-    color: "bg-blue-50 text-blue-600",
+    color: "bg-orange-50 text-orange-600",
   },
   {
     id: 2,
@@ -35,7 +36,7 @@ const EXPERIENCES = [
       "평택 삼성반도체 건설 현장에서 1년 만에 팀 리더로 승진했습니다. 복잡한 도면 해석과 현장의 오차 없는 시공 경험은 꼼꼼한 로직 설계와 책임감의 원천이 되었습니다.",
     tags: ["Leadership", "Safety First", "Ownership"],
     icon: HardHat,
-    color: "bg-orange-50 text-orange-600",
+    color: "bg-blue-50 text-blue-600",
   },
 ];
 
@@ -51,8 +52,9 @@ const OtherExperience = () => {
   }, [isInView, controls]);
 
   return (
-    <section className="py-0 pb-10 bg-resume-bg relative z-20">
+    <section className=" py-0 pb-10 bg-resume-bg relative z-20">
       <div className="max-w-4xl mx-auto px-6">
+        <div className="absolute h-full w-full inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none -z-10" />
         {/* 섹션 헤더 (요청하신 스타일 + 타이틀 변경) */}
         <motion.div
           ref={ref}
@@ -67,7 +69,7 @@ const OtherExperience = () => {
           <div className="p-2 bg-white border border-slate-200 rounded-lg shadow-sm">
             <AlertCircle size={20} className="text-amber-600" />
           </div>
-          <h2 className="text-2xl font-bold text-resume-text-main flex items-baseline gap-2">
+          <h2 className="text-1xl md:text-4xl font-bold text-resume-text-main flex items-baseline gap-2">
             Non-Engineering Career
             {/* 필요하다면 아래처럼 한글 부연 설명을 작게 넣을 수도 있습니다 */}
             <span className="text-sm font-normal text-slate-400 ml-1">
@@ -101,14 +103,14 @@ const OtherExperience = () => {
                   <exp.icon size={24} />
                 </div>
                 <div className="text-center md:text-left">
-                  <h3 className="font-bold text-resume-text-main text-base leading-tight mb-1">
+                  <h3 className="font-bold text-resume-text-main text-base leading-tight mb-1 text-sm">
                     {exp.company}
                   </h3>
                   <div className="text-xs text-resume-text-sub flex flex-col gap-1">
-                    <span className="flex items-center gap-1 justify-center md:justify-start">
+                    <span className="flex items-center gap-1  md:justify-start">
                       <Calendar size={10} /> {exp.period}
                     </span>
-                    <span className="flex items-center gap-1 justify-center md:justify-start">
+                    <span className="flex items-center gap-1  md:justify-start">
                       <Building2 size={10} /> {exp.location}
                     </span>
                   </div>

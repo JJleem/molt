@@ -49,7 +49,7 @@ const ProjectDetail_Golf = () => {
   return (
     <div className="relative z-20 min-h-screen bg-resume-bg text-resume-text-main font-sans">
       {/* 배경 패턴 (Main과 다르게 점 패턴으로 가볍게) */}
-      <div className="absolute h-full w-full inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] opacity-50 pointer-events-none -z-10" />
+      <div className="absolute h-full w-full inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none -z-10" />
 
       {/* 1. Header Area (Compact) */}
       <header className="pt-12 pb-12 border-b border-slate-200 bg-white/50 backdrop-blur-sm">
@@ -73,11 +73,11 @@ const ProjectDetail_Golf = () => {
                 height={30}
                 className="mt-2"
               />
-              <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
+              <h1 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
                 Golf Course Geofencing App
               </h1>
             </div>
-            <p className="text-slate-600 leading-relaxed text-sm md:text-base max-w-2xl">
+            <p className="text-slate-600 leading-relaxed text-sm md:text-base max-w-4xl mb-6">
               골프장 내장객의 위치를 실시간으로 추적하여{" "}
               <strong className="text-indigo-600">
                 지오펜싱(Geofencing) 기반 자동 체크인/아웃

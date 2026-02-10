@@ -15,6 +15,8 @@ import {
   Database,
   Lock,
   Link2,
+  ExternalLink,
+  Globe,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -145,8 +147,8 @@ const Section = ({
       animate={controls}
       className="mb-16 relative"
     >
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-resume-badge-bg rounded-full"></div>
-      <div className="pl-6">
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-resume-badge-bg rounded-full opacity-0 md:opacity-100"></div>
+      <div className="pl-0 md:pl-6">
         <h3 className="text-xl md:text-2xl font-bold text-resume-text-main mb-6">
           {title}
         </h3>
@@ -158,14 +160,14 @@ const Section = ({
 
 const ProblemSolution = ({ title, context, solution, outcome }: any) => (
   <div className="bg-resume-card p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300">
-    <h4 className="text-lg font-bold text-resume-text-main mb-3 flex items-center gap-2">
+    <h4 className="text-md md:text-lg font-bold text-resume-text-main mb-3 flex items-center gap-2">
       <div className="w-2 h-2 rounded-full bg-resume-primary"></div>
       {title}
     </h4>
 
     <div className="space-y-4">
       {context && (
-        <div className="bg-slate-50 p-3 rounded-lg text-sm text-resume-text-sub leading-relaxed border border-slate-100">
+        <div className="bg-slate-50 p-3 rounded-lg text-xs text-resume-text-sub leading-relaxed border border-slate-100 md:text-sm ">
           <strong className="text-slate-600 block mb-1 text-xs uppercase">
             Problem
           </strong>
@@ -181,7 +183,7 @@ const ProblemSolution = ({ title, context, solution, outcome }: any) => (
           {solution.map((item: string, i: number) => (
             <li
               key={i}
-              className="text-resume-text-main text-sm leading-relaxed flex items-start gap-2 pl-1"
+              className="text-resume-text-main md:text-sm text-xs leading-relaxed flex items-start gap-2 pl-1"
             >
               <CheckCircle2
                 size={14}
@@ -236,39 +238,52 @@ const ProjectDetail_CaseStudy = () => {
                   height={30}
                   className="mt-2"
                 />
-                <h1 className="text-4xl md:text-5xl font-bold text-resume-text-main mb-2 tracking-tight">
+                <h1 className="text-2xl md:text-5xl font-bold text-resume-text-main mb-2 tracking-tight">
                   C-HUB <span className="text-resume-primary">V2.0</span>
                 </h1>
-                <div className="flex  items-center gap-2">
-                  <p className="text-lg text-resume-text-sub">
+                <div className="flex flex-col justify-start items-center gap-2">
+                  <p className="text-lg text-resume-text-sub w-full">
                     산업용 3D 프린터 통합 관제 솔루션
                   </p>
-                  <span className="flex items-center gap-1  text-resume-primary hover:text-resume-accent-purple ">
-                    <Link2 size={14} className="" />
+                  <div className="w-full flex flex-wrap items-center gap-3 mt-1">
+                    {/* 1. 서비스 바로가기 링크 */}
                     <Link
                       href="https://c-hub.info/"
                       target="_blank"
-                      className="text-[12px] "
+                      className="group flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-600 hover:border-indigo-300 hover:text-indigo-600 hover:shadow-sm transition-all"
                     >
-                      c-hub.info
+                      <Globe
+                        size={14}
+                        className="text-slate-400 group-hover:text-indigo-500 transition-colors"
+                      />
+                      <span>Live Service</span>
+                      <ExternalLink
+                        size={10}
+                        className="opacity-30 group-hover:opacity-100 transition-opacity"
+                      />
                     </Link>
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-resume-primary hover:text-resume-accent-purple mt-1">
-                  <Link2 size={14} className="" />
-                  <Image
-                    src="/assets/notion.png"
-                    alt="notion logo"
-                    width={12}
-                    height={12}
-                  />
-                  <Link
-                    href="https://hissing-seagull-77f.notion.site/IoT-3D-2e1cb3f80a7780c5ac84c4ac75fe9ab6?pvs=143"
-                    target="_blank"
-                    className="text-[12px]"
-                  >
-                    Notion 경력기술서
-                  </Link>
+
+                    {/* 2. 노션 경력기술서 링크 */}
+                    <Link
+                      href="https://hissing-seagull-77f.notion.site/IoT-3D-2e1cb3f80a7780c5ac84c4ac75fe9ab6?pvs=143"
+                      target="_blank"
+                      className="group flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-600 hover:border-slate-400 hover:text-slate-800 hover:shadow-sm transition-all"
+                    >
+                      <div className="relative w-3.5 h-3.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                        <Image
+                          src="/assets/notion.png"
+                          alt="Notion"
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      <span>Notion Tech Spec</span>
+                      <ExternalLink
+                        size={10}
+                        className="opacity-30 group-hover:opacity-100 transition-opacity"
+                      />
+                    </Link>
+                  </div>
                 </div>
               </div>
 
