@@ -129,7 +129,8 @@ const SideProjects = () => {
   }, [isInView, controls]);
 
   return (
-    <section className="py-20 bg-white relative z-20 border-t border-slate-100">
+    <section className="relative z-20 min-h-screen bg-resume-bg text-resume-text-main pb-15">
+      <div className="absolute h-full w-full inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none -z-10" />
       <div className="max-w-4xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
@@ -142,12 +143,9 @@ const SideProjects = () => {
           }}
           className="mb-10 flex items-center gap-3"
         >
-          <div className="p-2 bg-slate-50 border border-slate-200 rounded-lg shadow-sm">
-            <Code2 size={20} className="text-slate-600" />
-          </div>
-          <h2 className="text-xl md:text-2xl font-bold text-slate-800">
-            Side Projects & Engineering
-          </h2>
+          <h1 className="w-full text-4xl md:text-5xl font-bold text-resume-text-main mb-2 tracking-tight border-b border-b-resume-primary pb-2  ">
+            <span className="text-resume-primary">Side Project.</span>
+          </h1>
         </motion.div>
 
         {/* Project Grid */}
