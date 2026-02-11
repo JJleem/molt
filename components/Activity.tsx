@@ -8,11 +8,9 @@ import {
   Calendar,
   School,
   Building2,
-  Cpu, // 회로도 느낌을 살릴 CPU 아이콘
 } from "lucide-react";
 
 const ACTIVITIES = [
-  // ... (데이터는 기존과 동일합니다) ...
   {
     id: 0,
     title: "한양사이버대학교",
@@ -66,17 +64,16 @@ const ACTIVITIES = [
   },
 ];
 
-// ⭐ 수정된 배경용 회로도 패턴 컴포넌트 (더 리얼하고 복잡한 디자인)
 const CircuitPattern = () => (
   <svg
-    className="absolute inset-0 w-full h-full opacity-[0.1] pointer-events-none" // 투명도 약간 조절 (0.03 -> 0.05)
+    className="absolute inset-0 w-full h-full opacity-[0.1] pointer-events-none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <pattern
       id="circuit-pattern-v2"
       x="0"
       y="0"
-      width="200" // 패턴 크기를 키워 반복을 줄임
+      width="200"
       height="200"
       patternUnits="userSpaceOnUse"
     >
@@ -127,15 +124,13 @@ const Activity = () => {
 
   return (
     <section className="py-10 bg-white relative z-20 overflow-hidden">
-      {/* ⭐ 배경 영역: 새 회로도 패턴 + 그라데이션 마스크 */}
       <div className="absolute inset-0 pointer-events-none text-slate-900">
         <CircuitPattern />
 
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,white_100%)]" />
-        {/* ⭐ 추가됨: 상단 페이드 (흰색 -> 투명) */}
+
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white via-white/80 to-transparent" />
 
-        {/* ⭐ 추가됨: 하단 페이드 (투명 -> 흰색) */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
       </div>
 
