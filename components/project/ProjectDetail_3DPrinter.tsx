@@ -17,24 +17,27 @@ import {
   Link2,
   ExternalLink,
   Globe,
+  LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
 // --- [Visual Components] ---
 
-// 1. 상태 배지 (Light Mode에 맞게 수정)
-// const StatusBadge = () => (
-//   <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm">
-//     <span className="relative flex h-2.5 w-2.5">
-//       <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-emerald-500"></span>
-//       <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-//     </span>
-//     <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-resume-text-sub">
-//       Websocket Online
-//     </span>
-//   </div>
-// );
+interface LiveMetricProps {
+  label: string;
+  value: string;
+  delay: number;
+  icon: LucideIcon;
+}
+
+// 3. 문제 해결 섹션 Props 타입
+interface ProblemSolutionProps {
+  title: string;
+  context?: string;
+  solution: string[];
+  outcome?: string;
+}
 
 // 2. 미니 터미널 (포인트 요소로 Dark 유지 - 가독성 및 개발자 감성)
 const TerminalBlock = () => {
@@ -97,7 +100,13 @@ const TerminalBlock = () => {
 };
 
 // 3. 라이브 메트릭 카드 (Light Mode)
-const LiveMetric = ({ label, value, sub, icon: Icon, delay }: any) => (
+const LiveMetric = ({
+  label,
+  value,
+
+  icon: Icon,
+  delay,
+}: LiveMetricProps) => (
   <motion.div
     initial={{ opacity: 0, y: 10 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -158,7 +167,12 @@ const Section = ({
   );
 };
 
-const ProblemSolution = ({ title, context, solution, outcome }: any) => (
+const ProblemSolution = ({
+  title,
+  context,
+  solution,
+  outcome,
+}: ProblemSolutionProps) => (
   <div className="bg-resume-card p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300">
     <h4 className="text-md md:text-lg font-bold text-resume-text-main mb-3 flex items-center gap-2">
       <div className="w-2 h-2 rounded-full bg-resume-primary"></div>

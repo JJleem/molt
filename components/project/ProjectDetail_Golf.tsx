@@ -11,12 +11,18 @@ import {
   Layers,
   Fingerprint,
   Users,
+  LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-
+interface FeatureCardProps {
+  icon: LucideIcon;
+  title: string;
+  items: string[];
+  delay: number;
+}
 // --- [Visual Component: Compact Feature Card] ---
-const FeatureCard = ({ icon: Icon, title, items, delay }: any) => (
+const FeatureCard = ({ icon: Icon, title, items, delay }: FeatureCardProps) => (
   <motion.div
     initial={{ opacity: 0, y: 10 }}
     whileInView={{ opacity: 1, y: 0 }}

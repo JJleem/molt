@@ -2,15 +2,34 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { Github, GitCommit, GitPullRequest, Zap, Users } from "lucide-react";
+import {
+  Github,
+  GitCommit,
+  GitPullRequest,
+  Zap,
+  Users,
+  LucideIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { GitHubCalendar } from "react-github-calendar";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 // --- [Visual Components] ---
-
+interface StatCardProps {
+  label: string;
+  value: string | number;
+  icon: LucideIcon; // lucide-react 아이콘 타입
+  delay: number;
+  isLoading: boolean;
+}
 // 요약 스탯 카드
-const StatCard = ({ label, value, icon: Icon, delay, isLoading }: any) => (
+const StatCard = ({
+  label,
+  value,
+  icon: Icon,
+  delay,
+  isLoading,
+}: StatCardProps) => (
   <motion.div
     initial={{ opacity: 0, y: 10 }}
     whileInView={{ opacity: 1, y: 0 }}
