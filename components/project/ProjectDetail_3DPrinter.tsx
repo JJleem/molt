@@ -330,8 +330,8 @@ const ProjectDetail_CaseStudy = () => {
                   에 도입되어 가동 중입니다.
                 </p>
 
-                <div className="flex flex-wrap gap-3">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-lg border border-slate-100 flex-col">
+                <div className="flex flex-wrap gap-3 ">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-lg border border-slate-100 flex-col sm:w-fit h-full w-full">
                     <span className="flex items-center gap-2">
                       <Users size={14} className="text-resume-text-sub" />
                       <span className="text-xs font-bold text-resume-text-main">
@@ -344,15 +344,15 @@ const ProjectDetail_CaseStudy = () => {
                       프론트엔드(100%)
                     </span>
                   </div>
-                  <div className="flex justify-center items-center gap-2">
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-50 rounded-lg border border-yellow-100 justify-center">
+                  <div className="flex justify-center items-center gap-2 sm:w-fit  w-full">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-50 rounded-lg border border-yellow-100 justify-center sm:w-fit h-full w-full">
                       <Image
                         src={"/assets/gs.png"}
                         alt="GS인증로고"
                         width={40}
                         height={50}
                       />
-                      <span className="text-xs font-bold text-yellow-700">
+                      <span className="text-xs font-bold text-yellow-700 ">
                         GS인증 1등급 취득
                       </span>
                     </div>
