@@ -10,7 +10,7 @@ export default function Header() {
           href="/"
           className="text-xl font-bold tracking-tighter text-slate-900 hover:text-indigo-600 transition-colors"
         >
-          JJleem<span className="text-indigo-600">.</span>dev
+          Molt<span className="text-indigo-600">.</span>dev
         </Link>
 
         {/* 오른쪽: 실시간 뱃지 (나중에 다크모드 버튼 등을 옆에 추가하기 좋습니다) */}

@@ -14,6 +14,7 @@ import Link from "next/link";
 import { GitHubCalendar } from "react-github-calendar";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import Image from "next/image";
 // --- [Visual Components] ---
 interface StatCardProps {
   label: string;
@@ -138,9 +139,18 @@ const GithubStatus = ({
             <Link
               href={`https://github.com/${username}`}
               target="_blank"
-              className="group flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-600 hover:border-slate-400 hover:text-slate-800 hover:shadow-sm transition-all"
+              className="group flex items-center gap-2 px-1 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-600 hover:border-slate-400 hover:text-slate-800 hover:shadow-sm transition-all"
             >
-              <span>@{username}</span>
+              <span className="flex gap-1">
+                <Image
+                  src="/assets/molt.png"
+                  width={16}
+                  height={12}
+                  alt="GitHub Icon"
+                  className="shrink"
+                />
+                @{username}
+              </span>
             </Link>
           </div>
           <p className="text-resume-text-sub text-sm">

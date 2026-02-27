@@ -1,53 +1,74 @@
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 import { NextResponse } from "next/server";
+// 라이브러리 내부에서 사용하는 응답 데이터 타입을 가져옵니다.
+import { protos } from "@google-analytics/data";
 
-// GA4 클라이언트 초기화
 const client = new BetaAnalyticsDataClient({
   credentials: {
     client_email: process.env.GA_CLIENT_EMAIL,
-    private_key: process.env.GA_PRIVATE_KEY?.replace(/\\n/g, "\n"), // 줄바꿈 처리 필수
+    private_key: process.env.GA_PRIVATE_KEY?.replace(/\\n/g, "\n"),
   },
 });
 
 export async function GET() {
   const propertyId = process.env.GA_PROPERTY_ID;
 
+  if (!propertyId) {
+    return NextResponse.json(
+      { error: "Property ID is missing" },
+      { status: 400 },
+    );
+  }
+
   try {
-    const [response] = await client.runReport({
+    // response의 타입을 명시적으로 지정합니다.
+    const [response]: [
+      protos.google.analytics.data.v1beta.IRunReportResponse,
+      any,
+      any,
+    ] = await client.runReport({
       property: `properties/${propertyId}`,
       dateRanges: [
-        { startDate: "2020-01-01", endDate: "today" }, // 전체 기간 (가입일 이후 넉넉히)
-        { startDate: "today", endDate: "today" }, // 오늘
+        { startDate: "2020-01-01", endDate: "today" },
+        { startDate: "today", endDate: "today" },
       ],
-      // 'date'를 기준으로 데이터를 나누어 가져옵니다.
       dimensions: [{ name: "date" }],
-      // 'activeUsers'(활성 사용자 수) 지표를 가져옵니다.
       metrics: [{ name: "activeUsers" }],
     });
 
     // 1. 전체 접속자 수 합산
+    // 각 row와 metricValue에 대한 안전한 접근을 위해 타입을 활용합니다.
     const totalVisitors =
-      response.rows?.reduce((acc, row) => {
-        return acc + Number(row.metricValues?.[0]?.value || 0);
-      }, 0) || 0;
+      response.rows?.reduce(
+        (acc: number, row: protos.google.analytics.data.v1beta.IRow) => {
+          const value = row.metricValues?.[0]?.value;
+          return acc + (value ? Number(value) : 0);
+        },
+        0,
+      ) || 0;
 
-    // 2. 오늘 접속자 수 (마지막 행이 오늘 데이터일 확률이 높음)
-    // 참고: GA4는 오늘 데이터 반영에 수 시간의 지연이 있을 수 있습니다.
+    // 2. 오늘 접속자 수 처리
     const todayDateStr = new Date()
       .toISOString()
       .split("T")[0]
       .replace(/-/g, "");
+
     const todayRow = response.rows?.find(
-      (row) => row.dimensionValues?.[0]?.value === todayDateStr,
+      (row: protos.google.analytics.data.v1beta.IRow) =>
+        row.dimensionValues?.[0]?.value === todayDateStr,
     );
+
     const todayVisitors = Number(todayRow?.metricValues?.[0]?.value || 0);
 
     return NextResponse.json({
       total: totalVisitors,
       today: todayVisitors,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("GA API Error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknown error occurred";
+
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
