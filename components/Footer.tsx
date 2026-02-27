@@ -90,7 +90,7 @@ const Footer = () => {
           <p>© 2026 molt. All rights reserved.</p>
           <p className="flex items-center gap-1">
             Made with <span className="text-rose-500 animate-pulse">♥</span> by
-            Lim Jae-jun
+            Leem Jae-jun
           </p>
         </div>
       </div>
