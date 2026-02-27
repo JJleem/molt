@@ -1,7 +1,10 @@
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 import { NextResponse } from "next/server";
-// 라이브러리 내부에서 사용하는 응답 데이터 타입을 가져옵니다.
 import { protos } from "@google-analytics/data";
+
+// 필요한 타입들만 깔끔하게 추출합니다.
+type RunReportResponse = protos.google.analytics.data.v1beta.IRunReportResponse;
+type Row = protos.google.analytics.data.v1beta.IRow;
 
 const client = new BetaAnalyticsDataClient({
   credentials: {
@@ -21,12 +24,9 @@ export async function GET() {
   }
 
   try {
-    // response의 타입을 명시적으로 지정합니다.
-    const [response]: [
-      protos.google.analytics.data.v1beta.IRunReportResponse,
-      any,
-      any,
-    ] = await client.runReport({
+    // 1. any 대신 실제 라이브러리가 반환하는 튜플 구조를 명시합니다.
+    // 두 번째, 세 번째 인자는 각각 요청(Request) 정보와 메타데이터인데, 여기선 필요 없으므로 빈 객체 타입으로 처리합니다.
+    const [response] = (await client.runReport({
       property: `properties/${propertyId}`,
       dateRanges: [
         { startDate: "2020-01-01", endDate: "today" },
@@ -34,28 +34,28 @@ export async function GET() {
       ],
       dimensions: [{ name: "date" }],
       metrics: [{ name: "activeUsers" }],
-    });
+    })) as [RunReportResponse, unknown, unknown];
 
-    // 1. 전체 접속자 수 합산
-    // 각 row와 metricValue에 대한 안전한 접근을 위해 타입을 활용합니다.
+    // 2. 전체 접속자 수 합산
     const totalVisitors =
-      response.rows?.reduce(
-        (acc: number, row: protos.google.analytics.data.v1beta.IRow) => {
-          const value = row.metricValues?.[0]?.value;
-          return acc + (value ? Number(value) : 0);
-        },
-        0,
-      ) || 0;
+      response.rows?.reduce((acc: number, row: Row) => {
+        const value = row.metricValues?.[0]?.value;
+        return acc + (value ? Number(value) : 0);
+      }, 0) || 0;
 
-    // 2. 오늘 접속자 수 처리
-    const todayDateStr = new Date()
-      .toISOString()
-      .split("T")[0]
-      .replace(/-/g, "");
+    // 3. 오늘 접속자 수 처리
+    const todayDateStr = new Intl.DateTimeFormat("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      timeZone: "Asia/Seoul",
+    })
+      .format(new Date())
+      .replace(/\. /g, "")
+      .replace(/\./g, ""); // "20260227" 형식
 
     const todayRow = response.rows?.find(
-      (row: protos.google.analytics.data.v1beta.IRow) =>
-        row.dimensionValues?.[0]?.value === todayDateStr,
+      (row: Row) => row.dimensionValues?.[0]?.value === todayDateStr,
     );
 
     const todayVisitors = Number(todayRow?.metricValues?.[0]?.value || 0);

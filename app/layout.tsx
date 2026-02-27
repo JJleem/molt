@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "임재준 | 프론트엔드 개발자 포트폴리오",
     description: "프론트엔드 개발자 임재준의 포트폴리오입니다.",
-    url: "https://your-portfolio-domain.com", // TODO: 실제 배포하실 도메인으로 수정하세요!
+    url: "https://molt-ten.vercel.app/", // TODO: 실제 배포하실 도메인으로 수정하세요!
     siteName: "임재준 포트폴리오",
     images: [
       {
