@@ -14,8 +14,8 @@ export async function GET(request: Request) {
 
   // GitHub Personal Access Token (없으면 시간당 60회 제한, 있으면 5000회)
   // .env 파일에 GITHUB_TOKEN을 발급받아 넣는 것을 권장합니다.
-  const headers: Record<string, string> = process.env.GITHUB_TOKEN
-    ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
+  const headers: Record<string, string> = process.env.NEXT_PUBLIC_GITHUB_TOKEN
+    ? { Authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}` }
     : {};
 
   try {

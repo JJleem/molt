@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Script from "next/script";
 
 // 1. 로컬 폰트 설정
 const pretendard = localFont({
@@ -42,7 +43,6 @@ export const metadata: Metadata = {
     description: "프론트엔드 개발자 임재준의 포트폴리오입니다.",
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -50,6 +50,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        {/* ✨ 2. 구글 애널리틱스 데이터 수집 스크립트 추가 */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-FVW2XQ2JSE`}
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-FVW2XQ2JSE', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+      </head>
       <body className={`${pretendard.variable} antialiased font-sans`}>
         {children}
       </body>

@@ -2,19 +2,22 @@ import { BetaAnalyticsDataClient } from "@google-analytics/data";
 import { NextResponse } from "next/server";
 import { protos } from "@google-analytics/data";
 
-// 필요한 타입들만 깔끔하게 추출합니다.
+// 🌟 [핵심 해결책] Next.js 캐싱 강제 무효화! 매번 새로운 데이터를 가져오게 합니다.
+export const dynamic = "force-dynamic";
+
 type RunReportResponse = protos.google.analytics.data.v1beta.IRunReportResponse;
 type Row = protos.google.analytics.data.v1beta.IRow;
 
 const client = new BetaAnalyticsDataClient({
   credentials: {
+    // 🚨 NEXT_PUBLIC_ 절대 쓰지 마세요! 서버에서만 안전하게 읽어야 합니다.
     client_email: process.env.GA_CLIENT_EMAIL,
     private_key: process.env.GA_PRIVATE_KEY?.replace(/\\n/g, "\n"),
   },
 });
 
 export async function GET() {
-  const propertyId = process.env.GA_PROPERTY_ID;
+  const propertyId = process.env.GA_PROPERTY; // 여기도 수정!
 
   if (!propertyId) {
     return NextResponse.json(
@@ -24,8 +27,6 @@ export async function GET() {
   }
 
   try {
-    // 1. any 대신 실제 라이브러리가 반환하는 튜플 구조를 명시합니다.
-    // 두 번째, 세 번째 인자는 각각 요청(Request) 정보와 메타데이터인데, 여기선 필요 없으므로 빈 객체 타입으로 처리합니다.
     const [response] = (await client.runReport({
       property: `properties/${propertyId}`,
       dateRanges: [
@@ -36,14 +37,12 @@ export async function GET() {
       metrics: [{ name: "activeUsers" }],
     })) as [RunReportResponse, unknown, unknown];
 
-    // 2. 전체 접속자 수 합산
     const totalVisitors =
       response.rows?.reduce((acc: number, row: Row) => {
         const value = row.metricValues?.[0]?.value;
         return acc + (value ? Number(value) : 0);
       }, 0) || 0;
 
-    // 3. 오늘 접속자 수 처리
     const todayDateStr = new Intl.DateTimeFormat("ko-KR", {
       year: "numeric",
       month: "2-digit",
@@ -52,7 +51,7 @@ export async function GET() {
     })
       .format(new Date())
       .replace(/\. /g, "")
-      .replace(/\./g, ""); // "20260227" 형식
+      .replace(/\./g, "");
 
     const todayRow = response.rows?.find(
       (row: Row) => row.dimensionValues?.[0]?.value === todayDateStr,
@@ -68,7 +67,6 @@ export async function GET() {
     console.error("GA API Error:", error);
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
-
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

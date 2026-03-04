@@ -11,7 +11,6 @@ export default function LiveVisitorBadge() {
       try {
         const res = await fetch("/api/analytics");
         const result = await res.json();
-
         let fetchedTotal = result.total || 0;
         let fetchedToday = result.today || 0;
 
