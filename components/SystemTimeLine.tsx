@@ -20,7 +20,7 @@ const LOG_DATA = [
     subtitle: "컴퓨터공학과 (3학년 편입)",
     desc: "프론트엔드 실무를 넘어 컴퓨터 공학(CS) 기초를 탄탄히 다지기 위해 편입했습니다. 자료구조, 운영체제, 알고리즘 등 소프트웨어 엔지니어링의 본질적인 역량을 강화하고 있습니다.",
     tech: ["CS Theory", "Algorithm", "Architecture"],
-    status: "STANDBY",
+    status: "ACTIVE",
     icon: <GraduationCap className="w-5 h-5 text-indigo-500" />,
   },
   {
