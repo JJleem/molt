@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import {
   Briefcase,
   Code2,
-  Code,
   GraduationCap,
   BookOpen,
   HardHat,
@@ -69,7 +68,7 @@ const LOG_DATA = [
     date: "2022.10 - 2024.01",
     title: "(주)미디어그룹 사람과숲",
     subtitle: "IT 영업지원 & 프로젝트 관리",
-    desc: "배송 로봇 데이터 사업의 관리를 수행하였고, 이후 IT 영업지원으로 제안서를 작성해 NIA 국회 정보 개방 등 공공 사업을 수주하였습니다. 이 경험을 통해 비즈니스 요구사항과 기술의 연결 고리를 깊이 체득했습니다.",
+    desc: "배송 로봇 데이터 사업의 관리를 수행하였고, 이후 IT 영업지원으로 제안서를 작성해 NIA 국회 정보 개방 등 공공 사업을 수주하였습니다.",
     tech: ["Project Management", "Bidding", "Business Cycle"],
     status: "DONE",
     icon: <Briefcase className="w-5 h-5 text-orange-500" />,
@@ -108,110 +107,59 @@ const LOG_DATA = [
 
 const SystemTimeline = () => {
   return (
-    <div className="relative min-h-screen bg-resume-bg w-full flex flex-col items-center text-resume-text-main p-6 md:p-12  overflow-hidden">
-      {/* 타임라인 전체 컨테이너 */}
+    <div className="relative min-h-screen bg-resume-bg w-full flex flex-col items-center text-resume-text-main p-6 md:p-12 overflow-hidden transition-colors duration-300">
       <WormholeBackground />
 
       <div className="relative z-10 flex flex-col items-center text-resume-text-main p-0 md:p-12 w-full">
         <div className="w-full max-w-5xl relative pb-20 flex flex-col gap-6">
-          {/* 중앙선 (데스크탑: 중앙, 모바일: 왼쪽) */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 transform md:-translate-x-1/2"></div>
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700 transform md:-translate-x-1/2"></div>
 
           {LOG_DATA.map((item, index) => {
-            // 짝수/홀수 판별 (인덱스 기준)
             const isEven = index % 2 === 0;
 
             return (
               <motion.div
                 key={item.id}
-                // 애니메이션: 짝수는 왼쪽에서, 홀수는 오른쪽에서 등장
                 initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative flex items-center  w-full 
-                ${isEven ? "md:flex-row-reverse" : ""} 
-              `}
+                className={`relative flex items-center w-full ${isEven ? "md:flex-row-reverse" : ""}`}
               >
-                {/* 데스크탑에서 50% 너비를 차지하는 빈 공간 (중앙 정렬을 위해 필요) */}
                 <div className="hidden md:block w-1/2" />
 
-                {/* 중앙 점 (Timeline Dot) */}
-                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-white border-4 border-white shadow-sm z-20 flex-shrink-0 flex justify-center items-center">
-                  {/* 모바일이나 데스크탑 상태에 따라 점 색상 변경 가능 */}
+                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-4 border-white dark:border-slate-900 shadow-sm z-20 flex-shrink-0 flex justify-center items-center">
                   <div className="w-[70%] h-[70%] rounded-full bg-resume-accent-purple relative">
-                    <p className="absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit whitespace-nowrap text-[10px] text-white  bg-resume-secondary px-1 py-0.5 rounded-sm">
+                    <p className="absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit whitespace-nowrap text-[10px] text-white bg-resume-secondary px-1 py-0.5 rounded-sm">
                       {item.date.split(" - ")[0]}
                     </p>
                   </div>
                 </div>
 
-                {/* 카드 영역 */}
-                <div
-                  className={`w-full pl-16 md:pl-0 md:w-1/2 
-                ${isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"}
-              `}
-                >
+                <div className={`w-full pl-16 md:pl-0 md:w-1/2 ${isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"}`}>
                   <div className="group bg-resume-card p-3 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-transparent hover:border-resume-primary/20 relative flex flex-col gap-3">
-                    {/* 카드 내부 헤더 (날짜 & 상태) */}
-                    <div
-                      className={`flex flex-col gap-2  
-                    ${isEven ? "md:flex-row-reverse md:justify-between" : "md:flex-row md:justify-between"}
-                  `}
-                    >
+                    <div className={`flex flex-col gap-2 ${isEven ? "md:flex-row-reverse md:justify-between" : "md:flex-row md:justify-between"}`}>
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-[9px] font-bold text-resume-primary bg-resume-badge-bg px-3 py-1 rounded-full">
                           {item.date}
                         </span>
                       </div>
-                      <div
-                        className={`flex items-center gap-2 text-[9px] font-medium text-slate-400 bg-slate-50 px-1 rounded-md w-fit
-                       ${isEven ? "ml-auto md:ml-0" : ""}
-                    `}
-                      >
-                        <span
-                          className={`h-2 w-2 rounded-full ${
-                            item.status === "ACTIVE" || item.status === "STABLE"
-                              ? "bg-emerald-400 animate-pulse"
-                              : "bg-yellow-400"
-                          }`}
-                        />
+                      <div className={`flex items-center gap-2 text-[9px] font-medium text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-800 px-1 rounded-md w-fit ${isEven ? "ml-auto md:ml-0" : ""}`}>
+                        <span className={`h-2 w-2 rounded-full ${item.status === "ACTIVE" || item.status === "STABLE" ? "bg-emerald-400 animate-pulse" : "bg-yellow-400"}`} />
                         {item.status}
                       </div>
                     </div>
 
-                    {/* 제목 및 부제 */}
-                    <h3
-                      className={`text-[14px] font-bold text-slate-800 flex items-center gap-2  
-                    ${isEven ? "md:flex-row-reverse" : ""}
-                  `}
-                    >
-                      {/* 여기에 아이콘 렌더링 코드 복구 */}
+                    <h3 className={`text-[14px] font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 ${isEven ? "md:flex-row-reverse" : ""}`}>
                       {item.icon}
                       {item.title}
                     </h3>
-                    <p className="text-[12px] text-resume-secondary font-medium ">
-                      {item.subtitle}
-                    </p>
+                    <p className="text-[12px] text-resume-secondary font-medium">{item.subtitle}</p>
+                    <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed break-words whitespace-normal">{item.desc}</p>
 
-                    {/* 설명글 (줄바꿈 처리 적용됨) */}
-                    <p className="text-slate-600 text-[11px] leading-relaxed  break-words whitespace-normal">
-                      {item.desc}
-                    </p>
-
-                    {/* 기술 스택 */}
-                    <div
-                      className={`flex flex-wrap gap-2 
-                    ${isEven ? "md:justify-end" : "md:justify-start"}
-                  `}
-                    >
+                    <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
                       {item.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="text-[9px] font-semibold text-resume-badge-text bg-resume-badge-bg px-1 py-1 rounded-lg"
-                        >
-                          {t}
-                        </span>
+                        <span key={t} className="text-[9px] font-semibold text-resume-badge-text bg-resume-badge-bg px-1 py-1 rounded-lg">{t}</span>
                       ))}
                     </div>
                   </div>

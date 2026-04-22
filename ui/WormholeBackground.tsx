@@ -3,13 +3,13 @@
 import React, { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useTheme } from "@/context/ThemeContext";
 
-// 이력서 secondary 컬러 (선 색상) - 나중에 fog랑 섞이면서 은은해짐
-const LINE_COLOR = "#6d70f2";
-// 배경색과 동일한 fog 색상 (필수! 이것 때문에 은은해 보임)
-const FOG_COLOR = "#f7f7f7";
+interface WormholeMeshProps {
+  lineColor: string;
+}
 
-const WormholeMesh = () => {
+const WormholeMesh = ({ lineColor }: WormholeMeshProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
 
   // 1. 튜브 경로 생성: 오른쪽 하단에서 시작해서 뒤쪽 대각선으로 휘어지는 곡선
@@ -31,7 +31,7 @@ const WormholeMesh = () => {
 
     if (context) {
       context.clearRect(0, 0, 1024, 1024);
-      context.strokeStyle = LINE_COLOR;
+      context.strokeStyle = lineColor;
       // ⭐ 수정 1: 선을 조금 더 두껍게 (개수를 줄일 거라 잘 보이게)
       context.lineWidth = 5;
       context.lineCap = "round";
@@ -55,7 +55,7 @@ const WormholeMesh = () => {
     // 깊이 방향 반복 횟수 조절
     texture.repeat.set(50, 1);
     return texture;
-  }, []);
+  }, [lineColor]);
 
   // 3. 애니메이션: 천천히 빨려 들어가는 느낌
   useFrame((state, delta) => {
@@ -87,6 +87,10 @@ const WormholeMesh = () => {
 };
 
 const WormholeBackground = () => {
+  const { theme } = useTheme();
+  const fogColor = theme === "dark" ? "#0d0d1a" : "#f7f7f7";
+  const lineColor = theme === "dark" ? "#818cf8" : "#6d70f2";
+
   return (
     // fixed로 변경하여 스크롤과 상관없이 화면에 고정
     <div className="absolute h-full inset-0 bg-resume-bg overflow-hidden pointer-events-none ">
@@ -97,14 +101,14 @@ const WormholeBackground = () => {
         dpr={[1, 2]}
       >
         {/* ⭐ 핵심: 안개(Fog) 효과 추가 ⭐ */}
-        {/* 멀리 있는 부분은 배경색(FOG_COLOR)으로 서서히 사라지게 만듦 */}
+        {/* 멀리 있는 부분은 배경색(fogColor)으로 서서히 사라지게 만듦 */}
         {/* near(20)부터 far(180)까지 점점 흐려짐 */}
-        <fog attach="fog" args={[FOG_COLOR, 20, 180]} />
+        <fog attach="fog" args={[fogColor, 20, 180]} />
 
         {/* 배경색을 fog 색상과 맞춰줘야 자연스럽게 섞임 */}
-        <color attach="background" args={[FOG_COLOR]} />
+        <color attach="background" args={[fogColor]} />
 
-        <WormholeMesh />
+        <WormholeMesh lineColor={lineColor} />
       </Canvas>
     </div>
   );

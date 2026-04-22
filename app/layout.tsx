@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 // 1. 로컬 폰트 설정
 const pretendard = localFont({
@@ -72,7 +73,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${pretendard.variable} antialiased font-sans`}>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

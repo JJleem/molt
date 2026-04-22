@@ -1,28 +1,33 @@
+@custom-variant dark (&:where(.dark, .dark *));
+
 @import "tailwindcss";
 
 @theme {
-  /* 여기에 이력서 색상 변수를 등록하면 끝입니다 */
   --font-sans: var(--font-pretendard), ui-sans-serif, system-ui, sans-serif;
-  --color-resume-bg: #f8fafc; /* 배경색 */
-  --color-resume-card: #ffffff; /* 카드 배경 */
-
-  --color-resume-primary: #6366f1; /* 메인: 인디고 블루 */
-  --color-resume-secondary: #6d70f2; /* 서브: 블루 */
+  --color-resume-bg: #f8fafc;
+  --color-resume-card: #ffffff;
+  --color-resume-primary: #6366f1;
+  --color-resume-secondary: #6d70f2;
   --color-resume-accent-purple: #5531a7;
-
-  --color-resume-text-main: #1f2937; /* 진한 글씨 */
-  --color-resume-text-sub: #6b7280; /* 연한 글씨 */
-
-  --color-resume-badge-bg: #eef2ff; /* 뱃지 배경 */
-  --color-resume-badge-text: #4f46e5; /* 뱃지 글씨 */
+  --color-resume-text-main: #1f2937;
+  --color-resume-text-sub: #6b7280;
+  --color-resume-badge-bg: #eef2ff;
+  --color-resume-badge-text: #4f46e5;
 }
 
-/* 이렇게 하면 자동으로 아래 클래스들이 생성됩니다:
-  bg-resume-bg
-  text-resume-primary
-  bg-resume-card
-*/
+.dark {
+  --color-resume-bg: #0d0d1a;
+  --color-resume-card: #161625;
+  --color-resume-primary: #818cf8;
+  --color-resume-secondary: #a5b4fc;
+  --color-resume-accent-purple: #7c3aed;
+  --color-resume-text-main: #e2e8f0;
+  --color-resume-text-sub: #94a3b8;
+  --color-resume-badge-bg: rgba(99, 102, 241, 0.15);
+  --color-resume-badge-text: #a5b4fc;
+}
 
 body {
   font-family: var(--font-pretendard), sans-serif !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
