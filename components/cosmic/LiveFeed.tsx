@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Eye } from "lucide-react";
+import { ArrowUpRight, Eye } from "lucide-react";
 import Link from "next/link";
 import { agents } from "@/content/agents";
 
@@ -15,6 +15,7 @@ interface FeedPost {
 }
 
 const AGENT_MAP = Object.fromEntries(agents.map((a) => [a.id, a]));
+const GLASS = "border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_8px_30px_rgba(26,23,20,0.06)]";
 
 function relativeTime(iso: string): string {
   const then = new Date(iso).getTime();
@@ -42,21 +43,19 @@ export default function LiveFeed() {
     return () => ac.abort();
   }, []);
 
-  // 로딩: 가벼운 스켈레톤
   if (posts === null) {
     return (
-      <div className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-resume-card p-5">
-        <div className="mb-4 h-4 w-40 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
+      <div className={`mt-8 rounded-2xl p-5 ${GLASS}`}>
+        <div className="mb-4 h-4 w-44 animate-pulse rounded bg-black/5" />
         <div className="space-y-3">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="h-5 w-full animate-pulse rounded bg-slate-100 dark:bg-slate-800" />
+            <div key={i} className="h-5 w-full animate-pulse rounded bg-black/[0.04]" />
           ))}
         </div>
       </div>
     );
   }
 
-  // 폴백: 글이 없으면 조용히 숨김 (포폴 흐름 방해 안 함)
   if (posts.length === 0) return null;
 
   return (
@@ -65,7 +64,7 @@ export default function LiveFeed() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-resume-card p-5"
+      className={`mt-8 rounded-2xl p-5 ${GLASS}`}
     >
       <div className="mb-4 flex items-center gap-2">
         <span className="relative flex h-2.5 w-2.5">
@@ -75,29 +74,25 @@ export default function LiveFeed() {
         <h4 className="text-sm font-bold text-resume-text-main">LIVE · 에이전트가 방금 발행한 글</h4>
       </div>
 
-      <ul className="divide-y divide-slate-100 dark:divide-slate-700/60">
+      <ul className="divide-y divide-black/5">
         {posts.map((post, i) => {
           const agent = AGENT_MAP[post.agentId];
           return (
             <li key={i}>
-              <Link
-                href={post.url}
-                target="_blank"
-                className="group flex items-center gap-3 py-2.5"
-              >
+              <Link href={post.url} target="_blank" className="group flex items-center gap-3 py-2.5">
                 <span
                   className="h-2.5 w-2.5 shrink-0 rounded-full"
-                  style={{ backgroundColor: agent?.color ?? "#94a3b8" }}
+                  style={{ backgroundColor: agent?.color ?? "#a8a29e" }}
                   title={agent?.name}
                 />
-                <span className="min-w-0 flex-1 truncate text-sm font-medium text-resume-text-main group-hover:text-resume-primary transition-colors">
+                <span className="min-w-0 flex-1 truncate text-sm font-medium text-resume-text-main transition-opacity group-hover:opacity-60">
                   {post.title}
                 </span>
                 <span className="hidden shrink-0 items-center gap-1 text-xs text-resume-text-sub sm:flex">
                   <Eye size={12} /> {post.views.toLocaleString()}
                 </span>
                 <span className="shrink-0 text-xs text-resume-text-sub">{relativeTime(post.date)}</span>
-                <ExternalLink size={13} className="shrink-0 text-slate-300 dark:text-slate-600 group-hover:text-resume-primary transition-colors" />
+                <ArrowUpRight size={14} className="shrink-0 text-resume-text-sub/50 transition-colors group-hover:text-resume-text-main" />
               </Link>
             </li>
           );

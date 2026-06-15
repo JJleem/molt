@@ -2,31 +2,38 @@
 
 import Link from "next/link";
 import LiveVisitorBadge from "@/components/analytics/LiveVisitorBadge";
-import { useTheme } from "@/context/ThemeContext";
+
+const NAV = [
+  { href: "#cosmic-hustle", label: "Cosmic" },
+  { href: "#work", label: "실무" },
+  { href: "#side", label: "사이드" },
+  { href: "#contact", label: "연락" },
+];
 
 export default function Header() {
-  const { theme, toggleTheme } = useTheme();
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md transition-colors duration-300">
-      <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b border-black/5 bg-resume-bg/75 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
         <Link
-          href="/"
-          className="text-xl font-bold tracking-tighter text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+          href="#top"
+          className="text-lg font-bold tracking-tight text-resume-text-main transition-opacity hover:opacity-70"
         >
-          Molt<span className="text-indigo-600 dark:text-indigo-400">.</span>dev
+          임재준
         </Link>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={toggleTheme}
-            className="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-600 transition-all text-base"
-            title={theme === "dark" ? "라이트 모드" : "다크 모드"}
-          >
-            {theme === "dark" ? "☀" : "☾"}
-          </button>
-          <LiveVisitorBadge />
-        </div>
+        <nav className="hidden items-center gap-7 md:flex">
+          {NAV.map((n) => (
+            <Link
+              key={n.href}
+              href={n.href}
+              className="text-sm font-medium text-resume-text-sub transition-colors hover:text-resume-text-main"
+            >
+              {n.label}
+            </Link>
+          ))}
+        </nav>
+
+        <LiveVisitorBadge />
       </div>
     </header>
   );

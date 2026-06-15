@@ -143,7 +143,7 @@ const ProblemSolution = ({ title, context, solution, outcome }: ProblemSolutionP
 
 const ProjectDetail_CaseStudy = () => {
   return (
-    <div className="relative z-20 min-h-screen bg-resume-bg text-resume-text-main font-sans transition-colors duration-300">
+    <div id="work" className="relative z-20 min-h-screen scroll-mt-16 bg-resume-bg text-resume-text-main font-sans transition-colors duration-300">
       <div className="absolute h-full w-full inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(100,116,139,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(100,116,139,0.1)_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none -z-10" />
 
       <header className="pt-12 pb-12 border-b border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">

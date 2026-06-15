@@ -36,7 +36,7 @@ const SideProjects = () => {
   }, [isInView, controls]);
 
   return (
-    <section className="relative z-20 min-h-screen bg-resume-bg text-resume-text-main pb-15 transition-colors duration-300">
+    <section id="side" className="relative z-20 min-h-screen scroll-mt-16 bg-resume-bg text-resume-text-main pb-15 transition-colors duration-300">
       <div className="absolute h-full w-full inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(100,116,139,0.12)_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none -z-10" />
       <div className="max-w-4xl mx-auto px-6 pt-20">
         <motion.div

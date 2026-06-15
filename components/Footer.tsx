@@ -4,57 +4,38 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Mail, Link as LinkIcon, ArrowUp } from "lucide-react";
-import { motion } from "framer-motion";
 
 const Footer = () => {
-  // 맨 위로 스크롤 올라가는 함수
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="relative bg-[#0F1115] text-slate-400 py-12 px-6 md:px-12 border-t border-slate-800 overflow-hidden font-sans">
-      {/* 은은한 배경 효과 */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none" />
+    <footer
+      id="contact"
+      className="relative scroll-mt-20 overflow-hidden bg-[#1a1714] px-6 py-16 font-sans text-stone-400 md:px-12"
+    >
+      {/* 은은한 따뜻한 글로우 */}
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-stone-100/[0.06] blur-[120px]" />
 
-      <div className="relative z-10 max-w-4xl mx-auto flex flex-col gap-8">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6">
-          {/* 좌측: 로고 및 타이틀 */}
-          <div className="flex flex-col items-center md:items-start gap-4">
-            <div
-              className="flex items-center gap-2.5 cursor-pointer"
-              onClick={scrollToTop}
-            >
-              <div className="relative w-8 h-8 rounded-md overflow-hidden bg-slate-800 flex items-center justify-center">
-                <Image
-                  src="/assets/molt.png"
-                  alt="molt logo"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <span className="text-xl font-bold text-white tracking-tight">
-                molt.
-              </span>
-            </div>
-            <p className="text-sm text-slate-500 font-medium text-center md:text-left">
-              Let&apos;s build something great together.
-            </p>
-          </div>
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col gap-10">
+        <div className="flex flex-col items-center gap-8 text-center">
+          <p className="max-w-md text-2xl font-light leading-snug tracking-tight text-stone-100 md:text-3xl">
+            함께 좋은 제품을 만들어요.
+          </p>
 
-          {/* 우측: 소셜 링크 및 Top 버튼 */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-3">
             <Link
               href="mailto:leemjaejun@gmail.com"
-              className="p-2 rounded-full bg-slate-800/50 hover:bg-indigo-500/20 hover:text-indigo-400 border border-slate-700 hover:border-indigo-500/30 transition-all"
-              title="Send Email"
+              className="rounded-full border border-white/10 bg-white/5 p-2.5 transition-colors hover:bg-white/10 hover:text-white"
+              title="Email"
             >
               <Mail size={18} />
             </Link>
             <Link
               href="https://github.com/JJleem"
               target="_blank"
-              className="p-2 rounded-full bg-slate-800/50 hover:bg-slate-700 hover:text-white border border-slate-700 hover:border-slate-500 transition-all"
+              className="rounded-full border border-white/10 bg-white/5 p-2.5 transition-colors hover:bg-white/10 hover:text-white"
               title="GitHub"
             >
               <Github size={18} />
@@ -62,36 +43,30 @@ const Footer = () => {
             <Link
               href="https://velog.io/@leemjaejun/posts"
               target="_blank"
-              className="p-2 rounded-full bg-slate-800/50 hover:bg-emerald-500/20 hover:text-emerald-400 border border-slate-700 hover:border-emerald-500/30 transition-all"
+              className="rounded-full border border-white/10 bg-white/5 p-2.5 transition-colors hover:bg-white/10 hover:text-white"
               title="Blog"
             >
               <LinkIcon size={18} />
             </Link>
-
-            {/* 구분선 */}
-            <div className="w-px h-6 bg-slate-700 mx-1"></div>
-
-            {/* Back to Top 버튼 */}
+            <div className="mx-1 h-6 w-px bg-white/10" />
             <button
               onClick={scrollToTop}
-              className="group flex items-center justify-center p-2 rounded-full bg-slate-100 text-slate-900 hover:bg-white hover:scale-110 transition-all shadow-lg"
-              title="Back to top"
+              className="group flex items-center justify-center rounded-full bg-stone-100 p-2.5 text-stone-900 shadow-lg transition-transform hover:-translate-y-0.5"
+              title="맨 위로"
             >
-              <ArrowUp
-                size={18}
-                className="group-hover:-translate-y-0.5 transition-transform"
-              />
+              <ArrowUp size={18} className="transition-transform group-hover:-translate-y-0.5" />
             </button>
           </div>
         </div>
 
-        {/* 하단 카피라이트 */}
-        <div className="pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-600">
-          <p>© 2026 molt. All rights reserved.</p>
-          <p className="flex items-center gap-1">
-            Made with <span className="text-rose-500 animate-pulse">♥</span> by
-            Leem Jae-jun
-          </p>
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs font-medium text-stone-500 md:flex-row">
+          <div className="flex items-center gap-2">
+            <div className="relative h-6 w-6 overflow-hidden rounded-md bg-white/10">
+              <Image src="/assets/molt.png" alt="molt logo" fill className="object-cover" />
+            </div>
+            <span>© 2026 임재준 · molt.dev</span>
+          </div>
+          <p>Frontend · AI · Full-Stack</p>
         </div>
       </div>
     </footer>

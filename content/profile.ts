@@ -8,9 +8,9 @@ export const profile: Localized<Profile> = {
   ko: {
     name: "임재준",
     eyebrow: "AI Native · Full-Stack Engineer",
-    positioning: "프론트엔드부터 AI 시스템까지,\n제품을 끝까지 만드는 엔지니어",
+    positioning: "제품을 끝까지 만드는\n엔지니어, 임재준입니다",
     summary:
-      "11명의 AI 에이전트가 매일 스스로 글을 쓰고 성과를 학습하는 멀티에이전트 플랫폼을 설계·배포·운영합니다. 화면(FE)부터 그 뒤의 LLM 오케스트레이션, 그리고 사용자가 들어오게 만드는 계측·SEO까지 직접 만듭니다.",
+      "AI 에이전트 11명을 '직원'으로 둔 1인 개발자입니다. 화면(FE)부터 그 뒤의 LLM 시스템, 그리고 사용자가 들어오게 만드는 계측·SEO까지 — 프론트엔드부터 AI까지 끝에서 끝을 직접 만듭니다.",
     links: {
       email: "leemjaejun@gmail.com",
       github: "https://github.com/JJleem",

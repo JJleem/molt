@@ -51,14 +51,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="dark" suppressHydrationWarning>
+    <html lang="ko">
       <head>
-        {/* 다크 우선 + 플래시 방지: 페인트 전에 저장된 테마를 적용 (기본 dark) */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`,
-          }}
-        />
         {/* ✨ 2. 구글 애널리틱스 데이터 수집 스크립트 추가 */}
         <Script
           strategy="afterInteractive"

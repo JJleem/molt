@@ -4,13 +4,14 @@
 
 @theme {
   --font-sans: var(--font-pretendard), ui-sans-serif, system-ui, sans-serif;
-  --color-resume-bg: #f8fafc;
+  /* 따뜻한 라이트 에디토리얼 — 크림 베이스 + 스톤 텍스트 + 정제된 인디고 악센트 */
+  --color-resume-bg: #faf8f4;
   --color-resume-card: #ffffff;
   --color-resume-primary: #6366f1;
   --color-resume-secondary: #6d70f2;
   --color-resume-accent-purple: #5531a7;
-  --color-resume-text-main: #1f2937;
-  --color-resume-text-sub: #6b7280;
+  --color-resume-text-main: #292524;
+  --color-resume-text-sub: #78716c;
   --color-resume-badge-bg: #eef2ff;
   --color-resume-badge-text: #4f46e5;
 }
@@ -25,6 +26,10 @@
   --color-resume-text-sub: #94a3b8;
   --color-resume-badge-bg: rgba(99, 102, 241, 0.15);
   --color-resume-badge-text: #a5b4fc;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {

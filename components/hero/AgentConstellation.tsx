@@ -42,7 +42,7 @@ export default function AgentConstellation() {
         {STARS.map(([x, y], i) => (
           <motion.span
             key={i}
-            className="absolute h-0.5 w-0.5 rounded-full bg-white/60"
+            className="absolute h-1 w-1 rounded-full bg-resume-primary/25"
             style={{ left: `${x}%`, top: `${y}%` }}
             animate={reduce ? undefined : { opacity: [0.2, 0.9, 0.2] }}
             transition={{ duration: 3 + (i % 4), repeat: Infinity, delay: i * 0.2 }}
@@ -69,11 +69,11 @@ export default function AgentConstellation() {
       {/* 중심 코어 */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <motion.div
-          className="relative flex h-16 w-16 items-center justify-center rounded-full border border-indigo-400/40 bg-indigo-500/10 backdrop-blur-sm"
-          animate={reduce ? undefined : { boxShadow: ["0 0 18px rgba(129,140,248,0.25)", "0 0 34px rgba(129,140,248,0.5)", "0 0 18px rgba(129,140,248,0.25)"] }}
+          className="relative flex h-16 w-16 items-center justify-center rounded-full border border-resume-primary/30 bg-resume-badge-bg backdrop-blur-sm"
+          animate={reduce ? undefined : { boxShadow: ["0 0 18px rgba(99,102,241,0.15)", "0 0 30px rgba(99,102,241,0.3)", "0 0 18px rgba(99,102,241,0.15)"] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
-          <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-200">Cosmic</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-resume-primary">Cosmic</span>
         </motion.div>
       </div>
 
@@ -97,7 +97,7 @@ export default function AgentConstellation() {
           transition={{ duration: 4 + n.delay, repeat: Infinity, delay: n.delay }}
         >
           <span
-            className="block rounded-full ring-2 ring-white/10 transition-transform duration-300"
+            className="block rounded-full ring-2 ring-black/5 transition-transform duration-300"
             style={{
               width: active === n.id ? 18 : 13,
               height: active === n.id ? 18 : 13,

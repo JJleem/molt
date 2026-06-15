@@ -2,114 +2,97 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Github, Mail, Link as LinkIcon, ArrowDown, Sparkles } from "lucide-react";
+import { Github, Link as LinkIcon, ArrowDown, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import AgentConstellation from "./AgentConstellation";
+import Image from "next/image";
 import { profile } from "@/content/profile";
 import { localize } from "@/content/locale";
+import CosmicTexture from "@/components/ui/CosmicTexture";
 
-const CHIPS = ["AI 에이전트 11명", "매일 자동 발행", "운영 중 · 실사용자 유입"];
+const fade = {
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+};
 
 export default function Hero() {
   const p = localize(profile);
 
   return (
-    <section className="relative isolate min-h-screen overflow-hidden bg-[#080812] text-slate-200">
-      {/* 딥스페이스 그라데이션 + 오로라 */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(99,102,241,0.18),transparent_55%),radial-gradient(ellipse_at_bottom_right,_rgba(124,58,237,0.14),transparent_50%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.05)_1px,transparent_1px)] bg-[size:48px_48px]" />
+    <section id="top" className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-resume-bg">
+      <CosmicTexture />
 
-      <div className="relative z-10 mx-auto grid min-h-screen max-w-6xl grid-cols-1 items-center gap-12 px-6 py-24 md:px-12 lg:grid-cols-2">
-        {/* 좌: 텍스트 (LCP 즉시 노출) */}
-        <div className="flex flex-col gap-6">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-500/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-indigo-200"
-          >
-            <Sparkles size={13} /> {p.eyebrow}
-          </motion.span>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="whitespace-pre-line text-3xl font-bold leading-[1.2] tracking-tight text-white md:text-5xl"
-          >
-            {p.positioning}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.12 }}
-            className="max-w-xl text-sm leading-relaxed text-slate-300 break-keep md:text-base"
-          >
-            <span className="font-bold text-slate-200">{p.name}</span> · {p.summary}
-          </motion.p>
-
-          {/* 핵심 칩 (시간 지나도 안 늙는 사실만) */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.18 }}
-            className="flex flex-wrap gap-2"
-          >
-            {CHIPS.map((c) => (
-              <span key={c} className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-300">
-                {c}
-              </span>
-            ))}
-          </motion.div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.24 }}
-            className="mt-2 flex flex-wrap items-center gap-3"
-          >
-            <Link
-              href="#cosmic-hustle"
-              className="inline-flex items-center gap-2 rounded-xl bg-indigo-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/30 transition-colors hover:bg-indigo-400"
-            >
-              <ArrowDown size={16} /> 대표작 Cosmic Hustle 보기
-            </Link>
-            <Link
-              href={`mailto:${p.links.email}`}
-              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-slate-200 transition-colors hover:border-white/30 hover:bg-white/10"
-            >
-              <Mail size={16} /> 연락하기
-            </Link>
-          </motion.div>
-
-          {/* 연락처 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-2 flex items-center gap-5 text-sm text-slate-400"
-          >
-            <Link href={p.links.github} target="_blank" className="flex items-center gap-1.5 transition-colors hover:text-white">
-              <Github size={16} /> GitHub
-            </Link>
-            {p.links.blog && (
-              <Link href={p.links.blog} target="_blank" className="flex items-center gap-1.5 transition-colors hover:text-indigo-300">
-                <LinkIcon size={16} /> Blog
-              </Link>
-            )}
-          </motion.div>
-        </div>
-
-        {/* 우: 에이전트 별자리 */}
+      <div className="relative z-10 mx-auto max-w-4xl px-6 py-28 text-center">
+        {/* 바이라인 — 얼굴 + 이름 (우아하게) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="order-first lg:order-last"
+          {...fade}
+          transition={{ duration: 0.6 }}
+          className="mb-10 flex items-center justify-center gap-3"
         >
-          <AgentConstellation />
+          <div className="relative h-11 w-11 overflow-hidden rounded-full ring-1 ring-black/10">
+            <Image src="/assets/jj.png" alt={p.name} fill className="object-cover" priority />
+          </div>
+          <div className="text-left">
+            <p className="text-sm font-bold leading-tight text-resume-text-main">{p.name}</p>
+            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-resume-text-sub">
+              {p.eyebrow}
+            </p>
+          </div>
+        </motion.div>
+
+        {/* 거대 에디토리얼 타이포 — 진/흐림 믹스 */}
+        <motion.h1
+          {...fade}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="text-[2.5rem] font-bold leading-[1.12] tracking-[-0.02em] md:text-[4.5rem]"
+        >
+          <span className="block font-light text-resume-text-sub">프론트엔드부터 AI 시스템까지,</span>
+          <span className="block text-resume-text-main">제품을 끝까지 만듭니다.</span>
+        </motion.h1>
+
+        {/* 위트있는 한 줄 */}
+        <motion.p
+          {...fade}
+          transition={{ duration: 0.7, delay: 0.18 }}
+          className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-resume-text-sub break-keep md:text-lg"
+        >
+          {p.summary}
+        </motion.p>
+
+        {/* CTA — 모노 다크 pill */}
+        <motion.div
+          {...fade}
+          transition={{ duration: 0.7, delay: 0.26 }}
+          className="mt-10 flex flex-wrap items-center justify-center gap-3"
+        >
+          <Link
+            href="#cosmic-hustle"
+            className="group inline-flex items-center gap-2 rounded-full bg-resume-text-main px-6 py-3 text-sm font-bold text-resume-bg transition-transform hover:-translate-y-0.5"
+          >
+            대표작 Cosmic Hustle
+            <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+          <Link
+            href={`mailto:${p.links.email}`}
+            className="inline-flex items-center gap-2 rounded-full border border-black/15 px-6 py-3 text-sm font-bold text-resume-text-main transition-colors hover:bg-black/5"
+          >
+            연락하기
+          </Link>
+        </motion.div>
+
+        {/* 연락처 */}
+        <motion.div
+          {...fade}
+          transition={{ duration: 0.7, delay: 0.32 }}
+          className="mt-8 flex items-center justify-center gap-6 text-sm text-resume-text-sub"
+        >
+          <Link href={p.links.github} target="_blank" className="flex items-center gap-1.5 transition-colors hover:text-resume-text-main">
+            <Github size={16} /> GitHub
+          </Link>
+          {p.links.blog && (
+            <Link href={p.links.blog} target="_blank" className="flex items-center gap-1.5 transition-colors hover:text-resume-text-main">
+              <LinkIcon size={16} /> Blog
+            </Link>
+          )}
         </motion.div>
       </div>
 
@@ -117,8 +100,8 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 8, 0] }}
-        transition={{ opacity: { delay: 1 }, y: { duration: 1.8, repeat: Infinity } }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-slate-500"
+        transition={{ opacity: { delay: 1.2 }, y: { duration: 1.8, repeat: Infinity } }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-resume-text-sub/50"
       >
         <ArrowDown size={20} />
       </motion.div>
