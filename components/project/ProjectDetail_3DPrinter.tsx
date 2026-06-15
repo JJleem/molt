@@ -12,6 +12,7 @@ import {
   Lock,
   ExternalLink,
   Globe,
+  Smartphone,
   LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
@@ -241,8 +242,41 @@ const ProjectDetail_CaseStudy = () => {
           <ProblemSolution title="메모리 누수 방지 및 모바일 최적화" context="장시간 모니터링 시 메모리 사용량이 증가하고, 모바일에서 데이터 로딩이 느린 문제" solution={["엄격한 Cleanup 정책: 언마운트 시 WebSocket 리스너 및 WebRTC 스트림 즉시 해제", "모바일 환경 감지 시 초기 데이터 페칭 양 축소 및 UI 레이아웃 단순화"]} />
         </Section>
 
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}
+          className="mt-4 rounded-2xl border border-resume-primary/20 bg-resume-badge-bg/40 p-6 md:p-8"
+        >
+          <div className="mb-3 flex flex-wrap items-center gap-3">
+            <div className="rounded-xl bg-resume-primary/15 p-2.5 text-resume-primary">
+              <Smartphone size={20} />
+            </div>
+            <h3 className="text-lg font-bold text-resume-text-main md:text-xl">
+              모바일 앱으로 확장 중
+            </h3>
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-amber-300/40 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 text-[11px] font-bold text-amber-700 dark:text-amber-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" /> In Development · 미배포
+            </span>
+          </div>
+          <p className="mb-4 text-sm leading-relaxed text-resume-text-sub break-keep">
+            웹으로 검증된 산업용 관제 시스템을, 같은 기능을 네이티브 모바일 앱으로 이식하며{" "}
+            <strong className="text-resume-text-main">앱화(App-ification)</strong>를 진행 중입니다. 현장에서 폰으로도
+            장비를 실시간 제어·모니터링할 수 있도록, 푸시 알림 등 모바일 네이티브 경험에 맞춰 재설계하고 있습니다.
+            웹·앱을 함께 책임지며 플랫폼을 넘나드는 제품 오너십을 이어갑니다.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {["Expo", "React Native", "expo-router", "NativeWind", "TanStack Query", "React Native Skia", "expo-notifications", "i18next"].map((t) => (
+              <span key={t} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-resume-card px-3 py-1 text-xs font-bold text-resume-text-main shadow-sm">
+                {t}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
         <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
-          <h4 className="text-resume-text-sub text-xs font-bold uppercase tracking-widest mb-4">Tech Stack</h4>
+          <h4 className="text-resume-text-sub text-xs font-bold uppercase tracking-widest mb-4">Tech Stack (Web)</h4>
           <div className="flex flex-wrap gap-2">
             {["React", "TypeScript", "SCSS", "Recoil", "TanStack Query", "Recharts", "Framer Motion", "react-hook-form", "lottie-react", "Axios", "JSZip", "Crypto-js", "WebSocket", "@dnd-kit", "WebRTC"].map((tech) => (
               <span key={tech} className="px-3 py-1 bg-white dark:bg-slate-800 text-resume-text-main rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 shadow-sm">{tech}</span>

@@ -14,14 +14,15 @@ const pretendard = localFont({
 
 // 2. 검색 및 카카오톡/슬랙 공유용 메타데이터 (Open Graph)
 export const metadata: Metadata = {
-  title: "임재준 | 프론트엔드 개발자 포트폴리오",
+  title: "임재준 | AI Native · Full-Stack Engineer",
   description:
-    "한계를 긋지 않는 프론트엔드 개발자 임재준입니다. 끝까지 책임지고 1에서 100을 만드는 프로덕트 개발 경험을 확인해 보세요.",
+    "프론트엔드부터 AI 시스템까지, 제품을 끝까지 만드는 엔지니어 임재준입니다. 11명의 AI 에이전트가 매일 스스로 글을 쓰는 멀티에이전트 플랫폼 Cosmic Hustle을 설계·배포·운영합니다.",
 
   // 카카오톡, 페이스북, 슬랙 등에 공유될 때 보이는 정보
   openGraph: {
-    title: "임재준 | 프론트엔드 개발자 포트폴리오",
-    description: "프론트엔드 개발자 임재준의 포트폴리오입니다.",
+    title: "임재준 | AI Native · Full-Stack Engineer",
+    description:
+      "프론트엔드부터 AI 시스템까지, 제품을 끝까지 만드는 엔지니어. 멀티에이전트 LLM 플랫폼을 직접 설계·배포·운영합니다.",
     url: "https://molt-ten.vercel.app/", // TODO: 실제 배포하실 도메인으로 수정하세요!
     siteName: "임재준 포트폴리오",
     images: [
@@ -40,8 +41,8 @@ export const metadata: Metadata = {
   // 트위터(X) 공유용 설정
   twitter: {
     card: "summary_large_image",
-    title: "임재준 | 프론트엔드 개발자",
-    description: "프론트엔드 개발자 임재준의 포트폴리오입니다.",
+    title: "임재준 | AI Native · Full-Stack Engineer",
+    description: "프론트엔드부터 AI 시스템까지, 제품을 끝까지 만드는 엔지니어.",
   },
 };
 export default function RootLayout({
@@ -50,8 +51,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className="dark" suppressHydrationWarning>
       <head>
+        {/* 다크 우선 + 플래시 방지: 페인트 전에 저장된 테마를 적용 (기본 dark) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`,
+          }}
+        />
         {/* ✨ 2. 구글 애널리틱스 데이터 수집 스크립트 추가 */}
         <Script
           strategy="afterInteractive"

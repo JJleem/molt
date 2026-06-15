@@ -9,15 +9,12 @@ const ThemeContext = createContext<{ theme: Theme; toggleTheme: () => void }>({
 });
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
+    // 다크 우선: 저장된 값이 없으면 항상 딥스페이스 다크로 시작 (라이트는 토글로만)
     const saved = localStorage.getItem("portfolio-theme") as Theme | null;
-    const initial =
-      saved ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light");
+    const initial = saved || "dark";
     setTheme(initial);
     document.documentElement.classList.toggle("dark", initial === "dark");
   }, []);

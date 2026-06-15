@@ -10,7 +10,6 @@ import {
   HardHat,
   School,
 } from "lucide-react";
-import WormholeBackground from "@/ui/WormholeBackground";
 
 const LOG_DATA = [
   {
@@ -108,9 +107,14 @@ const LOG_DATA = [
 const SystemTimeline = () => {
   return (
     <div className="relative min-h-screen bg-resume-bg w-full flex flex-col items-center text-resume-text-main p-6 md:p-12 overflow-hidden transition-colors duration-300">
-      <WormholeBackground />
+      <div className="absolute h-full w-full inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(100,116,139,0.12)_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none -z-10" />
 
       <div className="relative z-10 flex flex-col items-center text-resume-text-main p-0 md:p-12 w-full">
+        <div className="w-full max-w-5xl mb-10 px-1">
+          <h1 className="w-full text-4xl md:text-5xl font-bold text-resume-text-main mb-2 tracking-tight border-b border-b-resume-primary pb-2">
+            <span className="text-resume-primary">Career &amp; Education.</span>
+          </h1>
+        </div>
         <div className="w-full max-w-5xl relative pb-20 flex flex-col gap-6">
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700 transform md:-translate-x-1/2"></div>
 
