@@ -17,7 +17,7 @@ import ProjectGallery from "@/components/ui/ProjectGallery";
 import { blogGallery, engineGallery } from "@/content/galleries";
 
 const GLASS =
-  "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]";
+  "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_8px_30px_rgba(0,0,0,0.4)]";
 
 // 번호 매긴 에디토리얼 역량 항목 [1] [2] [3]
 function CapabilityItem({ cap, index }: { cap: CapabilityCard; index: number }) {
@@ -62,7 +62,7 @@ export default function CosmicHustle() {
           transition={{ duration: 0.5 }}
         >
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">Flagship Project</span>
-          <h2 className="mt-3 text-4xl font-bold tracking-tight text-resume-text-main md:text-6xl">{c.title}</h2>
+          <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-6xl">{c.title}</h2>
           <p className="mt-4 max-w-2xl text-lg font-light leading-snug text-resume-text-main md:text-xl">{c.tagline}</p>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-resume-text-sub break-keep md:text-base">{c.concept}</p>
         </motion.div>

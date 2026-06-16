@@ -43,10 +43,10 @@ export default function Hero() {
         <motion.h1
           {...fade}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-[2.5rem] font-bold leading-[1.12] tracking-[-0.02em] md:text-[4.5rem]"
+          className="pb-2 text-[2.5rem] font-bold leading-[1.12] tracking-[-0.02em] md:text-[4.5rem]"
         >
           <span className="block font-light text-resume-text-sub">프론트엔드부터 AI 시스템까지,</span>
-          <span className="block text-resume-text-main">제품을 끝까지 만듭니다.</span>
+          <span className="text-gradient block">제품을 끝까지 만듭니다.</span>
         </motion.h1>
 
         {/* 위트있는 한 줄 */}
@@ -66,7 +66,7 @@ export default function Hero() {
         >
           <Link
             href="#cosmic-hustle"
-            className="group inline-flex items-center gap-2 rounded-full bg-resume-text-main px-6 py-3 text-sm font-bold text-resume-bg transition-transform hover:-translate-y-0.5"
+            className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-[0_10px_40px_-8px_rgba(129,140,248,0.6)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_50px_-8px_rgba(129,140,248,0.75)]"
           >
             대표작 Cosmic Hustle
             <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

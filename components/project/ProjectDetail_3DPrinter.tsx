@@ -36,7 +36,7 @@ interface ProblemSolutionProps {
 }
 
 const GLASS =
-  "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]";
+  "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_8px_30px_rgba(0,0,0,0.4)]";
 
 const TerminalBlock = () => {
   const logs = [
@@ -156,7 +156,7 @@ const ProjectDetail_CaseStudy = () => {
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">Work Experience</span>
-            <h2 className="mt-3 mb-8 text-4xl md:text-6xl font-bold text-resume-text-main tracking-tight">실무 경험</h2>
+            <h2 className="text-gradient mt-3 mb-8 text-4xl md:text-6xl font-bold tracking-tight">실무 경험</h2>
 
             <div className="flex items-center gap-2 mb-4">
               <span className="px-3 py-1 border border-white/10 text-resume-text-sub rounded-full text-xs font-medium flex items-center gap-1.5">

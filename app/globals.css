@@ -28,3 +28,35 @@ body {
 ::selection {
   background-color: rgba(129, 140, 248, 0.3);
 }
+
+/* 드라마틱 그라데이션 헤딩 — 화이트 → 라벤더 → 바이올렛 */
+.text-gradient {
+  background-image: linear-gradient(100deg, #ffffff 0%, #c7d2fe 42%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 살짝 흐린 보조 라인용 그라데이션 */
+.text-gradient-dim {
+  background-image: linear-gradient(100deg, #9aa1c9 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 오로라 성운 — 느리게 드리프트 (드라마틱 배경) */
+@keyframes aurora-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(3%, -2.5%, 0) scale(1.1); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+.aurora {
+  animation: aurora-drift 20s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora {
+    animation: none;
+  }
+}

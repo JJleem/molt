@@ -3,7 +3,6 @@ import CosmicHustle from "@/components/project/CosmicHustle";
 import ProjectDetail_3DPrinter from "@/components/project/ProjectDetail_3DPrinter";
 import SideProjects from "@/components/project/SideProjects";
 import SystemTimeline from "../components/SystemTimeLine";
-import GithubStatus from "@/components/GithubStatus";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/Footer";
 
@@ -21,8 +20,6 @@ export default function Home() {
       <SideProjects />
       {/* 5. 경력 (※ v1 이후 축소 예정) */}
       <SystemTimeline />
-      {/* 6. GitHub 활동 */}
-      <GithubStatus username="JJleem" />
       <Footer />
     </div>
   );

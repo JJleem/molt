@@ -15,7 +15,7 @@ interface FeedPost {
 }
 
 const AGENT_MAP = Object.fromEntries(agents.map((a) => [a.id, a]));
-const GLASS = "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]";
+const GLASS = "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_8px_30px_rgba(0,0,0,0.4)]";
 
 function relativeTime(iso: string): string {
   const then = new Date(iso).getTime();

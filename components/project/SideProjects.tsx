@@ -27,7 +27,7 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 const GLASS =
-  "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]";
+  "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_8px_30px_rgba(0,0,0,0.4)]";
 
 const SideProjects = () => {
   const projects = localize(sideProjects);
@@ -54,7 +54,7 @@ const SideProjects = () => {
           className="mb-12"
         >
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">More Work</span>
-          <h2 className="mt-3 text-4xl font-bold tracking-tight text-resume-text-main md:text-6xl">사이드 프로젝트</h2>
+          <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-6xl">사이드 프로젝트</h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-resume-text-sub break-keep md:text-base">
             업무 밖에서 직접 만들고 운영하며 검증한 작업들입니다.
           </p>
