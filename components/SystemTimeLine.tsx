@@ -116,7 +116,7 @@ const SystemTimeline = () => {
           <h2 className="mt-3 text-4xl md:text-6xl font-bold text-resume-text-main tracking-tight">경력 &amp; 학력</h2>
         </div>
         <div className="w-full max-w-5xl relative pb-20 flex flex-col gap-6">
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-black/10 transform md:-translate-x-1/2"></div>
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/10 transform md:-translate-x-1/2"></div>
 
           {LOG_DATA.map((item, index) => {
             const isEven = index % 2 === 0;
@@ -141,14 +141,14 @@ const SystemTimeline = () => {
                 </div>
 
                 <div className={`w-full pl-16 md:pl-0 md:w-1/2 ${isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"}`}>
-                  <div className="group bg-white/55 backdrop-blur-xl p-4 rounded-2xl shadow-[0_8px_30px_rgba(26,23,20,0.06)] transition-all duration-300 border border-white/60 hover:border-black/15 relative flex flex-col gap-3">
+                  <div className="group bg-white/[0.04] backdrop-blur-xl p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.35)] transition-all duration-300 border border-white/10 hover:border-white/10 relative flex flex-col gap-3">
                     <div className={`flex flex-col gap-2 ${isEven ? "md:flex-row-reverse md:justify-between" : "md:flex-row md:justify-between"}`}>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[9px] font-bold text-resume-text-sub border border-black/10 px-3 py-1 rounded-full">
+                        <span className="text-[9px] font-bold text-resume-text-sub border border-white/10 px-3 py-1 rounded-full">
                           {item.date}
                         </span>
                       </div>
-                      <div className={`flex items-center gap-2 text-[9px] font-medium text-resume-text-sub bg-black/[0.03] px-1.5 rounded-md w-fit ${isEven ? "ml-auto md:ml-0" : ""}`}>
+                      <div className={`flex items-center gap-2 text-[9px] font-medium text-resume-text-sub bg-white/[0.03] px-1.5 rounded-md w-fit ${isEven ? "ml-auto md:ml-0" : ""}`}>
                         <span className={`h-2 w-2 rounded-full ${item.status === "ACTIVE" || item.status === "STABLE" ? "bg-emerald-400 animate-pulse" : "bg-resume-text-sub/40"}`} />
                         {item.status}
                       </div>
@@ -163,7 +163,7 @@ const SystemTimeline = () => {
 
                     <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
                       {item.tech.map((t) => (
-                        <span key={t} className="text-[9px] font-semibold text-resume-text-main border border-black/10 bg-resume-card px-2 py-1 rounded-full">{t}</span>
+                        <span key={t} className="text-[9px] font-semibold text-resume-text-main border border-white/10 bg-resume-card px-2 py-1 rounded-full">{t}</span>
                       ))}
                     </div>
                   </div>

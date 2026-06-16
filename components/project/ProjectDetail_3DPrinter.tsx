@@ -36,7 +36,7 @@ interface ProblemSolutionProps {
 }
 
 const GLASS =
-  "border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_8px_30px_rgba(26,23,20,0.06)]";
+  "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]";
 
 const TerminalBlock = () => {
   const logs = [
@@ -46,7 +46,7 @@ const TerminalBlock = () => {
   ];
 
   return (
-    <div className="w-full bg-[#1E1E1E] rounded-xl shadow-lg overflow-hidden font-mono text-[10px] border border-black/20">
+    <div className="w-full bg-[#1E1E1E] rounded-xl shadow-lg overflow-hidden font-mono text-[10px] border border-white/10">
       <div className="flex items-center px-3 py-1.5 bg-[#252526] border-b border-[#333]">
         <div className="flex gap-1.5">
           <div className="w-2 h-2 rounded-full bg-[#FF5F56]"></div>
@@ -77,7 +77,7 @@ const LiveMetric = ({ label, value, icon: Icon, delay }: LiveMetricProps) => (
     transition={{ delay }}
     className={`p-3 rounded-2xl flex items-center gap-3 ${GLASS}`}
   >
-    <div className="p-2 bg-black/[0.04] rounded-xl text-resume-text-main border border-black/10">
+    <div className="p-2 bg-white/[0.03] rounded-xl text-resume-text-main border border-white/10">
       <Icon size={16} />
     </div>
     <div>
@@ -104,7 +104,7 @@ const Section = ({ title, children, delay }: { title: string; children: React.Re
       animate={controls}
       className="mb-16 relative"
     >
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-black/10 rounded-full opacity-0 md:opacity-100"></div>
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-white/10 rounded-full opacity-0 md:opacity-100"></div>
       <div className="pl-0 md:pl-6">
         <h3 className="text-xl md:text-2xl font-bold text-resume-text-main mb-6 tracking-tight">{title}</h3>
         <div className="space-y-6">{children}</div>
@@ -121,7 +121,7 @@ const ProblemSolution = ({ title, context, solution, outcome }: ProblemSolutionP
     </h4>
     <div className="space-y-4">
       {context && (
-        <div className="bg-black/[0.03] p-3 rounded-xl text-xs text-resume-text-sub leading-relaxed border border-black/10 md:text-sm break-keep">
+        <div className="bg-white/[0.03] p-3 rounded-xl text-xs text-resume-text-sub leading-relaxed border border-white/10 md:text-sm break-keep">
           <strong className="text-resume-text-main block mb-1 text-xs uppercase tracking-wider">Problem</strong>
           {context}
         </div>
@@ -138,9 +138,9 @@ const ProblemSolution = ({ title, context, solution, outcome }: ProblemSolutionP
         </ul>
       </div>
       {outcome && (
-        <div className="pt-3 mt-2 border-t border-black/10 flex items-center gap-2">
+        <div className="pt-3 mt-2 border-t border-white/10 flex items-center gap-2">
           <Activity size={14} className="text-emerald-500" />
-          <p className="text-emerald-600 text-sm font-bold">{outcome}</p>
+          <p className="text-emerald-400 text-sm font-bold">{outcome}</p>
         </div>
       )}
     </div>
@@ -159,14 +159,14 @@ const ProjectDetail_CaseStudy = () => {
             <h2 className="mt-3 mb-8 text-4xl md:text-6xl font-bold text-resume-text-main tracking-tight">실무 경험</h2>
 
             <div className="flex items-center gap-2 mb-4">
-              <span className="px-3 py-1 border border-black/10 text-resume-text-sub rounded-full text-xs font-medium flex items-center gap-1.5">
+              <span className="px-3 py-1 border border-white/10 text-resume-text-sub rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Calendar size={12} /> 2025.01 - 2026.01
               </span>
             </div>
 
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
               <div className="flex flex-col gap-4">
-                <div className="mt-2 w-fit bg-white rounded-lg px-3 py-1.5 border border-black/5">
+                <div className="mt-2 w-fit bg-resume-card rounded-lg px-3 py-1.5 border border-white/5">
                   <Image src="/assets/carima.png" alt="carima logo" width={100} height={30} />
                 </div>
                 <h3 className="text-2xl md:text-5xl font-bold text-resume-text-main mb-2 tracking-tight">
@@ -175,12 +175,12 @@ const ProjectDetail_CaseStudy = () => {
                 <div className="flex flex-col justify-start items-center gap-2">
                   <p className="text-lg text-resume-text-sub w-full">산업용 3D 프린터 통합 관제 솔루션</p>
                   <div className="w-full flex flex-wrap items-center gap-3 mt-1">
-                    <Link href="https://c-hub.info/" target="_blank" className="group flex items-center gap-2 px-3 py-1.5 border border-black/15 rounded-full text-xs font-bold text-resume-text-main hover:bg-black/5 transition-colors">
+                    <Link href="https://c-hub.info/" target="_blank" className="group flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full text-xs font-bold text-resume-text-main hover:bg-white/10 transition-colors">
                       <Globe size={14} className="text-resume-text-sub group-hover:text-resume-text-main transition-colors" />
                       <span>Live Service</span>
                       <ExternalLink size={10} className="opacity-40 group-hover:opacity-100 transition-opacity" />
                     </Link>
-                    <Link href="https://hissing-seagull-77f.notion.site/IoT-3D-2e1cb3f80a7780c5ac84c4ac75fe9ab6?pvs=143" target="_blank" className="group flex items-center gap-2 px-3 py-1.5 border border-black/15 rounded-full text-xs font-bold text-resume-text-main hover:bg-black/5 transition-colors">
+                    <Link href="https://hissing-seagull-77f.notion.site/IoT-3D-2e1cb3f80a7780c5ac84c4ac75fe9ab6?pvs=143" target="_blank" className="group flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full text-xs font-bold text-resume-text-main hover:bg-white/10 transition-colors">
                       <div className="relative w-3.5 h-3.5 opacity-80 group-hover:opacity-100 transition-opacity">
                         <Image src="/assets/notion.png" alt="Notion" fill className="object-contain" />
                       </div>
@@ -200,16 +200,16 @@ const ProjectDetail_CaseStudy = () => {
               <div className={`md:col-span-2 p-6 rounded-2xl ${GLASS}`}>
                 <p className="text-resume-text-main leading-relaxed text-sm md:text-base mb-6 break-keep">
                   분산된 이기종 장비의 통합 관제를 위해{" "}
-                  <strong className="font-bold text-resume-text-main bg-black/[0.05] px-1 rounded mx-0.5">기획·디자인·개발 전 과정을 리딩</strong>
+                  <strong className="font-bold text-resume-text-main bg-white/[0.06] px-1 rounded mx-0.5">기획·디자인·개발 전 과정을 리딩</strong>
                   한 프로젝트입니다. 상태 동기화 지연율을{" "}
-                  <strong className="text-emerald-600 bg-emerald-50 px-1 rounded">1초 미만</strong>
+                  <strong className="text-emerald-400 bg-emerald-500/15 px-1 rounded">1초 미만</strong>
                   으로 최적화하여 물리적 거리에 상관없는 실시간 제어 환경을 구현했습니다. UI/UX 전체{" "}
                   <strong className="font-bold text-resume-text-main">영문화(100%)</strong>를 통해 글로벌 시장에 최적화하였고, 현재{" "}
                   <strong className="font-bold text-resume-text-main">베트남을 비롯한 글로벌 산업 현장</strong>에 도입되어 가동 중입니다.
                 </p>
 
                 <div className="flex flex-wrap gap-3">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-black/[0.03] rounded-xl border border-black/10 flex-col sm:w-fit h-full w-full">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.03] rounded-xl border border-white/10 flex-col sm:w-fit h-full w-full">
                     <span className="flex items-center gap-2">
                       <Users size={14} className="text-resume-text-sub" />
                       <span className="text-xs font-bold text-resume-text-main">
@@ -219,9 +219,9 @@ const ProjectDetail_CaseStudy = () => {
                     <span className="text-resume-text-sub text-[10px]">기획(50%) + 디자인(100%) + 퍼블리싱(100%) + 프론트엔드(100%)</span>
                   </div>
                   <div className="flex justify-center items-center gap-2 sm:w-fit w-full">
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 rounded-xl border border-amber-600/20 justify-center sm:w-fit h-full w-full">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/15 rounded-xl border border-amber-400/25 justify-center sm:w-fit h-full w-full">
                       <Image src="/assets/gs.png" alt="GS인증로고" width={40} height={50} />
-                      <span className="text-xs font-bold text-amber-700">GS인증 1등급 취득</span>
+                      <span className="text-xs font-bold text-amber-300">GS인증 1등급 취득</span>
                     </div>
                   </div>
                 </div>
@@ -268,13 +268,13 @@ const ProjectDetail_CaseStudy = () => {
           className={`mt-4 rounded-2xl p-6 md:p-8 ${GLASS}`}
         >
           <div className="mb-3 flex flex-wrap items-center gap-3">
-            <div className="rounded-xl bg-black/[0.04] border border-black/10 p-2.5 text-resume-text-main">
+            <div className="rounded-xl bg-white/[0.03] border border-white/10 p-2.5 text-resume-text-main">
               <Smartphone size={20} />
             </div>
             <h3 className="text-lg font-bold text-resume-text-main md:text-xl tracking-tight">
               모바일 앱으로 확장 중
             </h3>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-600/20 bg-amber-50 px-2.5 py-1 text-[11px] font-bold text-amber-700">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/25 bg-amber-500/15 px-2.5 py-1 text-[11px] font-bold text-amber-300">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" /> In Development · 미배포
             </span>
           </div>
@@ -286,18 +286,18 @@ const ProjectDetail_CaseStudy = () => {
           </p>
           <div className="flex flex-wrap gap-2">
             {["Expo", "React Native", "expo-router", "NativeWind", "TanStack Query", "React Native Skia", "expo-notifications", "i18next"].map((t) => (
-              <span key={t} className="rounded-full border border-black/10 bg-resume-card px-3 py-1 text-xs font-semibold text-resume-text-main">
+              <span key={t} className="rounded-full border border-white/10 bg-resume-card px-3 py-1 text-xs font-semibold text-resume-text-main">
                 {t}
               </span>
             ))}
           </div>
         </motion.div>
 
-        <div className="mt-12 pt-8 border-t border-black/10">
+        <div className="mt-12 pt-8 border-t border-white/10">
           <h4 className="text-resume-text-sub text-xs font-bold uppercase tracking-[0.2em] mb-4">Tech Stack (Web)</h4>
           <div className="flex flex-wrap gap-2">
             {["React", "TypeScript", "SCSS", "Recoil", "TanStack Query", "Recharts", "Framer Motion", "react-hook-form", "lottie-react", "Axios", "JSZip", "Crypto-js", "WebSocket", "@dnd-kit", "WebRTC"].map((tech) => (
-              <span key={tech} className="rounded-full border border-black/10 bg-resume-card px-3 py-1 text-xs font-semibold text-resume-text-main">{tech}</span>
+              <span key={tech} className="rounded-full border border-white/10 bg-resume-card px-3 py-1 text-xs font-semibold text-resume-text-main">{tech}</span>
             ))}
           </div>
         </div>

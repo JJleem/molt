@@ -171,7 +171,7 @@ export default function ProjectGallery({
             type="button"
             onClick={prev}
             aria-label="이전 이미지"
-            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 p-2 text-resume-text-main opacity-0 shadow-lg backdrop-blur-sm transition-all hover:bg-white group-hover/main:opacity-100"
+            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white opacity-0 shadow-lg backdrop-blur-sm transition-all hover:bg-black/70 group-hover/main:opacity-100"
           >
             <ChevronLeft size={18} />
           </button>
@@ -179,7 +179,7 @@ export default function ProjectGallery({
             type="button"
             onClick={next}
             aria-label="다음 이미지"
-            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 p-2 text-resume-text-main opacity-0 shadow-lg backdrop-blur-sm transition-all hover:bg-white group-hover/main:opacity-100"
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white opacity-0 shadow-lg backdrop-blur-sm transition-all hover:bg-black/70 group-hover/main:opacity-100"
           >
             <ChevronRight size={18} />
           </button>
@@ -191,7 +191,7 @@ export default function ProjectGallery({
         type="button"
         onClick={() => setLightbox(true)}
         aria-label="크게 보기"
-        className="absolute right-3 top-3 rounded-full bg-white/85 p-2 text-resume-text-main opacity-0 shadow-lg backdrop-blur-sm transition-all hover:bg-white group-hover/main:opacity-100"
+        className="absolute right-3 top-3 rounded-full bg-black/50 p-2 text-white opacity-0 shadow-lg backdrop-blur-sm transition-all hover:bg-black/70 group-hover/main:opacity-100"
       >
         <Maximize2 size={15} />
       </button>
@@ -224,14 +224,14 @@ export default function ProjectGallery({
           style={{ background: `radial-gradient(60% 60% at 50% 30%, ${accent}40, transparent 70%)` }}
         />
         {frameUrl ? (
-          <div className="overflow-hidden rounded-2xl border border-black/10 bg-resume-card shadow-[0_24px_70px_-20px_rgba(26,23,20,0.3)]">
-            <div className="flex items-center gap-2 border-b border-black/5 bg-black/[0.02] px-4 py-2.5">
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-resume-card shadow-[0_24px_70px_-20px_rgba(0,0,0,0.6)]">
+            <div className="flex items-center gap-2 border-b border-white/5 bg-white/[0.03] px-4 py-2.5">
               <span className="flex gap-1.5">
                 <span className="h-3 w-3 rounded-full bg-[#ff5f56]" />
                 <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
                 <span className="h-3 w-3 rounded-full bg-[#28c840]" />
               </span>
-              <div className="mx-auto flex items-center gap-1.5 rounded-md bg-black/[0.04] px-3 py-1 text-[11px] font-medium text-resume-text-sub">
+              <div className="mx-auto flex items-center gap-1.5 rounded-md bg-white/[0.04] px-3 py-1 text-[11px] font-medium text-resume-text-sub">
                 {frameUrl}
               </div>
               <span className="w-8 shrink-0" />
@@ -239,7 +239,7 @@ export default function ProjectGallery({
             {MainImage}
           </div>
         ) : (
-          <div className="overflow-hidden rounded-2xl border border-black/10 bg-resume-card shadow-[0_24px_70px_-20px_rgba(26,23,20,0.3)]">
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-resume-card shadow-[0_24px_70px_-20px_rgba(0,0,0,0.6)]">
             {MainImage}
           </div>
         )}
@@ -259,7 +259,7 @@ export default function ProjectGallery({
                 aria-current={isActive}
                 className="group/thumb relative aspect-[4/3] overflow-hidden rounded-xl border bg-resume-card transition-all duration-300"
                 style={{
-                  borderColor: isActive ? accent : "rgba(0,0,0,0.1)",
+                  borderColor: isActive ? accent : "rgba(255,255,255,0.12)",
                   boxShadow: isActive ? `0 0 0 2px ${accent}, 0 8px 24px -8px ${accent}99` : "none",
                   transform: isActive ? "translateY(-2px)" : "none",
                 }}
@@ -268,7 +268,7 @@ export default function ProjectGallery({
                 <span
                   className="absolute inset-0 transition-opacity duration-300"
                   style={{
-                    background: isActive ? "transparent" : "rgba(255,255,255,0.45)",
+                    background: isActive ? "transparent" : "rgba(0,0,0,0.5)",
                   }}
                 />
               </button>

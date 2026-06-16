@@ -97,7 +97,7 @@ export default function AgentConstellation() {
           transition={{ duration: 4 + n.delay, repeat: Infinity, delay: n.delay }}
         >
           <span
-            className="block rounded-full ring-2 ring-black/5 transition-transform duration-300"
+            className="block rounded-full ring-2 ring-white/10 transition-transform duration-300"
             style={{
               width: active === n.id ? 18 : 13,
               height: active === n.id ? 18 : 13,

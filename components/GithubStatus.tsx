@@ -14,7 +14,6 @@ import { GitHubCalendar } from "react-github-calendar";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import Image from "next/image";
-import { useTheme } from "@/context/ThemeContext";
 import CosmicTexture from "@/components/ui/CosmicTexture";
 
 interface StatCardProps {
@@ -31,9 +30,9 @@ const StatCard = ({ label, value, icon: Icon, delay, isLoading }: StatCardProps)
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay, duration: 0.5 }}
-    className="border border-white/60 bg-white/55 backdrop-blur-xl p-4 rounded-2xl shadow-[0_8px_30px_rgba(26,23,20,0.06)] flex items-center gap-4 hover:-translate-y-0.5 transition-transform"
+    className="border border-white/10 bg-white/[0.04] backdrop-blur-xl p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.35)] flex items-center gap-4 hover:-translate-y-0.5 transition-transform"
   >
-    <div className="p-2.5 bg-black/[0.03] rounded-xl text-resume-text-main border border-black/10">
+    <div className="p-2.5 bg-white/[0.03] rounded-xl text-resume-text-main border border-white/10">
       <Icon size={18} />
     </div>
     <div>
@@ -41,7 +40,7 @@ const StatCard = ({ label, value, icon: Icon, delay, isLoading }: StatCardProps)
         {label}
       </p>
       {isLoading ? (
-        <div className="h-6 w-16 bg-black/10 animate-pulse rounded mt-1"></div>
+        <div className="h-6 w-16 bg-white/[0.06] animate-pulse rounded mt-1"></div>
       ) : (
         <p className="text-lg font-bold text-resume-text-main">{value}</p>
       )}
@@ -53,7 +52,6 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   const controls = useAnimation();
-  const { theme } = useTheme();
 
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -107,7 +105,7 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
           className="mb-10"
         >
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">Activity</span>
-          <div className="flex flex-col md:flex-row md:items-end justify-between mt-3 mb-4 border-b border-black/10 pb-4 gap-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mt-3 mb-4 border-b border-white/10 pb-4 gap-4">
             <h2 className="text-3xl md:text-5xl font-bold text-resume-text-main tracking-tight flex items-center gap-3">
               <Github size={32} className="text-resume-text-main" />
               <span>GitHub 활동</span>
@@ -115,7 +113,7 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
             <Link
               href={`https://github.com/${username}`}
               target="_blank"
-              className="group flex items-center gap-2 px-3 py-1.5 border border-black/15 rounded-full text-xs font-bold text-resume-text-main hover:bg-black/5 transition-colors"
+              className="group flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full text-xs font-bold text-resume-text-main hover:bg-white/10 transition-colors"
             >
               <span className="flex gap-1">
                 <Image src="/assets/molt.png" width={16} height={12} alt="GitHub Icon" className="shrink" />
@@ -140,7 +138,7 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
             hidden: { opacity: 0, y: 15 },
             visible: { opacity: 1, y: 0, transition: { delay: 0.3, duration: 0.5 } },
           }}
-          className="border border-white/60 bg-white/55 backdrop-blur-xl p-6 md:p-8 rounded-2xl shadow-[0_8px_30px_rgba(26,23,20,0.06)] overflow-x-auto flex justify-center"
+          className="border border-white/10 bg-white/[0.04] backdrop-blur-xl p-6 md:p-8 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.35)] overflow-x-auto flex justify-center"
         >
           <div className="min-w-[750px] w-full flex justify-center relative">
             {isMounted ? (
@@ -148,7 +146,7 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
                 <GitHubCalendar
                   username={username}
                   theme={calendarTheme}
-                  colorScheme={theme === "dark" ? "dark" : "light"}
+                  colorScheme="dark"
                   blockSize={14}
                   blockMargin={5}
                   fontSize={14}
@@ -167,7 +165,7 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
                 />
               </>
             ) : (
-              <div className="w-full h-[120px] bg-black/[0.04] animate-pulse rounded-lg"></div>
+              <div className="w-full h-[120px] bg-white/[0.03] animate-pulse rounded-lg"></div>
             )}
           </div>
         </motion.div>

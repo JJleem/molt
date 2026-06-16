@@ -27,7 +27,7 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 const GLASS =
-  "border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_8px_30px_rgba(26,23,20,0.06)]";
+  "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]";
 
 const SideProjects = () => {
   const projects = localize(sideProjects);
@@ -76,7 +76,7 @@ const SideProjects = () => {
               >
                 <div className="mb-4 flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${project.logo ? "bg-transparent" : project.color} ${!project.logo && "ring-1 ring-inset ring-black/5"}`}>
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${project.logo ? "bg-transparent" : project.color} ${!project.logo && "ring-1 ring-inset ring-white/10"}`}>
                       {project.logo ? (
                         <div className="relative h-full w-full overflow-hidden rounded-xl">
                           <Image src={project.logo} alt={`${project.title} logo`} fill className="object-cover" />
@@ -120,10 +120,10 @@ const SideProjects = () => {
                   </ul>
                 </div>
 
-                <div className="border-t border-black/10 pt-4">
+                <div className="border-t border-white/10 pt-4">
                   <div className="flex flex-wrap gap-1.5">
                     {project.tech.map((t) => (
-                      <span key={t} className="rounded-full border border-black/10 bg-resume-card px-2.5 py-1 text-[11px] font-semibold text-resume-text-main">
+                      <span key={t} className="rounded-full border border-white/10 bg-resume-card px-2.5 py-1 text-[11px] font-semibold text-resume-text-main">
                         {t}
                       </span>
                     ))}

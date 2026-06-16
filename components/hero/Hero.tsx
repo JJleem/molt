@@ -28,7 +28,7 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="mb-10 flex items-center justify-center gap-3"
         >
-          <div className="relative h-11 w-11 overflow-hidden rounded-full ring-1 ring-black/10">
+          <div className="relative h-11 w-11 overflow-hidden rounded-full ring-1 ring-white/10">
             <Image src="/assets/jj.png" alt={p.name} fill className="object-cover" priority />
           </div>
           <div className="text-left">
@@ -73,7 +73,7 @@ export default function Hero() {
           </Link>
           <Link
             href={`mailto:${p.links.email}`}
-            className="inline-flex items-center gap-2 rounded-full border border-black/15 px-6 py-3 text-sm font-bold text-resume-text-main transition-colors hover:bg-black/5"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 px-6 py-3 text-sm font-bold text-resume-text-main transition-colors hover:bg-white/10"
           >
             연락하기
           </Link>

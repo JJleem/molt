@@ -12,7 +12,7 @@ export default function PipelineDiagram({ steps }: { steps: PipelineStep[] }) {
   return (
     <div className="relative">
       {/* 레일 트랙 (희미) */}
-      <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-black/10" />
+      <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-white/10" />
       {/* 레일 채움 — 스크롤 진입 시 위→아래로 그려짐 */}
       <motion.div
         className="absolute left-[15px] top-2 bottom-2 w-0.5 origin-top bg-resume-text-main"
@@ -36,7 +36,7 @@ export default function PipelineDiagram({ steps }: { steps: PipelineStep[] }) {
             <span className="absolute left-0 top-1 flex h-8 w-8 items-center justify-center rounded-full bg-resume-text-main text-sm font-bold text-resume-bg ring-4 ring-resume-bg">
               {i + 1}
             </span>
-            <div className="rounded-xl border border-black/10 bg-resume-card px-4 py-3 shadow-sm">
+            <div className="rounded-xl border border-white/10 bg-resume-card px-4 py-3 shadow-sm">
               <p className="text-base font-bold text-resume-text-main md:text-lg">{step.label}</p>
               <p className="mt-1 text-sm text-resume-text-sub">{step.desc}</p>
             </div>

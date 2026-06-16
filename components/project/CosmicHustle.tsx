@@ -17,7 +17,7 @@ import ProjectGallery from "@/components/ui/ProjectGallery";
 import { blogGallery, engineGallery } from "@/content/galleries";
 
 const GLASS =
-  "border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_8px_30px_rgba(26,23,20,0.06)]";
+  "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]";
 
 // 번호 매긴 에디토리얼 역량 항목 [1] [2] [3]
 function CapabilityItem({ cap, index }: { cap: CapabilityCard; index: number }) {
@@ -27,7 +27,7 @@ function CapabilityItem({ cap, index }: { cap: CapabilityCard; index: number }) 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.45, delay: (index - 1) * 0.06 }}
-      className="border-t border-black/10 pt-5"
+      className="border-t border-white/10 pt-5"
     >
       <span className="text-sm font-bold tabular-nums text-resume-text-sub">[{index}]</span>
       <h4 className="mt-3 text-lg font-bold tracking-tight text-resume-text-main">{cap.title}</h4>
@@ -77,7 +77,7 @@ export default function CosmicHustle() {
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
             </span>
             <h3 className="text-2xl font-bold tracking-tight text-resume-text-main md:text-3xl">AI 블로그</h3>
-            <span className="rounded-full border border-emerald-600/20 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700">배포 · 운영 중</span>
+            <span className="rounded-full border border-emerald-400/25 bg-emerald-500/15 px-2.5 py-1 text-xs font-bold text-emerald-300">배포 · 운영 중</span>
           </div>
 
           {/* 인터랙티브 갤러리 — 메인 + 썸네일 5장 클릭 전환 */}
@@ -117,7 +117,7 @@ export default function CosmicHustle() {
               </Link>
             ) : null}
             {c.links.github ? (
-              <Link href={c.links.github} target="_blank" className="inline-flex items-center gap-2 rounded-full border border-black/15 px-5 py-2.5 text-sm font-bold text-resume-text-main transition-colors hover:bg-black/5">
+              <Link href={c.links.github} target="_blank" className="inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-2.5 text-sm font-bold text-resume-text-main transition-colors hover:bg-white/10">
                 <Github size={15} /> GitHub
               </Link>
             ) : null}
@@ -159,11 +159,11 @@ export default function CosmicHustle() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.12 }}
           transition={{ duration: 0.5 }}
-          className="mt-16 rounded-3xl border border-black/10 bg-black/[0.02] p-6 md:p-9"
+          className="mt-16 rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:p-9"
         >
           <div className="mb-2 flex flex-wrap items-center gap-3">
             <h3 className="text-xl font-bold tracking-tight text-resume-text-main md:text-2xl">멀티에이전트 리서치 엔진</h3>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-600/20 bg-amber-50 px-2.5 py-1 text-[11px] font-bold text-amber-700">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/25 bg-amber-500/15 px-2.5 py-1 text-[11px] font-bold text-amber-300">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400" /> 코어 기술 · 미배포
             </span>
           </div>
@@ -179,7 +179,7 @@ export default function CosmicHustle() {
           </div>
 
           {/* 캐스트 — 11명 (캐릭터 사진 + 직책) */}
-          <div className="mt-2 mb-8 rounded-2xl border border-black/10 bg-white/40 p-5 md:p-6">
+          <div className="mt-2 mb-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:p-6">
             <p className="mb-5 text-sm font-bold text-resume-text-main">캐스트 — 3개 부서 11명</p>
             <AgentCast />
           </div>
@@ -201,11 +201,11 @@ export default function CosmicHustle() {
         </motion.div>
 
         {/* 기술 스택 */}
-        <div className="mt-12 border-t border-black/10 pt-8">
+        <div className="mt-12 border-t border-white/10 pt-8">
           <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">Tech Stack</h4>
           <div className="flex flex-wrap gap-2">
             {c.techStack.map((t) => (
-              <span key={t} className="rounded-full border border-black/10 bg-resume-card px-3 py-1 text-xs font-semibold text-resume-text-main">
+              <span key={t} className="rounded-full border border-white/10 bg-resume-card px-3 py-1 text-xs font-semibold text-resume-text-main">
                 {t}
               </span>
             ))}

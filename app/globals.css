@@ -2,16 +2,16 @@
 
 @theme {
   --font-sans: var(--font-pretendard), ui-sans-serif, system-ui, sans-serif;
-  /* 따뜻한 라이트 에디토리얼 — 크림 베이스 + 스톤 텍스트 + 정제된 인디고 악센트 */
-  --color-resume-bg: #faf8f4;
-  --color-resume-card: #ffffff;
-  --color-resume-primary: #6366f1;
-  --color-resume-secondary: #6d70f2;
-  --color-resume-accent-purple: #5531a7;
-  --color-resume-text-main: #292524;
-  --color-resume-text-sub: #78716c;
-  --color-resume-badge-bg: #eef2ff;
-  --color-resume-badge-text: #4f46e5;
+  /* 다크 우주 테마 — 딥 네이비/블랙 베이스 + 비비드 인디고·바이올렛 악센트 (Cosmic Hustle 무드) */
+  --color-resume-bg: #080913;
+  --color-resume-card: #11132a;
+  --color-resume-primary: #818cf8;
+  --color-resume-secondary: #a78bfa;
+  --color-resume-accent-purple: #c4b5fd;
+  --color-resume-text-main: #eef0fb;
+  --color-resume-text-sub: #9aa1c9;
+  --color-resume-badge-bg: #1e1b4b;
+  --color-resume-badge-text: #c7d2fe;
 }
 
 html {
@@ -20,5 +20,11 @@ html {
 
 body {
   font-family: var(--font-pretendard), sans-serif !important;
+  background-color: var(--color-resume-bg);
+  color: var(--color-resume-text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background-color: rgba(129, 140, 248, 0.3);
 }
