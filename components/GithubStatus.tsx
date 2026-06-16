@@ -15,6 +15,7 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import Image from "next/image";
 import { useTheme } from "@/context/ThemeContext";
+import CosmicTexture from "@/components/ui/CosmicTexture";
 
 interface StatCardProps {
   label: string;
@@ -30,19 +31,19 @@ const StatCard = ({ label, value, icon: Icon, delay, isLoading }: StatCardProps)
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay, duration: 0.5 }}
-    className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow"
+    className="border border-white/60 bg-white/55 backdrop-blur-xl p-4 rounded-2xl shadow-[0_8px_30px_rgba(26,23,20,0.06)] flex items-center gap-4 hover:-translate-y-0.5 transition-transform"
   >
-    <div className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-lg text-slate-700 dark:text-slate-300 border border-slate-100 dark:border-slate-700">
+    <div className="p-2.5 bg-black/[0.03] rounded-xl text-resume-text-main border border-black/10">
       <Icon size={18} />
     </div>
     <div>
-      <p className="text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold mb-0.5">
+      <p className="text-[11px] text-resume-text-sub uppercase tracking-wider font-bold mb-0.5">
         {label}
       </p>
       {isLoading ? (
-        <div className="h-6 w-16 bg-slate-200 dark:bg-slate-700 animate-pulse rounded mt-1"></div>
+        <div className="h-6 w-16 bg-black/10 animate-pulse rounded mt-1"></div>
       ) : (
-        <p className="text-lg font-bold text-slate-800 dark:text-slate-100">{value}</p>
+        <p className="text-lg font-bold text-resume-text-main">{value}</p>
       )}
     </div>
   </motion.div>
@@ -92,7 +93,8 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
   };
 
   return (
-    <section className="py-12 relative z-20 bg-resume-bg transition-colors duration-300">
+    <section className="py-24 relative z-20 overflow-hidden bg-resume-bg">
+      <CosmicTexture />
       <div className="max-w-4xl mx-auto px-6">
         <motion.div
           ref={ref}
@@ -102,20 +104,18 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
             hidden: { opacity: 0, y: 10 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
           }}
-          className="mb-8"
+          className="mb-10"
         >
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-4 border-b border-b-resume-primary pb-3 gap-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-resume-text-main tracking-tight flex items-center gap-3">
-              <Github size={32} className="text-slate-800 dark:text-slate-200" />
-              <span>
-                GitHub{" "}
-                <span className="text-resume-primary">Contributions.</span>
-              </span>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">Activity</span>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mt-3 mb-4 border-b border-black/10 pb-4 gap-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-resume-text-main tracking-tight flex items-center gap-3">
+              <Github size={32} className="text-resume-text-main" />
+              <span>GitHub 활동</span>
             </h2>
             <Link
               href={`https://github.com/${username}`}
               target="_blank"
-              className="group flex items-center gap-2 px-1 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-800 dark:hover:text-white hover:shadow-sm transition-all"
+              className="group flex items-center gap-2 px-3 py-1.5 border border-black/15 rounded-full text-xs font-bold text-resume-text-main hover:bg-black/5 transition-colors"
             >
               <span className="flex gap-1">
                 <Image src="/assets/molt.png" width={16} height={12} alt="GitHub Icon" className="shrink" />
@@ -123,7 +123,7 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
               </span>
             </Link>
           </div>
-          <p className="text-resume-text-sub text-sm">꾸준한 문제 해결과 성장의 기록입니다.</p>
+          <p className="text-resume-text-sub text-sm break-keep">꾸준한 문제 해결과 성장의 기록입니다.</p>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -140,7 +140,7 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
             hidden: { opacity: 0, y: 15 },
             visible: { opacity: 1, y: 0, transition: { delay: 0.3, duration: 0.5 } },
           }}
-          className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-x-auto flex justify-center"
+          className="border border-white/60 bg-white/55 backdrop-blur-xl p-6 md:p-8 rounded-2xl shadow-[0_8px_30px_rgba(26,23,20,0.06)] overflow-x-auto flex justify-center"
         >
           <div className="min-w-[750px] w-full flex justify-center relative">
             {isMounted ? (
@@ -167,7 +167,7 @@ const GithubStatus = ({ username = "your-github-username" }: { username?: string
                 />
               </>
             ) : (
-              <div className="w-full h-[120px] bg-slate-100 dark:bg-slate-800 animate-pulse rounded-lg"></div>
+              <div className="w-full h-[120px] bg-black/[0.04] animate-pulse rounded-lg"></div>
             )}
           </div>
         </motion.div>

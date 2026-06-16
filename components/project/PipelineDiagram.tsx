@@ -36,7 +36,7 @@ export default function PipelineDiagram({ steps }: { steps: PipelineStep[] }) {
             <span className="absolute left-0 top-1 flex h-8 w-8 items-center justify-center rounded-full bg-resume-text-main text-sm font-bold text-resume-bg ring-4 ring-resume-bg">
               {i + 1}
             </span>
-            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-resume-card px-4 py-3 shadow-sm">
+            <div className="rounded-xl border border-black/10 bg-resume-card px-4 py-3 shadow-sm">
               <p className="text-base font-bold text-resume-text-main md:text-lg">{step.label}</p>
               <p className="mt-1 text-sm text-resume-text-sub">{step.desc}</p>
             </div>

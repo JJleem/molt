@@ -1,5 +1,3 @@
-@custom-variant dark (&:where(.dark, .dark *));
-
 @import "tailwindcss";
 
 @theme {
@@ -14,18 +12,6 @@
   --color-resume-text-sub: #78716c;
   --color-resume-badge-bg: #eef2ff;
   --color-resume-badge-text: #4f46e5;
-}
-
-.dark {
-  --color-resume-bg: #080812;
-  --color-resume-card: #11111d;
-  --color-resume-primary: #818cf8;
-  --color-resume-secondary: #a5b4fc;
-  --color-resume-accent-purple: #7c3aed;
-  --color-resume-text-main: #e2e8f0;
-  --color-resume-text-sub: #94a3b8;
-  --color-resume-badge-bg: rgba(99, 102, 241, 0.15);
-  --color-resume-badge-text: #a5b4fc;
 }
 
 html {

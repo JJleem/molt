@@ -10,6 +10,7 @@ import {
   HardHat,
   School,
 } from "lucide-react";
+import CosmicTexture from "@/components/ui/CosmicTexture";
 
 const LOG_DATA = [
   {
@@ -20,7 +21,7 @@ const LOG_DATA = [
     desc: "프론트엔드 실무를 넘어 컴퓨터 공학(CS) 기초를 탄탄히 다지기 위해 편입했습니다. 자료구조, 운영체제, 알고리즘 등 소프트웨어 엔지니어링의 본질적인 역량을 강화하고 있습니다.",
     tech: ["CS Theory", "Algorithm", "Architecture"],
     status: "ACTIVE",
-    icon: <GraduationCap className="w-5 h-5 text-indigo-500" />,
+    icon: <GraduationCap className="w-5 h-5 text-resume-text-sub" />,
   },
   {
     id: "WORK-2025",
@@ -30,7 +31,7 @@ const LOG_DATA = [
     desc: "산업용 3D 프린터 통합 관제 솔루션 'C-Hub'의 프론트엔드 전체 사이클(기획·디자인·개발)을 리딩하며 구축했습니다. 이기종 장비의 대량 센서 데이터를 웹소켓으로 실시간 연동하고 상태 동기화 지연율을 1초 미만으로 단축하여 GS인증 1등급 획득에 기여했습니다.",
     tech: ["React", "TypeScript", "Recoil", "WebSocket", "TanStack Query"],
     status: "ACTIVE",
-    icon: <Code2 className="w-5 h-5 text-emerald-500" />,
+    icon: <Code2 className="w-5 h-5 text-resume-text-sub" />,
   },
   {
     id: "WORK-2024",
@@ -40,7 +41,7 @@ const LOG_DATA = [
     desc: "골프장 내장객 위치 추적 및 지오펜싱 기반 자동 체크인 모바일 앱 POC를 개발했습니다. React Native 환경에서 Android 네이티브 모듈을 브릿지하여 정밀한 위치 데이터 파싱과 상태 관리를 구현했습니다.",
     tech: ["React Native", "TypeScript", "Android Native", "Recoil"],
     status: "STABLE",
-    icon: <Code2 className="w-5 h-5 text-blue-500" />,
+    icon: <Code2 className="w-5 h-5 text-resume-text-sub" />,
   },
   {
     id: "EDU-2024-07",
@@ -50,7 +51,7 @@ const LOG_DATA = [
     desc: "기업 현장에 즉시 투입 가능한 실무형 인재 양성 과정입니다. React와 Node.js를 활용한 풀스택 프로젝트를 수행하며, 협업 툴(Jira, Git) 활용 및 애자일 프로세스를 경험했습니다.",
     tech: ["React", "Node.js", "Agile", "Jira"],
     status: "DONE",
-    icon: <BookOpen className="w-5 h-5 text-slate-600" />,
+    icon: <BookOpen className="w-5 h-5 text-resume-text-sub" />,
   },
   {
     id: "EDU-2023",
@@ -60,7 +61,7 @@ const LOG_DATA = [
     desc: "웹 표준과 접근성을 준수하는 UI/UX 퍼블리싱부터 JavaScript/React 프론트엔드 코어 기술까지, 개발자로서 필요한 전반적인 베이스를 6개월간 집중적으로 학습했습니다.",
     tech: ["HTML/CSS", "JavaScript", "React", "UI/UX"],
     status: "DONE",
-    icon: <BookOpen className="w-5 h-5 text-slate-600" />,
+    icon: <BookOpen className="w-5 h-5 text-resume-text-sub" />,
   },
   {
     id: "WORK-2022",
@@ -70,7 +71,7 @@ const LOG_DATA = [
     desc: "배송 로봇 데이터 사업의 관리를 수행하였고, 이후 IT 영업지원으로 제안서를 작성해 NIA 국회 정보 개방 등 공공 사업을 수주하였습니다.",
     tech: ["Project Management", "Bidding", "Business Cycle"],
     status: "DONE",
-    icon: <Briefcase className="w-5 h-5 text-orange-500" />,
+    icon: <Briefcase className="w-5 h-5 text-resume-text-sub" />,
   },
   {
     id: "WORK-2020",
@@ -80,7 +81,7 @@ const LOG_DATA = [
     desc: "평택 삼성반도체 건설 현장에서 1년 만에 팀 리더로 승진했습니다. 복잡한 도면 해석과 현장의 오차 없는 시공 경험은 현재 개발자로서 꼼꼼한 로직 설계와 강한 책임감의 든든한 원천이 되었습니다.",
     tech: ["Leadership", "Safety First", "Ownership"],
     status: "DONE",
-    icon: <HardHat className="w-5 h-5 text-amber-600" />,
+    icon: <HardHat className="w-5 h-5 text-resume-text-sub" />,
   },
   {
     id: "EDU-2017",
@@ -90,7 +91,7 @@ const LOG_DATA = [
     desc: "네트워크, 통신 프로토콜에 대한 기초 이해를 쌓았습니다. 하드웨어와 소프트웨어의 연결 구조를 이해하는 데 큰 도움이 되었습니다.",
     tech: ["Network", "Communication", "Hardware"],
     status: "DONE",
-    icon: <GraduationCap className="w-5 h-5 text-slate-500" />,
+    icon: <GraduationCap className="w-5 h-5 text-resume-text-sub" />,
   },
   {
     id: "EDU-2014",
@@ -100,23 +101,22 @@ const LOG_DATA = [
     desc: "성실하게 교과 과정을 이수하며 졸업했습니다.",
     tech: ["High School"],
     status: "DONE",
-    icon: <School className="w-5 h-5 text-slate-400" />,
+    icon: <School className="w-5 h-5 text-resume-text-sub" />,
   },
 ];
 
 const SystemTimeline = () => {
   return (
-    <div className="relative min-h-screen bg-resume-bg w-full flex flex-col items-center text-resume-text-main p-6 md:p-12 overflow-hidden transition-colors duration-300">
-      <div className="absolute h-full w-full inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(100,116,139,0.12)_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none -z-10" />
+    <section id="career" className="relative scroll-mt-16 min-h-screen bg-resume-bg w-full flex flex-col items-center text-resume-text-main p-6 md:p-12 overflow-hidden">
+      <CosmicTexture />
 
       <div className="relative z-10 flex flex-col items-center text-resume-text-main p-0 md:p-12 w-full">
-        <div className="w-full max-w-5xl mb-10 px-1">
-          <h1 className="w-full text-4xl md:text-5xl font-bold text-resume-text-main mb-2 tracking-tight border-b border-b-resume-primary pb-2">
-            <span className="text-resume-primary">Career &amp; Education.</span>
-          </h1>
+        <div className="w-full max-w-5xl mb-12 px-1">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">Journey</span>
+          <h2 className="mt-3 text-4xl md:text-6xl font-bold text-resume-text-main tracking-tight">경력 &amp; 학력</h2>
         </div>
         <div className="w-full max-w-5xl relative pb-20 flex flex-col gap-6">
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700 transform md:-translate-x-1/2"></div>
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-black/10 transform md:-translate-x-1/2"></div>
 
           {LOG_DATA.map((item, index) => {
             const isEven = index % 2 === 0;
@@ -132,38 +132,38 @@ const SystemTimeline = () => {
               >
                 <div className="hidden md:block w-1/2" />
 
-                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-4 border-white dark:border-slate-900 shadow-sm z-20 flex-shrink-0 flex justify-center items-center">
-                  <div className="w-[70%] h-[70%] rounded-full bg-resume-accent-purple relative">
-                    <p className="absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit whitespace-nowrap text-[10px] text-white bg-resume-secondary px-1 py-0.5 rounded-sm">
+                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-resume-bg border-4 border-resume-bg shadow-sm z-20 flex-shrink-0 flex justify-center items-center">
+                  <div className="w-[70%] h-[70%] rounded-full bg-resume-text-main relative">
+                    <p className="absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit whitespace-nowrap text-[10px] text-resume-bg bg-resume-text-main px-1 py-0.5 rounded-sm">
                       {item.date.split(" - ")[0]}
                     </p>
                   </div>
                 </div>
 
                 <div className={`w-full pl-16 md:pl-0 md:w-1/2 ${isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"}`}>
-                  <div className="group bg-resume-card p-3 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-transparent hover:border-resume-primary/20 relative flex flex-col gap-3">
+                  <div className="group bg-white/55 backdrop-blur-xl p-4 rounded-2xl shadow-[0_8px_30px_rgba(26,23,20,0.06)] transition-all duration-300 border border-white/60 hover:border-black/15 relative flex flex-col gap-3">
                     <div className={`flex flex-col gap-2 ${isEven ? "md:flex-row-reverse md:justify-between" : "md:flex-row md:justify-between"}`}>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[9px] font-bold text-resume-primary bg-resume-badge-bg px-3 py-1 rounded-full">
+                        <span className="text-[9px] font-bold text-resume-text-sub border border-black/10 px-3 py-1 rounded-full">
                           {item.date}
                         </span>
                       </div>
-                      <div className={`flex items-center gap-2 text-[9px] font-medium text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-800 px-1 rounded-md w-fit ${isEven ? "ml-auto md:ml-0" : ""}`}>
-                        <span className={`h-2 w-2 rounded-full ${item.status === "ACTIVE" || item.status === "STABLE" ? "bg-emerald-400 animate-pulse" : "bg-yellow-400"}`} />
+                      <div className={`flex items-center gap-2 text-[9px] font-medium text-resume-text-sub bg-black/[0.03] px-1.5 rounded-md w-fit ${isEven ? "ml-auto md:ml-0" : ""}`}>
+                        <span className={`h-2 w-2 rounded-full ${item.status === "ACTIVE" || item.status === "STABLE" ? "bg-emerald-400 animate-pulse" : "bg-resume-text-sub/40"}`} />
                         {item.status}
                       </div>
                     </div>
 
-                    <h3 className={`text-[14px] font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 ${isEven ? "md:flex-row-reverse" : ""}`}>
+                    <h3 className={`text-[14px] font-bold text-resume-text-main flex items-center gap-2 ${isEven ? "md:flex-row-reverse" : ""}`}>
                       {item.icon}
                       {item.title}
                     </h3>
-                    <p className="text-[12px] text-resume-secondary font-medium">{item.subtitle}</p>
-                    <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed break-words whitespace-normal">{item.desc}</p>
+                    <p className="text-[12px] text-resume-text-main/70 font-medium">{item.subtitle}</p>
+                    <p className="text-resume-text-sub text-[11px] leading-relaxed break-keep whitespace-normal">{item.desc}</p>
 
                     <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
                       {item.tech.map((t) => (
-                        <span key={t} className="text-[9px] font-semibold text-resume-badge-text bg-resume-badge-bg px-1 py-1 rounded-lg">{t}</span>
+                        <span key={t} className="text-[9px] font-semibold text-resume-text-main border border-black/10 bg-resume-card px-2 py-1 rounded-full">{t}</span>
                       ))}
                     </div>
                   </div>
@@ -173,7 +173,7 @@ const SystemTimeline = () => {
           })}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

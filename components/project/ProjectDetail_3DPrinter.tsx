@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import CosmicTexture from "@/components/ui/CosmicTexture";
 
 interface LiveMetricProps {
   label: string;
@@ -32,6 +33,9 @@ interface ProblemSolutionProps {
   outcome?: string;
 }
 
+const GLASS =
+  "border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_8px_30px_rgba(26,23,20,0.06)]";
+
 const TerminalBlock = () => {
   const logs = [
     { time: "14:20:01", type: "INFO", msg: "WebSocket Connection Established" },
@@ -40,7 +44,7 @@ const TerminalBlock = () => {
   ];
 
   return (
-    <div className="w-full bg-[#1E1E1E] rounded-lg shadow-lg overflow-hidden font-mono text-[10px] border border-slate-800">
+    <div className="w-full bg-[#1E1E1E] rounded-xl shadow-lg overflow-hidden font-mono text-[10px] border border-black/20">
       <div className="flex items-center px-3 py-1.5 bg-[#252526] border-b border-[#333]">
         <div className="flex gap-1.5">
           <div className="w-2 h-2 rounded-full bg-[#FF5F56]"></div>
@@ -69,9 +73,9 @@ const LiveMetric = ({ label, value, icon: Icon, delay }: LiveMetricProps) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay }}
-    className="bg-resume-card p-3 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center gap-3"
+    className={`p-3 rounded-2xl flex items-center gap-3 ${GLASS}`}
   >
-    <div className="p-2 bg-resume-badge-bg rounded-lg text-resume-primary">
+    <div className="p-2 bg-black/[0.04] rounded-xl text-resume-text-main border border-black/10">
       <Icon size={16} />
     </div>
     <div>
@@ -98,9 +102,9 @@ const Section = ({ title, children, delay }: { title: string; children: React.Re
       animate={controls}
       className="mb-16 relative"
     >
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-resume-badge-bg rounded-full opacity-0 md:opacity-100"></div>
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-black/10 rounded-full opacity-0 md:opacity-100"></div>
       <div className="pl-0 md:pl-6">
-        <h3 className="text-xl md:text-2xl font-bold text-resume-text-main mb-6">{title}</h3>
+        <h3 className="text-xl md:text-2xl font-bold text-resume-text-main mb-6 tracking-tight">{title}</h3>
         <div className="space-y-6">{children}</div>
       </div>
     </motion.div>
@@ -108,33 +112,33 @@ const Section = ({ title, children, delay }: { title: string; children: React.Re
 };
 
 const ProblemSolution = ({ title, context, solution, outcome }: ProblemSolutionProps) => (
-  <div className="bg-resume-card p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow duration-300">
+  <div className={`p-6 rounded-2xl transition-transform duration-300 hover:-translate-y-0.5 ${GLASS}`}>
     <h4 className="text-md md:text-lg font-bold text-resume-text-main mb-3 flex items-center gap-2">
-      <div className="w-2 h-2 rounded-full bg-resume-primary"></div>
+      <div className="w-2 h-2 rounded-full bg-resume-text-main"></div>
       {title}
     </h4>
     <div className="space-y-4">
       {context && (
-        <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-lg text-xs text-resume-text-sub leading-relaxed border border-slate-100 dark:border-slate-700 md:text-sm">
-          <strong className="text-slate-600 dark:text-slate-300 block mb-1 text-xs uppercase">Problem</strong>
+        <div className="bg-black/[0.03] p-3 rounded-xl text-xs text-resume-text-sub leading-relaxed border border-black/10 md:text-sm break-keep">
+          <strong className="text-resume-text-main block mb-1 text-xs uppercase tracking-wider">Problem</strong>
           {context}
         </div>
       )}
       <div>
-        <strong className="text-resume-primary text-xs uppercase block mb-2 font-bold ml-1">Solution</strong>
+        <strong className="text-resume-text-sub text-xs uppercase tracking-wider block mb-2 font-bold ml-1">Solution</strong>
         <ul className="space-y-2">
           {solution.map((item, i) => (
-            <li key={i} className="text-resume-text-main md:text-sm text-xs leading-relaxed flex items-start gap-2 pl-1">
-              <CheckCircle2 size={14} className="text-resume-primary mt-1 shrink-0" />
+            <li key={i} className="text-resume-text-main md:text-sm text-xs leading-relaxed flex items-start gap-2 pl-1 break-keep">
+              <CheckCircle2 size={14} className="text-resume-text-main/50 mt-1 shrink-0" />
               {item}
             </li>
           ))}
         </ul>
       </div>
       {outcome && (
-        <div className="pt-3 mt-2 border-t border-slate-100 dark:border-slate-700 flex items-center gap-2">
+        <div className="pt-3 mt-2 border-t border-black/10 flex items-center gap-2">
           <Activity size={14} className="text-emerald-500" />
-          <p className="text-emerald-600 dark:text-emerald-400 text-sm font-bold">{outcome}</p>
+          <p className="text-emerald-600 text-sm font-bold">{outcome}</p>
         </div>
       )}
     </div>
@@ -143,43 +147,43 @@ const ProblemSolution = ({ title, context, solution, outcome }: ProblemSolutionP
 
 const ProjectDetail_CaseStudy = () => {
   return (
-    <div id="work" className="relative z-20 min-h-screen scroll-mt-16 bg-resume-bg text-resume-text-main font-sans transition-colors duration-300">
-      <div className="absolute h-full w-full inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(100,116,139,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(100,116,139,0.1)_1px,transparent_1px)] bg-[size:24px_24px] opacity-40 pointer-events-none -z-10" />
+    <section id="work" className="relative z-20 min-h-screen scroll-mt-16 overflow-hidden bg-resume-bg text-resume-text-main font-sans">
+      <CosmicTexture />
 
-      <header className="pt-12 pb-12 border-b border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
+      <header className="pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-6">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <h1 className="text-4xl md:text-5xl font-bold text-resume-text-main mb-8 tracking-tight border-b border-b-resume-primary pb-2">
-              <span className="text-resume-primary">Work Experience.</span>
-            </h1>
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">Work Experience</span>
+            <h2 className="mt-3 mb-8 text-4xl md:text-6xl font-bold text-resume-text-main tracking-tight">실무 경험</h2>
+
             <div className="flex items-center gap-2 mb-4">
-              <span className="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-resume-text-sub rounded text-xs font-medium flex items-center gap-1">
+              <span className="px-3 py-1 border border-black/10 text-resume-text-sub rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Calendar size={12} /> 2025.01 - 2026.01
               </span>
             </div>
 
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
               <div className="flex flex-col gap-4">
-                <div className="mt-2 w-fit bg-white rounded-lg px-3 py-1.5">
-                <Image src="/assets/carima.png" alt="carima logo" width={100} height={30} />
-              </div>
-                <h1 className="text-2xl md:text-5xl font-bold text-resume-text-main mb-2 tracking-tight">
+                <div className="mt-2 w-fit bg-white rounded-lg px-3 py-1.5 border border-black/5">
+                  <Image src="/assets/carima.png" alt="carima logo" width={100} height={30} />
+                </div>
+                <h3 className="text-2xl md:text-5xl font-bold text-resume-text-main mb-2 tracking-tight">
                   C-HUB <span className="text-resume-primary">V2.0</span>
-                </h1>
+                </h3>
                 <div className="flex flex-col justify-start items-center gap-2">
                   <p className="text-lg text-resume-text-sub w-full">산업용 3D 프린터 통합 관제 솔루션</p>
                   <div className="w-full flex flex-wrap items-center gap-3 mt-1">
-                    <Link href="https://c-hub.info/" target="_blank" className="group flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-400 hover:border-indigo-300 hover:text-indigo-600 dark:hover:border-indigo-600 dark:hover:text-indigo-400 hover:shadow-sm transition-all">
-                      <Globe size={14} className="text-slate-400 group-hover:text-indigo-500 transition-colors" />
+                    <Link href="https://c-hub.info/" target="_blank" className="group flex items-center gap-2 px-3 py-1.5 border border-black/15 rounded-full text-xs font-bold text-resume-text-main hover:bg-black/5 transition-colors">
+                      <Globe size={14} className="text-resume-text-sub group-hover:text-resume-text-main transition-colors" />
                       <span>Live Service</span>
-                      <ExternalLink size={10} className="opacity-30 group-hover:opacity-100 transition-opacity" />
+                      <ExternalLink size={10} className="opacity-40 group-hover:opacity-100 transition-opacity" />
                     </Link>
-                    <Link href="https://hissing-seagull-77f.notion.site/IoT-3D-2e1cb3f80a7780c5ac84c4ac75fe9ab6?pvs=143" target="_blank" className="group flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-800 dark:hover:text-white hover:shadow-sm transition-all">
+                    <Link href="https://hissing-seagull-77f.notion.site/IoT-3D-2e1cb3f80a7780c5ac84c4ac75fe9ab6?pvs=143" target="_blank" className="group flex items-center gap-2 px-3 py-1.5 border border-black/15 rounded-full text-xs font-bold text-resume-text-main hover:bg-black/5 transition-colors">
                       <div className="relative w-3.5 h-3.5 opacity-80 group-hover:opacity-100 transition-opacity">
                         <Image src="/assets/notion.png" alt="Notion" fill className="object-contain" />
                       </div>
                       <span>Notion Tech Spec</span>
-                      <ExternalLink size={10} className="opacity-30 group-hover:opacity-100 transition-opacity" />
+                      <ExternalLink size={10} className="opacity-40 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </div>
                 </div>
@@ -191,19 +195,19 @@ const ProjectDetail_CaseStudy = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="md:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                <p className="text-resume-text-main leading-relaxed text-sm md:text-base mb-6">
+              <div className={`md:col-span-2 p-6 rounded-2xl ${GLASS}`}>
+                <p className="text-resume-text-main leading-relaxed text-sm md:text-base mb-6 break-keep">
                   분산된 이기종 장비의 통합 관제를 위해{" "}
-                  <strong className="text-resume-primary bg-indigo-50 dark:bg-indigo-900/30 px-1 rounded mx-1">기획·디자인·개발 전 과정을 리딩</strong>
+                  <strong className="font-bold text-resume-text-main bg-black/[0.05] px-1 rounded mx-0.5">기획·디자인·개발 전 과정을 리딩</strong>
                   한 프로젝트입니다. 상태 동기화 지연율을{" "}
-                  <strong className="text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-1 rounded">1초 미만</strong>
+                  <strong className="text-emerald-600 bg-emerald-50 px-1 rounded">1초 미만</strong>
                   으로 최적화하여 물리적 거리에 상관없는 실시간 제어 환경을 구현했습니다. UI/UX 전체{" "}
-                  <strong className="text-slate-900 dark:text-slate-100">영문화(100%)</strong>를 통해 글로벌 시장에 최적화하였고, 현재{" "}
-                  <strong className="text-slate-900 dark:text-slate-100">베트남을 비롯한 글로벌 산업 현장</strong>에 도입되어 가동 중입니다.
+                  <strong className="font-bold text-resume-text-main">영문화(100%)</strong>를 통해 글로벌 시장에 최적화하였고, 현재{" "}
+                  <strong className="font-bold text-resume-text-main">베트남을 비롯한 글로벌 산업 현장</strong>에 도입되어 가동 중입니다.
                 </p>
 
                 <div className="flex flex-wrap gap-3">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 flex-col sm:w-fit h-full w-full">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-black/[0.03] rounded-xl border border-black/10 flex-col sm:w-fit h-full w-full">
                     <span className="flex items-center gap-2">
                       <Users size={14} className="text-resume-text-sub" />
                       <span className="text-xs font-bold text-resume-text-main">
@@ -213,9 +217,9 @@ const ProjectDetail_CaseStudy = () => {
                     <span className="text-resume-text-sub text-[10px]">기획(50%) + 디자인(100%) + 퍼블리싱(100%) + 프론트엔드(100%)</span>
                   </div>
                   <div className="flex justify-center items-center gap-2 sm:w-fit w-full">
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-100 dark:border-yellow-700/30 justify-center sm:w-fit h-full w-full">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 rounded-xl border border-amber-600/20 justify-center sm:w-fit h-full w-full">
                       <Image src="/assets/gs.png" alt="GS인증로고" width={40} height={50} />
-                      <span className="text-xs font-bold text-yellow-700 dark:text-yellow-400">GS인증 1등급 취득</span>
+                      <span className="text-xs font-bold text-amber-700">GS인증 1등급 취득</span>
                     </div>
                   </div>
                 </div>
@@ -247,16 +251,16 @@ const ProjectDetail_CaseStudy = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
-          className="mt-4 rounded-2xl border border-resume-primary/20 bg-resume-badge-bg/40 p-6 md:p-8"
+          className={`mt-4 rounded-2xl p-6 md:p-8 ${GLASS}`}
         >
           <div className="mb-3 flex flex-wrap items-center gap-3">
-            <div className="rounded-xl bg-resume-primary/15 p-2.5 text-resume-primary">
+            <div className="rounded-xl bg-black/[0.04] border border-black/10 p-2.5 text-resume-text-main">
               <Smartphone size={20} />
             </div>
-            <h3 className="text-lg font-bold text-resume-text-main md:text-xl">
+            <h3 className="text-lg font-bold text-resume-text-main md:text-xl tracking-tight">
               모바일 앱으로 확장 중
             </h3>
-            <span className="inline-flex items-center gap-1.5 rounded-md border border-amber-300/40 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 text-[11px] font-bold text-amber-700 dark:text-amber-400">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-600/20 bg-amber-50 px-2.5 py-1 text-[11px] font-bold text-amber-700">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" /> In Development · 미배포
             </span>
           </div>
@@ -268,23 +272,23 @@ const ProjectDetail_CaseStudy = () => {
           </p>
           <div className="flex flex-wrap gap-2">
             {["Expo", "React Native", "expo-router", "NativeWind", "TanStack Query", "React Native Skia", "expo-notifications", "i18next"].map((t) => (
-              <span key={t} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-resume-card px-3 py-1 text-xs font-bold text-resume-text-main shadow-sm">
+              <span key={t} className="rounded-full border border-black/10 bg-resume-card px-3 py-1 text-xs font-semibold text-resume-text-main">
                 {t}
               </span>
             ))}
           </div>
         </motion.div>
 
-        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
-          <h4 className="text-resume-text-sub text-xs font-bold uppercase tracking-widest mb-4">Tech Stack (Web)</h4>
+        <div className="mt-12 pt-8 border-t border-black/10">
+          <h4 className="text-resume-text-sub text-xs font-bold uppercase tracking-[0.2em] mb-4">Tech Stack (Web)</h4>
           <div className="flex flex-wrap gap-2">
             {["React", "TypeScript", "SCSS", "Recoil", "TanStack Query", "Recharts", "Framer Motion", "react-hook-form", "lottie-react", "Axios", "JSZip", "Crypto-js", "WebSocket", "@dnd-kit", "WebRTC"].map((tech) => (
-              <span key={tech} className="px-3 py-1 bg-white dark:bg-slate-800 text-resume-text-main rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-700 shadow-sm">{tech}</span>
+              <span key={tech} className="rounded-full border border-black/10 bg-resume-card px-3 py-1 text-xs font-semibold text-resume-text-main">{tech}</span>
             ))}
           </div>
         </div>
       </main>
-    </div>
+    </section>
   );
 };
 

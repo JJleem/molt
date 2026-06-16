@@ -16,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { sideProjects } from "@/content/side-projects";
 import { localize } from "@/content/locale";
+import CosmicTexture from "@/components/ui/CosmicTexture";
 
 const ICONS: Record<string, LucideIcon> = {
   CloudLightning,
@@ -24,6 +25,9 @@ const ICONS: Record<string, LucideIcon> = {
   BarChart3,
   Dna,
 };
+
+const GLASS =
+  "border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_8px_30px_rgba(26,23,20,0.06)]";
 
 const SideProjects = () => {
   const projects = localize(sideProjects);
@@ -36,25 +40,27 @@ const SideProjects = () => {
   }, [isInView, controls]);
 
   return (
-    <section id="side" className="relative z-20 min-h-screen scroll-mt-16 bg-resume-bg text-resume-text-main pb-15 transition-colors duration-300">
-      <div className="absolute h-full w-full inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(100,116,139,0.12)_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none -z-10" />
-      <div className="max-w-4xl mx-auto px-6 pt-20">
+    <section id="side" className="relative z-20 scroll-mt-16 overflow-hidden bg-resume-bg py-24 text-resume-text-main">
+      <CosmicTexture />
+      <div className="mx-auto max-w-4xl px-6">
         <motion.div
           ref={ref}
           initial="hidden"
           animate={controls}
           variants={{
-            hidden: { opacity: 0, y: 10 },
+            hidden: { opacity: 0, y: 16 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
           }}
-          className="mb-10 flex items-center gap-3"
+          className="mb-12"
         >
-          <h1 className="w-full text-4xl md:text-5xl font-bold text-resume-text-main mb-2 tracking-tight border-b border-b-resume-primary pb-2">
-            <span className="text-resume-primary">Side Projects.</span>
-          </h1>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">More Work</span>
+          <h2 className="mt-3 text-4xl font-bold tracking-tight text-resume-text-main md:text-6xl">사이드 프로젝트</h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-resume-text-sub break-keep md:text-base">
+            업무 밖에서 직접 만들고 운영하며 검증한 작업들입니다.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {projects.map((project, index) => {
             const Icon = ICONS[project.iconName] ?? TerminalSquare;
             return (
@@ -66,13 +72,13 @@ const SideProjects = () => {
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0, transition: { delay: index * 0.1, duration: 0.5 } },
                 }}
-                className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full relative group"
+                className={`group relative flex h-full flex-col rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-0.5 ${GLASS}`}
               >
-                <div className="flex items-start justify-between mb-4">
+                <div className="mb-4 flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className={`flex items-center justify-center w-12 h-12 rounded-lg ${project.logo ? "bg-transparent" : project.color} ${!project.logo && "ring-1 ring-inset ring-black/5 dark:ring-white/5"}`}>
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${project.logo ? "bg-transparent" : project.color} ${!project.logo && "ring-1 ring-inset ring-black/5"}`}>
                       {project.logo ? (
-                        <div className="relative w-full h-full rounded-lg overflow-hidden">
+                        <div className="relative h-full w-full overflow-hidden rounded-xl">
                           <Image src={project.logo} alt={`${project.title} logo`} fill className="object-cover" />
                         </div>
                       ) : (
@@ -81,43 +87,43 @@ const SideProjects = () => {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="font-bold text-slate-800 dark:text-slate-100 text-lg leading-tight">{project.title}</h3>
-                        <div className="flex items-center gap-1 ml-1">
+                        <h3 className="text-lg font-bold leading-tight tracking-tight text-resume-text-main">{project.title}</h3>
+                        <div className="ml-1 flex items-center gap-1">
                           {project.github && (
-                            <Link href={project.github} target="_blank" className="text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors p-1" title="View Github Repo">
+                            <Link href={project.github} target="_blank" className="p-1 text-resume-text-sub/70 transition-colors hover:text-resume-text-main" title="View Github Repo">
                               <Github size={16} />
                             </Link>
                           )}
                           {project.link && (
-                            <Link href={project.link} target="_blank" className="text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors p-1" title="Visit Live Site">
+                            <Link href={project.link} target="_blank" className="p-1 text-resume-text-sub/70 transition-colors hover:text-resume-text-main" title="Visit Live Site">
                               <ExternalLink size={16} />
                             </Link>
                           )}
                         </div>
                       </div>
-                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">{project.category}</span>
+                      <span className="text-xs font-medium text-resume-text-sub">{project.category}</span>
                     </div>
                   </div>
                 </div>
 
-                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4 min-h-[60px]">{project.description}</p>
+                <p className="mb-4 min-h-[60px] text-sm leading-relaxed text-resume-text-sub break-keep">{project.description}</p>
 
                 <div className="mb-6 flex-1">
-                  <h4 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Key Achievements</h4>
+                  <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-resume-text-sub">Key Achievements</h4>
                   <ul className="space-y-1.5">
                     {project.achievements.map((item, i) => (
-                      <li key={i} className="text-[13px] text-slate-700 dark:text-slate-300 flex items-start gap-2 leading-snug">
-                        <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-500 mt-1.5 shrink-0"></span>
+                      <li key={i} className="flex items-start gap-2 text-[13px] leading-snug text-resume-text-main break-keep">
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-resume-text-main/40" />
                         {item}
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="pt-4 border-t border-slate-100 dark:border-slate-700/50">
+                <div className="border-t border-black/10 pt-4">
                   <div className="flex flex-wrap gap-1.5">
                     {project.tech.map((t) => (
-                      <span key={t} className="px-2 py-1 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[11px] font-semibold rounded border border-slate-200 dark:border-slate-700">
+                      <span key={t} className="rounded-full border border-black/10 bg-resume-card px-2.5 py-1 text-[11px] font-semibold text-resume-text-main">
                         {t}
                       </span>
                     ))}
