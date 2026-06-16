@@ -28,7 +28,9 @@ const BG = "#f7f4ef"; // 따뜻한 라이트 캔버스
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
   void main() {
-    vUv = uv;
+    // ScreenQuad는 clip-space 풀스크린 삼각형(position -1..3)만 주고
+    // uv 어트리뷰트는 셰이더에 안 들어옴 → position에서 직접 uv 유도.
+    vUv = position.xy * 0.5 + 0.5;
     gl_Position = vec4(position.xy, 0.0, 1.0);
   }
 `;
@@ -95,36 +97,43 @@ const fragmentShader = /* glsl */ `
     vec2 auv = (uv - 0.5) * vec2(aspect, 1.0); // aspect 보정 좌표
 
     // --- 탈피 필드: 위가 먼저 벗겨지고, 노이즈로 톱니 경계 ---
+    // 임계값을 낮춰 스크롤 0→1 전 구간에 걸쳐 위에서부터 고르게 벗겨지게.
     float n = fbm(uv * 3.2 + vec2(0.0, uTime * 0.025));
     float vert = 1.0 - uv.y;                 // 위쪽=1
-    float thr = vert * 0.85 + n * 0.5;       // 벗겨지는 임계값
-    float edge = uProgress * 1.7 - 0.35 - thr;
-    float reveal = smoothstep(0.0, 0.05, edge);                       // 0 허물 / 1 비늘
-    float rim = smoothstep(0.0, 0.035, edge) * (1.0 - smoothstep(0.035, 0.13, edge));
+    float thr = vert * 0.55 + n * 0.28;      // 벗겨지는 임계값(완만)
+    float edge = uProgress * 1.5 - 0.25 - thr;
+    float reveal = smoothstep(0.0, 0.08, edge);                       // 0 허물 / 1 비늘
+    float rim = smoothstep(0.0, 0.05, edge) * (1.0 - smoothstep(0.05, 0.20, edge));
 
     // --- 싱싱한 하늘색 이리데센트 비늘 ---
     vec2 local;
     float h = scaleHeight(uv * vec2(aspect, 1.0) * 1.0, local);
-    vec3 nrm = normalize(vec3(local * -2.2 * h, 1.0));
-    float diff = clamp(dot(nrm, normalize(vec3(0.4, 0.6, 0.85))), 0.0, 1.0);
-    float fres = pow(1.0 - max(nrm.z, 0.0), 2.0);
-    vec3 sky = vec3(0.42, 0.72, 0.96);                                 // 하늘색 주도
-    vec3 irid = 0.5 + 0.5 * cos(6.2831 * (fres * 0.6 + vec3(0.0, 0.33, 0.66)) + uTime * 0.15);
-    vec3 freshCol = sky * (0.35 + 0.78 * diff) + irid * (0.16 + 0.22 * fres);
-    freshCol += vec3(0.0, 0.05, 0.02) * h;                             // 초록 살짝(부가)
+    vec3 nrm = normalize(vec3(local * -3.4 * h, 1.0));                 // 돔 굴곡 강화
+    vec3 L = normalize(vec3(0.35, 0.55, 0.78));
+    float diff = clamp(dot(nrm, L), 0.0, 1.0);
+    float spec = pow(clamp(dot(reflect(-L, nrm), vec3(0.0, 0.0, 1.0)), 0.0, 1.0), 22.0);
+    float fres = pow(1.0 - max(nrm.z, 0.0), 2.5);
+    vec3 sky = vec3(0.30, 0.62, 0.95);                                 // 하늘색 주도(채도↑)
+    vec3 irid = 0.5 + 0.5 * cos(6.2831 * (fres * 0.8 + vec3(0.0, 0.33, 0.66)) + uTime * 0.15);
+    vec3 freshCol = sky * (0.30 + 0.85 * diff);
+    freshCol += irid * (0.18 + 0.30 * fres);                          // 이리데센트
+    freshCol += spec * vec3(1.0) * 0.5;                               // 광택 하이라이트
+    freshCol *= 0.82 + 0.34 * h;                                      // 비늘 경계 그늘(입체)
     if (uHasFresh > 0.5) freshCol = mix(freshCol, texture2D(uFresh, uv).rgb, 0.75);
 
-    // --- 낡은 마른 허물 ---
+    // --- 낡은 마른 허물: 갈색·균열로 배경(크림)과 분명히 분리 ---
     float crack = fbm(uv * 7.0) * 0.5 + 0.5;
-    vec3 oldCol = mix(vec3(0.82, 0.80, 0.76), vec3(0.63, 0.61, 0.58), crack);
-    oldCol *= 0.92 + 0.08 * fbm(uv * 24.0);
+    vec3 oldCol = mix(vec3(0.80, 0.72, 0.60), vec3(0.46, 0.39, 0.32), crack);
+    oldCol *= 0.86 + 0.14 * fbm(uv * 26.0);
+    float veins = smoothstep(0.42, 0.52, fbm(uv * vec2(9.0, 13.0)));  // 갈라진 금
+    oldCol = mix(oldCol, vec3(0.28, 0.23, 0.19), veins * 0.55);       // 어두운 균열선
     if (uHasOld > 0.5) oldCol = texture2D(uOld, uv).rgb;
 
     vec3 col = mix(oldCol, freshCol, reveal);
-    col += rim * vec3(1.0, 0.95, 0.88) * 0.85;                         // 경계 가루/광택
+    col += rim * vec3(1.0, 0.96, 0.90) * 1.1;                          // 경계 가루/광택
 
     // 가장자리는 배경색으로 페이드(중앙에 형체가 모이게)
-    float vig = smoothstep(1.15, 0.4, length(auv));
+    float vig = smoothstep(1.25, 0.32, length(auv));
     col = mix(uBg, col, vig);
 
     gl_FragColor = vec4(col, 1.0);

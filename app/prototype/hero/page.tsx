@@ -12,8 +12,10 @@ import VariantC from "@/components/prototype/hero/VariantC";
 import VariantD from "@/components/prototype/hero/VariantD";
 import VariantE from "@/components/prototype/hero/VariantE";
 import VariantF from "@/components/prototype/hero/VariantF";
+import VariantG from "@/components/prototype/hero/VariantG";
 
 const VARIANTS = [
+  { key: "G", name: "Stripe Elements 히어로 (제품카드 탈피)" },
   { key: "F", name: "셰이더 탈피 (Stripe식·확정안)" },
   { key: "E", name: "3D 이리데센트 molt (WebGL)" },
   { key: "D", name: "허물 벗기 + 조각 비산 (2D)" },
@@ -25,7 +27,7 @@ const VARIANTS = [
 function PrototypeInner() {
   const router = useRouter();
   const params = useSearchParams();
-  const variant = params.get("variant") ?? "F";
+  const variant = params.get("variant") ?? "G";
   const setVariant = (key: string) => router.replace(`/prototype/hero?variant=${key}`);
 
   return (
@@ -36,6 +38,7 @@ function PrototypeInner() {
       {variant === "D" && <VariantD />}
       {variant === "E" && <VariantE />}
       {variant === "F" && <VariantF />}
+      {variant === "G" && <VariantG />}
       <PrototypeSwitcher variants={VARIANTS} current={variant} onChange={setVariant} />
     </main>
   );
