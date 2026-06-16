@@ -18,6 +18,8 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import CosmicTexture from "@/components/ui/CosmicTexture";
+import ProjectGallery from "@/components/ui/ProjectGallery";
+import { cHubGallery } from "@/content/galleries";
 
 interface LiveMetricProps {
   label: string;
@@ -236,6 +238,18 @@ const ProjectDetail_CaseStudy = () => {
       </header>
 
       <main className="max-w-4xl mx-auto px-6 py-16">
+        {/* 인터랙티브 갤러리 — C-HUB 화면 (메인 + 썸네일 5장 클릭 전환) */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.55 }}
+          className="mb-16"
+        >
+          <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">제품 둘러보기</h4>
+          <ProjectGallery gallery={cHubGallery} />
+        </motion.div>
+
         <Section title="Challenge & Solution" delay={0.2}>
           <ProblemSolution title="하드웨어와 웹의 상태 불일치" context="수십 대의 장비가 동시에 보내는 센서 데이터(온도, 수위 등)가 비동기적으로 도착하여, UI 깜빡임과 데이터 역전 현상이 발생했습니다." solution={["서버 데이터와 로컬 제어 상태(Recoil)를 분리하는 이원화된 상태 관리 전략 도입", "Recoil Atom Family 패턴으로 장비 ID별 상태 스코프 격리, 리렌더링 범위 최소화"]} outcome="상태 업데이트 지연 3s → 0.8s 단축 및 UI 렌더링 최적화" />
           <ProblemSolution title="불안정한 네트워크와 명령 유실" context="공장 Wi-Fi 연결이 불안정하여 제어 명령(시작/중지)이 서버에 도달하지 못하는 경우가 빈번했습니다." solution={["자체 WebSocket 엔진 구현: 연결 끊김 감지 시 명령을 메모리 큐에 적재", "재연결 성공 즉시 큐 Flush 및 순차 전송 보장", "낙관적 업데이트로 사용자에게 즉각 피드백 제공 후 백그라운드 동기화"]} />

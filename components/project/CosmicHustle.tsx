@@ -2,9 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Github, ImageIcon, ArrowUpRight } from "lucide-react";
+import { Github, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { cosmicHustle } from "@/content/cosmic-hustle";
 import { localize } from "@/content/locale";
 import type { CapabilityCard } from "@/content/types";
@@ -12,29 +11,13 @@ import PipelineDiagram from "./PipelineDiagram";
 import CountUp from "@/components/ui/CountUp";
 import LiveFeed from "@/components/cosmic/LiveFeed";
 import AgentConstellation from "@/components/hero/AgentConstellation";
+import AgentCast from "@/components/cosmic/AgentCast";
 import CosmicTexture from "@/components/ui/CosmicTexture";
-import BrowserFrame from "@/components/ui/BrowserFrame";
+import ProjectGallery from "@/components/ui/ProjectGallery";
+import { blogGallery, engineGallery } from "@/content/galleries";
 
 const GLASS =
   "border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_8px_30px_rgba(26,23,20,0.06)]";
-
-// 이미지 슬롯 (다이어그램/스크린샷 figure) — 모노 점선 placeholder.
-function ImageSlot({ src, alt, hint, ratio = "aspect-video" }: { src?: string; alt: string; hint: string; ratio?: string }) {
-  if (src) {
-    return (
-      <figure className={`relative ${ratio} w-full overflow-hidden rounded-2xl border border-black/10 shadow-sm`}>
-        <Image src={src} alt={alt} fill className="object-cover" />
-      </figure>
-    );
-  }
-  return (
-    <div className={`flex ${ratio} w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-black/15 bg-black/[0.02] p-6 text-center`}>
-      <ImageIcon className="h-7 w-7 text-resume-text-sub/60" />
-      <p className="text-xs font-bold text-resume-text-sub">이미지 자리</p>
-      <p className="max-w-xs text-[11px] leading-relaxed text-resume-text-sub/80">{hint}</p>
-    </div>
-  );
-}
 
 // 번호 매긴 에디토리얼 역량 항목 [1] [2] [3]
 function CapabilityItem({ cap, index }: { cap: CapabilityCard; index: number }) {
@@ -97,19 +80,9 @@ export default function CosmicHustle() {
             <span className="rounded-full border border-emerald-600/20 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700">배포 · 운영 중</span>
           </div>
 
-          {/* 브라우저 목업 + 대표 스크린샷 */}
+          {/* 인터랙티브 갤러리 — 메인 + 썸네일 5장 클릭 전환 */}
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55 }}>
-            <BrowserFrame url="blog.cosmic-hustle.com">
-              <div className="relative aspect-[16/10] w-full bg-black/[0.02]">
-                <div className="flex h-full flex-col items-center justify-center gap-2 px-6 text-center">
-                  <ImageIcon className="h-8 w-8 text-resume-text-sub/50" />
-                  <p className="text-xs font-bold text-resume-text-sub">① 블로그 메인 스크린샷 자리</p>
-                  <p className="max-w-md text-[11px] leading-relaxed text-resume-text-sub/80">
-                    운영 중인 블로그 메인 풀샷(에이전트 글 목록). public/assets/cosmic/ 에 넣고 알려주시면 연결합니다.
-                  </p>
-                </div>
-              </div>
-            </BrowserFrame>
+            <ProjectGallery gallery={blogGallery} />
           </motion.div>
 
           {/* 글래스 지표 */}
@@ -155,12 +128,6 @@ export default function CosmicHustle() {
             {blogCaps.map((cap, i) => (
               <CapabilityItem key={cap.id} cap={cap} index={i + 1} />
             ))}
-          </div>
-
-          {/* DM / 성과 이미지 */}
-          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <ImageSlot alt="에이전트 DM 실시간 스트리밍" hint="③ 에이전트 DM — 토큰 스트리밍 + 출처 칩(환각 방지)" />
-            <ImageSlot alt="성과 평가 화면" hint="④ 성과 평가 — 글별 3축 점수 / 페어와이즈 판정" />
           </div>
 
           {/* 제품 오너십 */}
@@ -211,6 +178,12 @@ export default function CosmicHustle() {
             </div>
           </div>
 
+          {/* 캐스트 — 11명 (캐릭터 사진 + 직책) */}
+          <div className="mt-2 mb-8 rounded-2xl border border-black/10 bg-white/40 p-5 md:p-6">
+            <p className="mb-5 text-sm font-bold text-resume-text-main">캐스트 — 3개 부서 11명</p>
+            <AgentCast />
+          </div>
+
           {/* [1][2] 역량 */}
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2">
             {engineCaps.map((cap, i) => (
@@ -221,8 +194,9 @@ export default function CosmicHustle() {
           <h4 className="mb-5 mt-10 text-base font-bold text-resume-text-main">엔진 파이프라인</h4>
           <PipelineDiagram steps={c.pipeline} />
 
-          <div className="mt-6">
-            <ImageSlot alt="멀티에이전트 아키텍처 다이어그램" hint="② 엔진 아키텍처 (에이전트 ↔ FastAPI ↔ pgvector ↔ 스케줄러). 직접 그린 도식이면 베스트." ratio="aspect-[16/9]" />
+          {/* 엔진 갤러리 — 아키텍처 + CEO 콘솔 + 스트리밍 + 리포트 */}
+          <div className="mt-8">
+            <ProjectGallery gallery={engineGallery} />
           </div>
         </motion.div>
 

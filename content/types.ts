@@ -26,6 +26,10 @@ export interface Agent {
   role: string;
   /** CSS color (에이전트별 컬러) */
   color: string;
+  /** 캐릭터 아바타 이미지 (없으면 컬러 + 이니셜 폴백) */
+  avatar?: string;
+  /** 소속 부서 (캐스트 그룹핑용) */
+  dept?: "Research" | "Creative" | "Operations";
 }
 
 export interface Metric {
@@ -54,6 +58,29 @@ export interface ProjectLinks {
   live?: string;
   github?: string;
   [key: string]: string | undefined;
+}
+
+/** 인터랙티브 갤러리의 슬라이드 1장 (메인 이미지 + 썸네일 공용) */
+export interface GallerySlide {
+  /** 이미지 경로. 파일이 없으면(404) placeholder로 자동 폴백 */
+  src: string;
+  /** 대체 텍스트 */
+  alt: string;
+  /** 메인 이미지 위에 뜨는 캡션 (한 줄) */
+  caption: string;
+  /** placeholder일 때 보여줄 안내 — 어떤 스샷을 넣어야 하는지 */
+  hint?: string;
+}
+
+/** 프로젝트 1개의 갤러리 설정 */
+export interface Gallery {
+  /** 글로우/하이라이트 악센트 색 (CSS color) */
+  accent: string;
+  /** 메인 이미지를 브라우저 목업으로 감쌀 때의 URL (웹 제품) */
+  frameUrl?: string;
+  /** 메인 이미지 종횡비 유틸 클래스 (기본 aspect-[16/10]) */
+  ratio?: string;
+  slides: GallerySlide[];
 }
 
 export interface SideProject {
