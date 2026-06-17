@@ -12,6 +12,7 @@ import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ScreenQuad } from "@react-three/drei";
 import { motion, useReducedMotion } from "framer-motion";
+import MoltDemoPanel from "./MoltDemoPanel";
 
 const INK = "#0a2540"; // Stripe navy ink
 const SLATE = "#425466"; // Stripe body slate
@@ -66,82 +67,93 @@ const fragmentShader = /* glsl */ `
     for (int i = 0; i < 5; i++){ s += a * snoise(p); p *= 2.0; a *= 0.5; }
     return s;
   }
+
   float scaleHeight(vec2 uv, out vec2 local){
-    vec2 g = uv * vec2(13.0, 7.0);          // 리본 길이 방향으로 비늘 더 촘촘
+    vec2 g = uv * vec2(14.0, 8.0);
     float row = floor(g.y);
     g.x += mod(row, 2.0) * 0.5;
     vec2 f = fract(g) - 0.5;
     local = f;
-    float d = length(f * vec2(1.0, 1.12));
-    return smoothstep(0.6, 0.0, d);
+    return smoothstep(0.55, 0.0, length(f * vec2(1.0, 1.1)));
   }
 
-  // 한 가닥 리본을 합성해 (color, alpha)를 누적
-  void ribbon(vec2 uv, float aspect, float t,
-              float yBase, float freq, float phase, float widthBase, float seed,
-              inout vec3 col, inout float alpha)
-  {
+  // tilt: 대각선 기울기 (음수 = 좌하→우상)
+  void ribbon(
+    vec2 uv, float aspect, float t,
+    float yBase, float tilt,
+    float freq, float phase, float widthBase, float seed,
+    inout vec3 col, inout float alpha
+  ){
     float x = uv.x;
-    // 흐르는 대각선 중심선
+
+    // 대각선 + 부드러운 물결
     float center = yBase
-                 + 0.12 * sin(x * freq + t * 0.22 + phase)
-                 + 0.06 * sin(x * (freq*0.45) - t * 0.16 + phase)
-                 - (x - 0.5) * 0.10;
-    float halfW = widthBase + 0.035 * sin(x * 2.4 - t * 0.2 + phase);
-    float edgeN = fbm(vec2(x * 3.0 + seed, t * 0.12 + seed)) * 0.045;
-    float d = abs(uv.y - center) - edgeN;
-    float rib = smoothstep(halfW, halfW - 0.045, d);
-    if (rib <= 0.001 && d > halfW + 0.10) return; // 멀면 스킵
+                 + tilt * (x - 0.5)
+                 + 0.065 * sin(x * freq + t * 0.17 + phase)
+                 + 0.035 * sin(x * freq * 0.43 - t * 0.11 + phase + 1.0);
+
+    float halfW = widthBase + 0.020 * sin(x * 1.9 - t * 0.14 + phase);
+    float edgeN = fbm(vec2(x * 3.2 + seed, t * 0.09 + seed)) * 0.030;
+    float d  = abs(uv.y - center) - edgeN;
+    float rib = smoothstep(halfW, halfW - 0.050, d);
+    if (rib <= 0.001 && d > halfW + 0.12) return;
 
     float across = clamp((uv.y - center) / max(halfW, 1e-3), -1.0, 1.0);
     float along  = x;
 
-    // 탈피 전선: 숨쉬듯 좌우로 스윕
-    float front = 0.5 - 0.62 * cos(t * 0.16 + seed);     // -0.12 .. 1.12
-    float rn = fbm(vec2(x * 4.5 + seed, across * 2.2 + t * 0.05)) * 0.14;
-    float sd = (along - front) + rn;
-    float reveal = smoothstep(0.0, 0.14, sd);            // 0 husk → 1 비늘
-    float rim = smoothstep(0.0, 0.10, sd) * (1.0 - smoothstep(0.10, 0.30, sd));
+    // 탈피 전선
+    float front = 0.5 - 0.62 * cos(t * 0.13 + seed);
+    float rn    = fbm(vec2(x * 3.8 + seed, across * 2.4 + t * 0.04)) * 0.11;
+    float sd    = (along - front) + rn;
+    float reveal = smoothstep(0.0, 0.18, sd);
+    float rim    = smoothstep(0.0, 0.09, sd) * (1.0 - smoothstep(0.09, 0.32, sd));
 
     // 비늘 relief
     vec2 sc;
-    float hgt = scaleHeight(vec2(along * aspect * 1.4 + seed, across * 0.5 + 0.5), sc);
-    vec3 nrm = normalize(vec3(sc * -3.0 * hgt, 1.0));
-    vec3 L = normalize(vec3(0.25, 0.55, 0.8));
+    float hgt = scaleHeight(vec2(along * aspect * 1.2 + seed, across * 0.5 + 0.5), sc);
+    vec3 nrm = normalize(vec3(sc * -3.8 * hgt, 1.0));
+    vec3 L = normalize(vec3(0.30, 0.60, 0.80));
     float diff = clamp(dot(nrm, L), 0.0, 1.0);
-    float spec = pow(clamp(dot(reflect(-L, nrm), vec3(0.0,0.0,1.0)), 0.0, 1.0), 24.0);
-    float fres = pow(1.0 - max(nrm.z, 0.0), 2.5);
+    float spec = pow(clamp(dot(reflect(-L, nrm), vec3(0.0,0.0,1.0)), 0.0, 1.0), 36.0);
+    float fres = pow(1.0 - max(nrm.z, 0.0), 2.0);
 
-    // 리본 따라 흐르는 hue (cyan → blurple → violet) = Stripe식 컬러
-    vec3 hueA = vec3(0.20, 0.74, 0.99);
-    vec3 hueB = vec3(0.39, 0.36, 1.00);
-    vec3 hueC = vec3(0.69, 0.39, 0.97);
-    vec3 hue = mix(hueA, hueB, smoothstep(0.0, 0.55, along));
-    hue = mix(hue, hueC, smoothstep(0.55, 1.0, along));
-    vec3 irid = 0.5 + 0.5 * cos(6.2831 * (fres * 0.8 + vec3(0.0,0.33,0.66)) + t * 0.2);
-    vec3 scales = hue * (0.42 + 0.85 * diff) + irid * (0.16 + 0.30 * fres) + spec * 0.6;
-    scales += hue * 0.18 * hgt;
-    if (uHasFresh > 0.5) scales = mix(scales, texture2D(uFresh, vec2(along, across*0.5+0.5)).rgb, 0.7);
+    // 신선한 비늘: 선명한 cyan → blurple → violet
+    vec3 hueA = vec3(0.10, 0.90, 1.00);
+    vec3 hueB = vec3(0.38, 0.35, 1.00);
+    vec3 hueC = vec3(0.68, 0.26, 0.98);
+    vec3 hue  = mix(hueA, hueB, smoothstep(0.0, 0.50, along));
+    hue = mix(hue, hueC, smoothstep(0.50, 1.0, along));
+    vec3 irid = 0.5 + 0.5 * cos(6.2831 * (fres * 1.15 + vec3(0.0, 0.33, 0.66)) + t * 0.25);
+    vec3 scales = hue * (0.44 + 0.95 * diff)
+                + irid * (0.24 + 0.52 * fres)
+                + spec * 0.95;
+    scales += hue * 0.22 * hgt;
+    if (uHasFresh > 0.5)
+      scales = mix(scales, texture2D(uFresh, vec2(along, across*0.5+0.5)).rgb, 0.60);
 
-    // 어두운 마른 허물
-    float crack = fbm(vec2(along * 8.0 + seed, across * 3.0)) * 0.5 + 0.5;
-    vec3 husk = mix(vec3(0.17, 0.16, 0.19), vec3(0.34, 0.30, 0.29), crack);
-    float veins = smoothstep(0.42, 0.52, fbm(vec2(along * 10.0, across * 4.0 + seed)));
-    husk = mix(husk, vec3(0.07, 0.07, 0.10), veins * 0.55);
-    if (uHasOld > 0.5) husk = texture2D(uOld, vec2(along, across*0.5+0.5)).rgb;
+    // 허물: 따뜻한 앰버/시에나 (유기적 뱀 허물 느낌)
+    float crack = fbm(vec2(along * 9.0 + seed, across * 4.5)) * 0.5 + 0.5;
+    vec3 husk   = mix(vec3(0.20, 0.14, 0.09), vec3(0.52, 0.40, 0.27), crack);
+    // 미세 비늘 격자선
+    float mu = smoothstep(0.88, 1.0, fract(along * 15.0 + seed));
+    float mv = smoothstep(0.86, 1.0, fract(across * 7.5 + 0.25));
+    husk -= clamp(mu + mv, 0.0, 1.0) * 0.10;
+    // 건조한 균열
+    float veins = smoothstep(0.44, 0.53, fbm(vec2(along * 11.0, across * 5.0 + seed)));
+    husk = mix(husk, vec3(0.07, 0.05, 0.04), veins * 0.55);
+    if (uHasOld > 0.5)
+      husk = texture2D(uOld, vec2(along, across*0.5+0.5)).rgb;
 
     vec3 body = mix(husk, scales, reveal);
-    body += rim * vec3(0.6, 0.85, 1.0) * 0.7;            // 탈피 경계 글로우
+    body += rim * vec3(0.35, 0.95, 1.00) * 1.50; // 탈피선 강렬한 cyan 글로우
 
-    // 컬러 외곽 글로우(리본 밖 halo)
-    float glow = (1.0 - smoothstep(halfW, halfW + 0.075, d)) * (1.0 - rib);
-    vec3 edgeHue = mix(hueA, hueC, along);
+    // 외곽 halo
+    float glow    = (1.0 - smoothstep(halfW, halfW + 0.09, d)) * (1.0 - rib);
+    vec3 edgeHue  = mix(hueA, hueC, along);
 
-    // 합성: 안쪽은 body, 가장자리는 컬러 halo
-    float a = max(rib, glow * 0.45);
-    vec3 c = mix(edgeHue, body, rib);
-    // over 합성
-    col = mix(col, c, a);
+    float a = max(rib, glow * 0.52);
+    vec3 c  = mix(edgeHue, body, rib);
+    col   = mix(col, c, a);
     alpha = max(alpha, a);
   }
 
@@ -150,12 +162,13 @@ const fragmentShader = /* glsl */ `
     float aspect = uRes.x / max(uRes.y, 1.0);
     float t = uTime;
 
-    vec3 col = vec3(1.0);
+    vec3 col   = vec3(1.0);
     float alpha = 0.0;
 
-    // 뒤(얇고 은은) → 앞(굵고 선명) 순서로 합성
-    ribbon(uv, aspect, t, 0.62, 4.6, 2.4, 0.085, 11.0, col, alpha); // 보조 가닥
-    ribbon(uv, aspect, t, 0.44, 3.6, 0.0, 0.150, 0.0,  col, alpha); // 메인 가닥
+    // 얇은 보조 가닥 (먼저 → 뒤에 깔림)
+    ribbon(uv, aspect, t, 0.57, -0.55, 4.8, 2.6, 0.052, 17.0, col, alpha);
+    // 메인 가닥 (넓고 선명, 좌하→우상 45° 대각선)
+    ribbon(uv, aspect, t, 0.50, -0.55, 3.0, 0.0,  0.175, 0.0,  col, alpha);
 
     gl_FragColor = vec4(col, alpha);
   }
@@ -250,7 +263,7 @@ export default function VariantG() {
       </div>
 
       {/* 좌측 카피 가독용 화이트 스크림 */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-[52%] bg-gradient-to-r from-white via-white/85 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-[58%] bg-gradient-to-r from-white via-white/90 to-transparent" />
 
       {/* grain */}
       <div
@@ -261,9 +274,10 @@ export default function VariantG() {
         }}
       />
 
-      {/* ── 히어로 카피 (리본 위 좌측) ── */}
-      <div className="relative z-10 mx-auto flex min-h-[78vh] max-w-[1140px] flex-col justify-center px-6 pb-24">
-        <div className="max-w-xl">
+      {/* ── 히어로 (2-column: 카피 좌 / 데모 패널 우) ── */}
+      <div className="relative z-10 mx-auto flex min-h-[92vh] max-w-[1140px] items-center gap-8 px-6 py-20 lg:gap-16">
+        {/* ── 좌: 카피 ── */}
+        <div className="w-full flex-shrink-0 lg:w-[46%]">
           <motion.p
             {...rise(0.05)}
             className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em]"
@@ -334,6 +348,11 @@ export default function VariantG() {
               </div>
             ))}
           </motion.div>
+        </div>
+
+        {/* ── 우: 데모 패널 (데스크탑만) ── */}
+        <div className="hidden lg:flex lg:flex-1 lg:justify-center lg:items-center">
+          <MoltDemoPanel />
         </div>
       </div>
     </section>

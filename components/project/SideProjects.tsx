@@ -52,7 +52,10 @@ const SideProjects = () => {
           }}
           className="mb-12"
         >
-          <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: SLATE }}>More Work</span>
+          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "#7c5cef" }}>
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#7c5cef" }} />
+            More Work
+          </span>
           <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-5xl">사이드 프로젝트</h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed break-keep md:text-base" style={{ color: SLATE }}>
             업무 밖에서 직접 만들고 운영하며 검증한 작업들입니다.

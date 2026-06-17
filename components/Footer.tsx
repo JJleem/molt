@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Mail, Link as LinkIcon, ArrowUp } from "lucide-react";
+import SlantBg from "@/components/sections/SlantBg";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -13,8 +14,9 @@ const Footer = () => {
   return (
     <footer
       id="contact"
-      className="relative scroll-mt-20 overflow-hidden bg-[#0a2540] px-6 py-16 font-sans text-[#8898aa] md:px-12"
+      className="relative scroll-mt-20 overflow-hidden px-6 pb-16 pt-28 font-sans text-[#8898aa] md:px-12"
     >
+      <SlantBg color="#0a2540" top bottom={false} />
       {/* subtle blurple glow */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[700px] -translate-x-1/2 rounded-full bg-[#635bff]/[0.08] blur-[100px]" />
 

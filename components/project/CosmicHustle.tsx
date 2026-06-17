@@ -60,7 +60,10 @@ export default function CosmicHustle() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: SLATE }}>Flagship Project</span>
+          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "#0e9bb5" }}>
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#0e9bb5" }} />
+            Flagship Project
+          </span>
           <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-5xl">{c.title}</h2>
           <p className="mt-4 max-w-2xl text-lg font-light leading-snug" style={{ color: INK }}>{c.tagline}</p>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed break-keep" style={{ color: SLATE }}>{c.concept}</p>

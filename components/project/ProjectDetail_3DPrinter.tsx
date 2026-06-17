@@ -19,6 +19,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ProjectGallery from "@/components/ui/ProjectGallery";
 import { cHubGallery } from "@/content/galleries";
+import SlantBg from "@/components/sections/SlantBg";
 
 const INK = "#0a2540";
 const SLATE = "#425466";
@@ -147,12 +148,16 @@ const ProblemSolution = ({ title, context, solution, outcome }: ProblemSolutionP
 
 const ProjectDetail_CaseStudy = () => {
   return (
-    <section id="work" className="relative z-20 scroll-mt-16 overflow-hidden bg-[#f6f9fc] py-24 font-sans" style={{ color: INK }}>
+    <section id="work" className="relative z-20 scroll-mt-16 py-28 font-sans" style={{ color: INK }}>
+      <SlantBg color="#f6f9fc" top bottom />
 
-      <div className="max-w-[1140px] mx-auto px-6">
+      <div className="relative z-10 max-w-[1140px] mx-auto px-6">
         {/* ── 섹션 헤더 ── */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-          <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: SLATE }}>Work Experience</span>
+          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: BLURPLE }}>
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: BLURPLE }} />
+            Work Experience
+          </span>
           <h2 className="text-gradient mt-3 mb-6 text-4xl md:text-5xl font-bold tracking-tight">실무 경험</h2>
           <div className="flex items-center gap-2 mb-8">
             <span className="px-3 py-1 border border-[#e6ebf1] bg-white rounded-full text-xs font-medium flex items-center gap-1.5" style={{ color: SLATE }}>

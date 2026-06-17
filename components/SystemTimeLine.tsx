@@ -10,6 +10,7 @@ import {
   HardHat,
   School,
 } from "lucide-react";
+import SlantBg from "@/components/sections/SlantBg";
 
 const LOG_DATA = [
   {
@@ -106,11 +107,15 @@ const LOG_DATA = [
 
 const SystemTimeline = () => {
   return (
-    <section id="career" className="relative scroll-mt-16 min-h-screen bg-[#f6f9fc] w-full flex flex-col items-center text-[#0a2540] p-6 md:p-12 overflow-hidden">
+    <section id="career" className="relative scroll-mt-16 w-full flex flex-col items-center text-[#0a2540] px-6 py-28 md:px-12 overflow-hidden">
+      <SlantBg color="#f6f9fc" top={false} bottom />
 
-      <div className="flex flex-col items-center w-full">
+      <div className="relative z-10 flex flex-col items-center w-full">
         <div className="w-full max-w-5xl mb-12 px-1">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">Journey</span>
+          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "#c45c8a" }}>
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#c45c8a" }} />
+            Journey
+          </span>
           <h2 className="mt-3 text-4xl md:text-6xl font-bold text-resume-text-main tracking-tight">경력 &amp; 학력</h2>
         </div>
         <div className="w-full max-w-5xl relative pb-20 flex flex-col gap-6">
