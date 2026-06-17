@@ -243,7 +243,7 @@ export default function VariantG() {
   });
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-white" style={{ color: INK }}>
+    <section id="top" className="relative min-h-screen w-full overflow-hidden bg-white" style={{ color: INK }}>
       {/* ── molt 리본: 화면을 가로지르는 three.js (풀블리드) ── */}
       <div className="absolute inset-0 z-0">
         <MoltRibbon />
@@ -260,25 +260,6 @@ export default function VariantG() {
             "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
         }}
       />
-
-      {/* 상단 미니 네비 */}
-      <header className="relative z-20 mx-auto flex max-w-[1140px] items-center justify-between px-6 pt-7">
-        <span className="text-[15px] font-semibold tracking-tight" style={{ color: INK }}>
-          molt<span style={{ color: BLURPLE }}>.</span>
-        </span>
-        <nav className="hidden items-center gap-7 text-[13.5px] font-medium md:flex" style={{ color: SLATE }}>
-          <a className="transition-colors hover:text-[#0a2540]" href="#work">Work</a>
-          <a className="transition-colors hover:text-[#0a2540]" href="#system">System</a>
-          <a className="transition-colors hover:text-[#0a2540]" href="#about">About</a>
-          <a
-            className="rounded-full px-4 py-1.5 text-white shadow-sm transition-transform hover:-translate-y-px"
-            style={{ background: BLURPLE }}
-            href="#contact"
-          >
-            연락하기
-          </a>
-        </nav>
-      </header>
 
       {/* ── 히어로 카피 (리본 위 좌측) ── */}
       <div className="relative z-10 mx-auto flex min-h-[78vh] max-w-[1140px] flex-col justify-center px-6 pb-24">

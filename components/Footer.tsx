@@ -13,14 +13,14 @@ const Footer = () => {
   return (
     <footer
       id="contact"
-      className="relative scroll-mt-20 overflow-hidden bg-[#1a1714] px-6 py-16 font-sans text-stone-400 md:px-12"
+      className="relative scroll-mt-20 overflow-hidden bg-[#0a2540] px-6 py-16 font-sans text-[#8898aa] md:px-12"
     >
-      {/* 은은한 따뜻한 글로우 */}
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-stone-100/[0.06] blur-[120px]" />
+      {/* subtle blurple glow */}
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[700px] -translate-x-1/2 rounded-full bg-[#635bff]/[0.08] blur-[100px]" />
 
-      <div className="relative z-10 mx-auto flex max-w-4xl flex-col gap-10">
+      <div className="relative z-10 mx-auto flex max-w-[1140px] flex-col gap-10">
         <div className="flex flex-col items-center gap-8 text-center">
-          <p className="max-w-md text-2xl font-light leading-snug tracking-tight text-stone-100 md:text-3xl">
+          <p className="max-w-md text-2xl font-light leading-snug tracking-tight text-white md:text-3xl">
             함께 좋은 제품을 만들어요.
           </p>
 
@@ -51,7 +51,7 @@ const Footer = () => {
             <div className="mx-1 h-6 w-px bg-white/10" />
             <button
               onClick={scrollToTop}
-              className="group flex items-center justify-center rounded-full bg-stone-100 p-2.5 text-stone-900 shadow-lg transition-transform hover:-translate-y-0.5"
+              className="group flex items-center justify-center rounded-full bg-[#635bff] p-2.5 text-white shadow-lg transition-transform hover:-translate-y-0.5"
               title="맨 위로"
             >
               <ArrowUp size={18} className="transition-transform group-hover:-translate-y-0.5" />
@@ -59,7 +59,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs font-medium text-stone-500 md:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs font-medium text-[#8898aa] md:flex-row">
           <div className="flex items-center gap-2">
             <div className="relative h-6 w-6 overflow-hidden rounded-md bg-white/10">
               <Image src="/assets/molt.png" alt="molt logo" fill className="object-cover" />

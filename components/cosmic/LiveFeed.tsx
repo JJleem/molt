@@ -15,7 +15,7 @@ interface FeedPost {
 }
 
 const AGENT_MAP = Object.fromEntries(agents.map((a) => [a.id, a]));
-const GLASS = "border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_8px_30px_rgba(0,0,0,0.4)]";
+const GLASS = "border border-[#e6ebf1] bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)]";
 
 function relativeTime(iso: string): string {
   const then = new Date(iso).getTime();
@@ -46,10 +46,10 @@ export default function LiveFeed() {
   if (posts === null) {
     return (
       <div className={`mt-8 rounded-2xl p-5 ${GLASS}`}>
-        <div className="mb-4 h-4 w-44 animate-pulse rounded bg-white/[0.06]" />
+        <div className="mb-4 h-4 w-44 animate-pulse rounded bg-[#e6ebf1]" />
         <div className="space-y-3">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="h-5 w-full animate-pulse rounded bg-white/[0.03]" />
+            <div key={i} className="h-5 w-full animate-pulse rounded bg-[#f6f9fc]" />
           ))}
         </div>
       </div>
@@ -74,7 +74,7 @@ export default function LiveFeed() {
         <h4 className="text-sm font-bold text-resume-text-main">LIVE · 에이전트가 방금 발행한 글</h4>
       </div>
 
-      <ul className="divide-y divide-white/5">
+      <ul className="divide-y divide-[#e6ebf1]">
         {posts.map((post, i) => {
           const agent = AGENT_MAP[post.agentId];
           return (

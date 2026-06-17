@@ -10,7 +10,6 @@ import {
   HardHat,
   School,
 } from "lucide-react";
-import CosmicTexture from "@/components/ui/CosmicTexture";
 
 const LOG_DATA = [
   {
@@ -107,16 +106,15 @@ const LOG_DATA = [
 
 const SystemTimeline = () => {
   return (
-    <section id="career" className="relative scroll-mt-16 min-h-screen bg-resume-bg w-full flex flex-col items-center text-resume-text-main p-6 md:p-12 overflow-hidden">
-      <CosmicTexture />
+    <section id="career" className="relative scroll-mt-16 min-h-screen bg-[#f6f9fc] w-full flex flex-col items-center text-[#0a2540] p-6 md:p-12 overflow-hidden">
 
-      <div className="relative z-10 flex flex-col items-center text-resume-text-main p-0 md:p-12 w-full">
+      <div className="flex flex-col items-center w-full">
         <div className="w-full max-w-5xl mb-12 px-1">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-resume-text-sub">Journey</span>
           <h2 className="mt-3 text-4xl md:text-6xl font-bold text-resume-text-main tracking-tight">경력 &amp; 학력</h2>
         </div>
         <div className="w-full max-w-5xl relative pb-20 flex flex-col gap-6">
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/10 transform md:-translate-x-1/2"></div>
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-[#e6ebf1] transform md:-translate-x-1/2"></div>
 
           {LOG_DATA.map((item, index) => {
             const isEven = index % 2 === 0;
@@ -132,38 +130,38 @@ const SystemTimeline = () => {
               >
                 <div className="hidden md:block w-1/2" />
 
-                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-resume-bg border-4 border-resume-bg shadow-sm z-20 flex-shrink-0 flex justify-center items-center">
-                  <div className="w-[70%] h-[70%] rounded-full bg-resume-text-main relative">
-                    <p className="absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit whitespace-nowrap text-[10px] text-resume-bg bg-resume-text-main px-1 py-0.5 rounded-sm">
+                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#f6f9fc] border-4 border-[#f6f9fc] shadow-sm z-20 flex-shrink-0 flex justify-center items-center">
+                  <div className="w-[70%] h-[70%] rounded-full bg-[#635bff] relative">
+                    <p className="absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit whitespace-nowrap text-[10px] text-white bg-[#635bff] px-1 py-0.5 rounded-sm">
                       {item.date.split(" - ")[0]}
                     </p>
                   </div>
                 </div>
 
                 <div className={`w-full pl-16 md:pl-0 md:w-1/2 ${isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"}`}>
-                  <div className="group bg-white/[0.04] backdrop-blur-xl p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.35)] transition-all duration-300 border border-white/10 hover:border-white/10 relative flex flex-col gap-3">
+                  <div className="group bg-white p-4 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-all duration-300 border border-[#e6ebf1] hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] relative flex flex-col gap-3">
                     <div className={`flex flex-col gap-2 ${isEven ? "md:flex-row-reverse md:justify-between" : "md:flex-row md:justify-between"}`}>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[9px] font-bold text-resume-text-sub border border-white/10 px-3 py-1 rounded-full">
+                        <span className="text-[9px] font-bold text-[#425466] border border-[#e6ebf1] px-3 py-1 rounded-full">
                           {item.date}
                         </span>
                       </div>
-                      <div className={`flex items-center gap-2 text-[9px] font-medium text-resume-text-sub bg-white/[0.03] px-1.5 rounded-md w-fit ${isEven ? "ml-auto md:ml-0" : ""}`}>
-                        <span className={`h-2 w-2 rounded-full ${item.status === "ACTIVE" || item.status === "STABLE" ? "bg-emerald-400 animate-pulse" : "bg-resume-text-sub/40"}`} />
+                      <div className={`flex items-center gap-2 text-[9px] font-medium text-[#425466] bg-[#f6f9fc] px-1.5 rounded-md w-fit ${isEven ? "ml-auto md:ml-0" : ""}`}>
+                        <span className={`h-2 w-2 rounded-full ${item.status === "ACTIVE" || item.status === "STABLE" ? "bg-emerald-400 animate-pulse" : "bg-[#425466]/30"}`} />
                         {item.status}
                       </div>
                     </div>
 
-                    <h3 className={`text-[14px] font-bold text-resume-text-main flex items-center gap-2 ${isEven ? "md:flex-row-reverse" : ""}`}>
+                    <h3 className={`text-[14px] font-bold text-[#0a2540] flex items-center gap-2 ${isEven ? "md:flex-row-reverse" : ""}`}>
                       {item.icon}
                       {item.title}
                     </h3>
-                    <p className="text-[12px] text-resume-text-main/70 font-medium">{item.subtitle}</p>
-                    <p className="text-resume-text-sub text-[11px] leading-relaxed break-keep whitespace-normal">{item.desc}</p>
+                    <p className="text-[12px] text-[#0a2540]/70 font-medium">{item.subtitle}</p>
+                    <p className="text-[#425466] text-[11px] leading-relaxed break-keep whitespace-normal">{item.desc}</p>
 
                     <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
                       {item.tech.map((t) => (
-                        <span key={t} className="text-[9px] font-semibold text-resume-text-main border border-white/10 bg-resume-card px-2 py-1 rounded-full">{t}</span>
+                        <span key={t} className="text-[9px] font-semibold text-[#0a2540] border border-[#e6ebf1] bg-[#f6f9fc] px-2 py-1 rounded-full">{t}</span>
                       ))}
                     </div>
                   </div>

@@ -30,9 +30,9 @@ export default function LiveVisitorBadge() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="inline-flex items-center gap-4 px-4 py-2 bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-full shadow-sm hover:shadow hover:border-white/10 transition-all cursor-default"
+      className="inline-flex items-center gap-4 px-4 py-2 bg-[#f6f9fc] border border-[#e6ebf1] rounded-full shadow-sm hover:shadow transition-all cursor-default"
     >
-      <div className="flex items-center gap-2 pr-4 border-r border-white/10">
+      <div className="flex items-center gap-2 pr-4 border-r border-[#e6ebf1]">
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
