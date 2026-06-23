@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Github, ArrowUpRight } from "lucide-react";
+import { Github, ArrowUpRight, Check } from "lucide-react";
 import Link from "next/link";
 import { cosmicHustle } from "@/content/cosmic-hustle";
 import { localize } from "@/content/locale";
@@ -44,10 +44,22 @@ function CapabilityItem({ cap, index }: { cap: CapabilityCard; index: number }) 
   );
 }
 
+// stripe-3/4 체크리스트 아이템 — 체크 아이콘 + 텍스트.
+function CheckItem({ text }: { text: string }) {
+  return (
+    <li className="flex items-start gap-2.5 text-[14px] leading-relaxed break-keep" style={{ color: INK }}>
+      <Check size={16} strokeWidth={2.5} className="mt-0.5 flex-shrink-0" color={BLURPLE} />
+      {text}
+    </li>
+  );
+}
+
 export default function CosmicHustle() {
   const c = localize(cosmicHustle);
   const blogCaps = c.capabilities.filter((cap) => cap.group === "blog");
   const engineCaps = c.capabilities.filter((cap) => cap.group === "engine");
+  const orchestration = engineCaps.find((cap) => cap.id === "orchestration") ?? engineCaps[0];
+  const infra = engineCaps.find((cap) => cap.id === "infra") ?? engineCaps[1];
 
   return (
     <section id="cosmic-hustle" className="relative z-20 scroll-mt-16 overflow-hidden bg-white py-24" style={{ color: INK }}>
@@ -165,53 +177,108 @@ export default function CosmicHustle() {
           </div>
         </div>
 
-        {/* ── 멀티에이전트 리서치 엔진 — alt bg ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.5 }}
-          className="mt-16 rounded-3xl border border-[#e6ebf1] bg-[#f6f9fc] p-6 md:p-10"
-        >
-          <div className="mb-2 flex flex-wrap items-center gap-3">
-            <h3 className="text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>멀티에이전트 리서치 엔진</h3>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[11px] font-bold text-amber-700">
+        {/* ── 멀티에이전트 리서치 엔진 — stripe-3/4 스타일: 인트로 + 교차 피처 행 + How it works ── */}
+        <div className="mt-24 border-t border-[#e6ebf1] pt-16">
+          {/* 인트로: eyebrow + 큰 헤드라인 + 본문 (stripe-3 상단) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl"
+          >
+            <span className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: BLURPLE }}>
+              Core Engine
+            </span>
+            <h3 className="mt-3 text-3xl font-bold leading-[1.15] tracking-tight md:text-[40px]" style={{ color: INK }}>
+              11명이 역할을 나눠 협업하는<br className="hidden sm:block" /> 멀티에이전트 리서치 엔진
+            </h3>
+            <p className="mt-5 text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>
+              블로그를 떠받치는 기술 코어. CEO가 주제를 던지면 11명의 에이전트가 부서를 나눠 병렬로 리서치하는
+              인터랙티브 엔진으로, <span className="font-semibold" style={{ color: INK }}>기능 구현은 끝났고 배포 전</span>입니다.
+            </p>
+            <span className="mt-5 inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-[11px] font-bold text-amber-700">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400" /> 코어 기술 · 미배포
             </span>
-          </div>
-          <p className="mb-8 max-w-2xl text-sm leading-relaxed break-keep" style={{ color: SLATE }}>
-            블로그를 떠받치는 기술 코어. CEO가 주제를 던지면 11명이 역할을 나눠 협업하는 인터랙티브 리서치 엔진으로, 기능 구현은 끝났고 배포 전입니다.
-          </p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[5fr_7fr]">
-            {/* Left: 시각화 */}
-            <div className="flex flex-col gap-6">
-              <div className="flex justify-center">
-                <div className="w-full max-w-[340px]">
-                  <AgentConstellation />
-                </div>
-              </div>
-              <div className="rounded-2xl border border-[#e6ebf1] bg-white p-5">
-                <p className="mb-4 text-sm font-bold" style={{ color: INK }}>캐스트 — 3개 부서 11명</p>
-                <AgentCast />
-              </div>
+          {/* 피처 행 1: 텍스트 좌 / 별자리 우 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="mt-14 grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16"
+          >
+            <div>
+              <h4 className="text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>{orchestration.title}</h4>
+              <p className="mt-3 text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>{orchestration.desc}</p>
+              <ul className="mt-5 space-y-3">
+                {orchestration.points.map((pt, i) => <CheckItem key={i} text={pt} />)}
+              </ul>
             </div>
+            <div className="flex justify-center rounded-2xl border border-[#e6ebf1] bg-[#f6f9fc] p-6">
+              <div className="w-full max-w-[360px]"><AgentConstellation /></div>
+            </div>
+          </motion.div>
 
-            {/* Right: 내용 */}
-            <div className="flex flex-col gap-4">
+          {/* 피처 행 2: 캐스트 좌 / 텍스트 우 (교차, stripe-4) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="mt-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16"
+          >
+            <div className="order-2 rounded-2xl border border-[#e6ebf1] bg-white p-6 shadow-[0_2px_10px_rgba(0,0,0,0.05)] lg:order-1">
+              <p className="mb-4 text-sm font-bold" style={{ color: INK }}>캐스트 — 3개 부서 11명</p>
+              <AgentCast />
+            </div>
+            <div className="order-1 lg:order-2">
+              <h4 className="text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>{infra.title}</h4>
+              <p className="mt-3 text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>{infra.desc}</p>
+              <ul className="mt-5 space-y-3">
+                {infra.points.map((pt, i) => <CheckItem key={i} text={pt} />)}
+              </ul>
+            </div>
+          </motion.div>
+
+          {/* 엔진 화면 쇼케이스 — stripe-3/4 제품 비주얼 (사진 추가 예정) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.5 }}
+            className="mt-16"
+          >
+            <div className="mb-6 flex gap-3">
+              <span className="mt-1 w-[3px] flex-shrink-0 rounded-full" style={{ background: BLURPLE }} />
               <div>
-                {engineCaps.map((cap, i) => (
-                  <CapabilityItem key={cap.id} cap={cap} index={i + 1} />
-                ))}
-              </div>
-              <h4 className="mt-2 text-sm font-bold" style={{ color: INK }}>엔진 파이프라인</h4>
-              <PipelineDiagram steps={c.pipeline} />
-              <div className="mt-4">
-                <ProjectGallery gallery={engineGallery} />
+                <p className="text-sm font-bold" style={{ color: INK }}>엔진 화면</p>
+                <p className="mt-1 max-w-xl text-sm leading-relaxed break-keep" style={{ color: SLATE }}>
+                  CEO 콘솔 · 실시간 스트리밍 · 리서치 리포트 · 아키텍처 도식.
+                </p>
               </div>
             </div>
+            <ProjectGallery gallery={engineGallery} />
+          </motion.div>
+
+          {/* How it works: 파이프라인 — stripe-4 세로 바 라벨 */}
+          <div className="mt-16">
+            <div className="flex gap-3">
+              <span className="mt-1 w-[3px] flex-shrink-0 rounded-full" style={{ background: BLURPLE }} />
+              <div>
+                <p className="text-sm font-bold" style={{ color: INK }}>엔진 파이프라인</p>
+                <p className="mt-1 max-w-xl text-sm leading-relaxed break-keep" style={{ color: SLATE }}>
+                  CEO가 주제를 던지면 플랜 → 병렬 리서치 → 분석 → 작성 → 팩트체크 → 지식 누적의 6단계로 흐릅니다.
+                </p>
+              </div>
+            </div>
+            <div className="mt-6">
+              <PipelineDiagram steps={c.pipeline} />
+            </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* 기술 스택 */}
         <div className="mt-12 border-t border-[#e6ebf1] pt-8">

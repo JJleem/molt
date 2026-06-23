@@ -9,6 +9,32 @@ import type { Gallery } from "./types";
 //   · Cosmic 엔진   :  public/assets/cosmic/engine-*.png · architecture.png
 //   · C-HUB(실무)   :  public/assets/projects/c-hub/01.png ~ 05.png
 
+// ===== 📱 C-HUB — 모바일 앱 (앱화, 개발 마무리) =====
+export const cHubMobileGallery: Gallery = {
+  accent: "#f59e0b", // amber — 개발 중
+  ratio: "aspect-[9/16]",
+  slides: [
+    {
+      src: "/assets/projects/c-hub/mobile-01.png",
+      alt: "모바일 앱 — 통합 관제 대시보드",
+      caption: "모바일 관제 — 현장에서 폰으로 장비 상태를 한눈에",
+      hint: "앱 메인/대시보드 화면 · projects/c-hub/mobile-01.png",
+    },
+    {
+      src: "/assets/projects/c-hub/mobile-02.png",
+      alt: "모바일 앱 — 실시간 장비 제어",
+      caption: "실시간 제어 — 폰에서 바로 장비를 시작·정지",
+      hint: "장비 제어 화면 · mobile-02.png",
+    },
+    {
+      src: "/assets/projects/c-hub/mobile-03.png",
+      alt: "모바일 앱 — 푸시 알림",
+      caption: "푸시 알림 — 이상 발생 시 즉시 알림",
+      hint: "알림/모니터링 화면 · mobile-03.png",
+    },
+  ],
+};
+
 // ===== 🌟 Cosmic Hustle — AI 블로그 (배포 제품) =====
 export const blogGallery: Gallery = {
   accent: "#10b981", // emerald — 운영 중

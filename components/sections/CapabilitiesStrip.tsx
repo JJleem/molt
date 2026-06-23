@@ -49,10 +49,12 @@ function tint(hex: string) {
 
 export default function CapabilitiesStrip() {
   // 배경 시트는 부모 래퍼(page.tsx)가 한 장으로 그림 → 여기는 투명. features는 시트 아래에 오도록 pt 확보.
+  // 레이아웃: stripe-2 4-피처 밴드 = 아이콘 + (컬러 세로 바 + 타이틀) + 설명. 컬럼 사이 옅은 세로 구분선.
   return (
     <section className="relative z-20 bg-transparent pb-20 pt-[240px] md:pt-[330px]" style={{ color: INK }}>
       <div className="relative mx-auto max-w-[1140px] px-6">
-        <div className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {/* lg(4컬럼 한 줄)에서만 컬럼 사이 옅은 세로 구분선 — stripe-2의 '장부' 느낌 */}
+        <div className="grid grid-cols-1 gap-x-0 gap-y-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4 lg:gap-x-0">
           {CAPS.map((cap, i) => {
             const Icon = cap.icon;
             return (
@@ -62,8 +64,7 @@ export default function CapabilitiesStrip() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="relative border-t-2 pt-5"
-                style={{ borderColor: cap.accent }}
+                className="relative lg:px-7 lg:[&:nth-child(n+2)]:border-l lg:[&:nth-child(n+2)]:border-[#e6ebf1] lg:[&:first-child]:pl-0"
               >
                 <span
                   className="inline-flex h-9 w-9 items-center justify-center rounded-xl"
@@ -71,16 +72,25 @@ export default function CapabilitiesStrip() {
                 >
                   <Icon size={18} />
                 </span>
-                <p
-                  className="mt-4 text-[11px] font-bold uppercase tracking-[0.16em]"
-                  style={{ color: cap.accent }}
-                >
-                  {cap.eyebrow}
-                </p>
-                <h3 className="mt-1.5 text-[18px] font-bold tracking-tight" style={{ color: INK }}>
-                  {cap.title}
-                </h3>
-                <p className="mt-2 text-[14px] leading-relaxed break-keep" style={{ color: SLATE }}>
+                {/* 컬러 세로 바 + eyebrow/타이틀 — stripe-2 시그니처 */}
+                <div className="mt-4 flex gap-3">
+                  <span
+                    className="mt-0.5 w-[3px] flex-shrink-0 rounded-full"
+                    style={{ background: cap.accent }}
+                  />
+                  <div>
+                    <p
+                      className="text-[11px] font-bold uppercase tracking-[0.16em]"
+                      style={{ color: cap.accent }}
+                    >
+                      {cap.eyebrow}
+                    </p>
+                    <h3 className="mt-1 text-[18px] font-bold tracking-tight" style={{ color: INK }}>
+                      {cap.title}
+                    </h3>
+                  </div>
+                </div>
+                <p className="mt-3 text-[14px] leading-relaxed break-keep" style={{ color: SLATE }}>
                   {cap.desc}
                 </p>
               </motion.div>
