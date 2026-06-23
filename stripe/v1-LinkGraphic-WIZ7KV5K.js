@@ -1,0 +1,1 @@
+import{a}from"./v1-chunk-4Q7ZI5NX.js";import{b as r,c as t}from"./v1-chunk-PFBEA3NA.js";import{j as o}from"./v1-chunk-KWARAS4N.js";var e=class extends r{connect(){return o(this,null,function*(){new a({el:this.el,keyframes:[{opacity:"0"},{opacity:"1"}],duration:200}).play()})}};t.register("LinkPaymentMethodGraphic",e);
