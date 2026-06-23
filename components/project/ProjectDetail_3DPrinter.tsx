@@ -98,11 +98,18 @@ const ProjectDetail_CaseStudy = () => {
   return (
     <section id="work" className="relative z-20 scroll-mt-16 overflow-hidden py-28 font-sans" style={{ color: ONDARK }}>
       <SlantBg color={BG} top bottom />
+      {/* 오른쪽 상단 모서리 — 히어로 띠 색의 소프트 코너 글로우(고급 무드).
+          SlantBg(size 72)와 동일한 사선으로 클립 → 경사선 위로 새어나가지 않음. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-16 top-10 z-[1] h-7 w-80 rotate-[-9deg] rounded-full opacity-80 blur-[1px]"
-        style={{ background: "linear-gradient(90deg,#0d9488 0%,#14b8a6 45%,#34d399 100%)" }}
-      />
+        className="pointer-events-none absolute inset-0 z-[1] overflow-hidden"
+        style={{ clipPath: "polygon(0 72px, 100% 0, 100% calc(100% - 72px), 0 100%)" }}
+      >
+        <div
+          className="absolute -right-40 -top-[52px] h-[520px] w-[520px] rounded-full opacity-60 blur-[120px]"
+          style={{ background: "radial-gradient(circle, rgba(45,212,191,0.55) 0%, rgba(13,148,136,0.28) 42%, transparent 72%)" }}
+        />
+      </div>
 
       <div className="relative z-10 max-w-[1140px] mx-auto px-6">
         {/* ── 섹션 헤더 (CosmicHustle 헤더 구조) ── */}
@@ -249,6 +256,67 @@ const ProjectDetail_CaseStudy = () => {
             ))}
           </div>
         </div>
+
+        {/* ── 이전 실무 — (주)미디어그룹 사람과숲 · 골프 지오펜싱 앱 (압축 블록) ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}
+          className="mt-20 border-t border-white/10 pt-12"
+        >
+          <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "#67e8f9" }}>Previously</span>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <span className="h-2.5 w-2.5 rounded-full bg-cyan-400" />
+            <h3 className="text-2xl font-bold tracking-tight md:text-3xl" style={{ color: ONDARK }}>골프장 지오펜싱 자동 체크인 앱</h3>
+            <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2.5 py-1 text-xs font-bold text-cyan-300">POC</span>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-[5fr_7fr]">
+            {/* Left: 로고 + 메타 + 설명 + 팀 */}
+            <div className="flex flex-col">
+              <div className="w-fit rounded-lg bg-white px-3 py-1.5">
+                <Image src="/assets/hf.png" alt="사람과숲 logo" width={100} height={30} />
+              </div>
+              <p className="mt-4 text-sm" style={{ color: ONDARK_SUB }}>
+                <span className="font-bold" style={{ color: ONDARK }}>(주)미디어그룹 사람과숲</span> · 프론트엔드 개발자
+              </p>
+              <div className="mt-3">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-medium" style={{ color: ONDARK_SUB }}>
+                  <Calendar size={12} /> 2024.09 - 2025.01
+                </span>
+              </div>
+              <p className="mt-5 text-[15px] leading-relaxed break-keep" style={{ color: ONDARK_SUB }}>
+                골프장 내장객 위치를 실시간 추적해 <span className="font-semibold" style={{ color: ONDARK }}>지오펜싱 기반 자동 체크인/아웃</span>을
+                처리하는 모바일 앱 POC. JS 환경의 한계를 넘어 정밀한 위치 추적을 위해 Android 네이티브 모듈을 직접 연동했습니다.
+              </p>
+
+              {/* 팀/오너십 카드 */}
+              <div className={`mt-6 rounded-2xl p-5 ${CARD} flex flex-col gap-2`}>
+                <div className="flex items-center gap-2">
+                  <Users size={14} style={{ color: SLATE }} />
+                  <span className="text-xs font-bold" style={{ color: INK }}>Backend 2 + Frontend 1 <span style={{ color: BLURPLE }}>(Me)</span></span>
+                </div>
+                <p className="text-[12px]" style={{ color: SLATE }}>디자인(100%) + 퍼블리싱(100%) + 프론트엔드(100%)</p>
+              </div>
+            </div>
+
+            {/* Right: 핵심 성과 + 기술 */}
+            <div className="flex flex-col">
+              <ul className="space-y-3">
+                <CheckItem text="Android 네이티브 모듈 직접 구현 + NativeEventEmitter 양방향 브리지로 위·경도·속도 실시간 파싱" />
+                <CheckItem text="지오펜싱 트리거 반응 속도 최적화 → JS 스레드 부하 최소화" />
+                <CheckItem text="GPS·세션·예약 도메인을 Recoil Atom으로 분리, Selector로 고빈도 위치 데이터의 렌더링 주기 제어" />
+                <CheckItem text="Long-press + Haptic 예약 삭제, One-Step 예약 확정 흐름으로 오작동 방지·이탈률 감소" />
+              </ul>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {["React Native", "TypeScript", "Recoil", "Android Native Module", "Native Bridge", "Styled-Components"].map((t) => (
+                  <span key={t} className="rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-xs font-semibold" style={{ color: ONDARK_SUB }}>{t}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

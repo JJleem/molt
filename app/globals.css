@@ -95,3 +95,12 @@ body {
   .hero-sheet { animation: none; }
   .hero-sheet-blob { animation: none !important; }
 }
+
+/* 가로 슬라이드 스크롤바 숨김 */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
