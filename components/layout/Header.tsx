@@ -18,7 +18,7 @@ export default function Header() {
           href="#top"
           className="text-[15px] font-bold tracking-tight text-[#0a2540]"
         >
-          molt<span className="text-[#635bff]">.</span>
+          molt<span className="text-[#0d9488]">.</span>
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
@@ -26,14 +26,14 @@ export default function Header() {
             <Link
               key={n.href}
               href={n.href}
-              className="text-[13.5px] font-medium text-[#425466] transition-colors hover:text-[#0a2540]"
+              className="text-[14px] font-medium text-[#425466] transition-colors hover:text-[#0a2540]"
             >
               {n.label}
             </Link>
           ))}
           <Link
             href="#contact"
-            className="rounded-full bg-[#635bff] px-4 py-1.5 text-[13px] font-semibold text-white shadow-sm transition-transform hover:-translate-y-px"
+            className="rounded-full bg-[#0d9488] px-4 py-1.5 text-[13px] font-semibold text-white shadow-sm transition-transform hover:-translate-y-px"
           >
             연락하기
           </Link>

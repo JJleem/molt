@@ -2,175 +2,98 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  Briefcase,
-  Code2,
-  GraduationCap,
-  BookOpen,
-  HardHat,
-  School,
-} from "lucide-react";
 import SlantBg from "@/components/sections/SlantBg";
 
-const LOG_DATA = [
-  {
-    id: "EDU-2026",
-    date: "2026.03 - Scheduled",
-    title: "한양사이버대학교",
-    subtitle: "컴퓨터공학과 (3학년 편입)",
-    desc: "프론트엔드 실무를 넘어 컴퓨터 공학(CS) 기초를 탄탄히 다지기 위해 편입했습니다. 자료구조, 운영체제, 알고리즘 등 소프트웨어 엔지니어링의 본질적인 역량을 강화하고 있습니다.",
-    tech: ["CS Theory", "Algorithm", "Architecture"],
-    status: "ACTIVE",
-    icon: <GraduationCap className="w-5 h-5 text-resume-text-sub" />,
-  },
-  {
-    id: "WORK-2025",
-    date: "2025.01 - Current",
-    title: "(주)캐리마",
-    subtitle: "프론트엔드 개발자 (C-HUB V2.0)",
-    desc: "산업용 3D 프린터 통합 관제 솔루션 'C-Hub'의 프론트엔드 전체 사이클(기획·디자인·개발)을 리딩하며 구축했습니다. 이기종 장비의 대량 센서 데이터를 웹소켓으로 실시간 연동하고 상태 동기화 지연율을 1초 미만으로 단축하여 GS인증 1등급 획득에 기여했습니다.",
-    tech: ["React", "TypeScript", "Recoil", "WebSocket", "TanStack Query"],
-    status: "ACTIVE",
-    icon: <Code2 className="w-5 h-5 text-resume-text-sub" />,
-  },
-  {
-    id: "WORK-2024",
-    date: "2024.09 - 2025.01",
-    title: "(주)미디어그룹 사람과숲",
-    subtitle: "프론트엔드 개발자 (Golf Course Geofencing App)",
-    desc: "골프장 내장객 위치 추적 및 지오펜싱 기반 자동 체크인 모바일 앱 POC를 개발했습니다. React Native 환경에서 Android 네이티브 모듈을 브릿지하여 정밀한 위치 데이터 파싱과 상태 관리를 구현했습니다.",
-    tech: ["React Native", "TypeScript", "Android Native", "Recoil"],
-    status: "STABLE",
-    icon: <Code2 className="w-5 h-5 text-resume-text-sub" />,
-  },
-  {
-    id: "EDU-2024-07",
-    date: "2024.07 - 2024.08",
-    title: "서울형 뉴딜 일자리사업",
-    subtitle: "모던 웹 풀스택 개발자 실무 프로젝트",
-    desc: "기업 현장에 즉시 투입 가능한 실무형 인재 양성 과정입니다. React와 Node.js를 활용한 풀스택 프로젝트를 수행하며, 협업 툴(Jira, Git) 활용 및 애자일 프로세스를 경험했습니다.",
-    tech: ["React", "Node.js", "Agile", "Jira"],
-    status: "DONE",
-    icon: <BookOpen className="w-5 h-5 text-resume-text-sub" />,
-  },
-  {
-    id: "EDU-2023",
-    date: "2023.12 - 2024.06",
-    title: "이젠아카데미DX교육센터",
-    subtitle: "스마트 웹콘텐츠 UI/UX 퍼블리셔 & 프론트엔드",
-    desc: "웹 표준과 접근성을 준수하는 UI/UX 퍼블리싱부터 JavaScript/React 프론트엔드 코어 기술까지, 개발자로서 필요한 전반적인 베이스를 6개월간 집중적으로 학습했습니다.",
-    tech: ["HTML/CSS", "JavaScript", "React", "UI/UX"],
-    status: "DONE",
-    icon: <BookOpen className="w-5 h-5 text-resume-text-sub" />,
-  },
-  {
-    id: "WORK-2022",
-    date: "2022.10 - 2024.01",
-    title: "(주)미디어그룹 사람과숲",
-    subtitle: "IT 영업지원 & 프로젝트 관리",
-    desc: "배송 로봇 데이터 사업의 관리를 수행하였고, 이후 IT 영업지원으로 제안서를 작성해 NIA 국회 정보 개방 등 공공 사업을 수주하였습니다.",
-    tech: ["Project Management", "Bidding", "Business Cycle"],
-    status: "DONE",
-    icon: <Briefcase className="w-5 h-5 text-resume-text-sub" />,
-  },
-  {
-    id: "WORK-2020",
-    date: "2020.10 - 2022.02",
-    title: "영전엔지니어링",
-    subtitle: "삼성반도체 현장 전기공사 (팀 리더)",
-    desc: "평택 삼성반도체 건설 현장에서 1년 만에 팀 리더로 승진했습니다. 복잡한 도면 해석과 현장의 오차 없는 시공 경험은 현재 개발자로서 꼼꼼한 로직 설계와 강한 책임감의 든든한 원천이 되었습니다.",
-    tech: ["Leadership", "Safety First", "Ownership"],
-    status: "DONE",
-    icon: <HardHat className="w-5 h-5 text-resume-text-sub" />,
-  },
-  {
-    id: "EDU-2017",
-    date: "2017.03 - 2021.02",
-    title: "인천폴리텍대학교",
-    subtitle: "정보통신학과 (졸업)",
-    desc: "네트워크, 통신 프로토콜에 대한 기초 이해를 쌓았습니다. 하드웨어와 소프트웨어의 연결 구조를 이해하는 데 큰 도움이 되었습니다.",
-    tech: ["Network", "Communication", "Hardware"],
-    status: "DONE",
-    icon: <GraduationCap className="w-5 h-5 text-resume-text-sub" />,
-  },
-  {
-    id: "EDU-2014",
-    date: "2014.03 - 2017.02",
-    title: "신도림고등학교",
-    subtitle: "인문계 (졸업)",
-    desc: "성실하게 교과 과정을 이수하며 졸업했습니다.",
-    tech: ["High School"],
-    status: "DONE",
-    icon: <School className="w-5 h-5 text-resume-text-sub" />,
-  },
+const INK = "#0a2540";
+const SLATE = "#425466";
+const TEAL = "#0d9488";
+const AMBER = "#f59e0b";
+
+type Entry = {
+  period: string; // 정확한 기간 (YYYY.MM — YYYY.MM)
+  org: string;
+  role: string;
+  type: "WORK" | "EDU";
+  current?: boolean; // 진행 중(현직·재학) — 하이라이트 행
+};
+
+// 역순(최신 → 과거). 고등학교는 신호가 약해 제외.
+const CAREER: Entry[] = [
+  { period: "2026.03 — 재학", org: "한양사이버대학교", role: "컴퓨터공학과 · 3학년 편입", type: "EDU", current: true },
+  { period: "2025.01 — 현재", org: "(주)캐리마", role: "프론트엔드 · C-HUB V2.0 (산업용 3D프린터 관제)", type: "WORK", current: true },
+  { period: "2024.09 — 2025.01", org: "(주)미디어그룹 사람과숲", role: "프론트엔드 · 골프 지오펜싱 앱 (React Native)", type: "WORK" },
+  { period: "2024.07 — 2024.08", org: "서울형 뉴딜 일자리사업", role: "모던 웹 풀스택 실무 프로젝트", type: "EDU" },
+  { period: "2023.12 — 2024.06", org: "이젠아카데미 DX교육센터", role: "스마트 웹콘텐츠 UI/UX · 프론트엔드", type: "EDU" },
+  { period: "2022.10 — 2024.01", org: "(주)미디어그룹 사람과숲", role: "IT 영업지원 · 프로젝트 관리", type: "WORK" },
+  { period: "2020.10 — 2022.02", org: "영전엔지니어링", role: "삼성반도체 현장 전기공사 · 팀 리더", type: "WORK" },
+  { period: "2017.03 — 2021.02", org: "인천폴리텍대학교", role: "정보통신학과 (졸업)", type: "EDU" },
 ];
 
 const SystemTimeline = () => {
   return (
-    <section id="career" className="relative scroll-mt-16 w-full flex flex-col items-center text-[#0a2540] px-6 py-28 md:px-12 overflow-hidden">
+    <section
+      id="career"
+      className="relative scroll-mt-16 w-full overflow-hidden px-6 py-28 md:px-12"
+      style={{ color: INK }}
+    >
       <SlantBg color="#f6f9fc" top={false} bottom />
 
-      <div className="relative z-10 flex flex-col items-center w-full">
-        <div className="w-full max-w-5xl mb-12 px-1">
-          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "#c45c8a" }}>
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#c45c8a" }} />
+      <div className="relative z-10 mx-auto w-full max-w-3xl">
+        <div className="mb-10">
+          <span
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]"
+            style={{ color: AMBER }}
+          >
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: AMBER }} />
             Journey
           </span>
-          <h2 className="mt-3 text-4xl md:text-6xl font-bold text-resume-text-main tracking-tight">경력 &amp; 학력</h2>
+          <h2 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl" style={{ color: INK }}>
+            경력 &amp; 학력
+          </h2>
         </div>
-        <div className="w-full max-w-5xl relative pb-20 flex flex-col gap-6">
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-[#e6ebf1] transform md:-translate-x-1/2"></div>
 
-          {LOG_DATA.map((item, index) => {
-            const isEven = index % 2 === 0;
-
+        <div className="overflow-hidden rounded-2xl border border-[#e6ebf1] bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+          {CAREER.map((e, i) => {
+            const isWork = e.type === "WORK";
             return (
               <motion.div
-                key={item.id}
-                initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative flex items-center w-full ${isEven ? "md:flex-row-reverse" : ""}`}
+                key={`${e.period}-${e.org}-${i}`}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className={`flex items-center gap-3.5 px-5 py-4 transition-colors hover:bg-[#f6f9fc] md:gap-6 md:px-6 ${
+                  i ? "border-t border-[#eef1f5]" : ""
+                } ${e.current ? "bg-[#0d9488]/[0.04]" : ""}`}
               >
-                <div className="hidden md:block w-1/2" />
+                {/* 기간 */}
+                <span
+                  className="w-[108px] shrink-0 whitespace-nowrap text-[11.5px] font-semibold tabular-nums md:w-[126px] md:text-[12.5px]"
+                  style={{ color: e.current ? TEAL : "#64748b" }}
+                >
+                  {e.period}
+                </span>
 
-                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#f6f9fc] border-4 border-[#f6f9fc] shadow-sm z-20 flex-shrink-0 flex justify-center items-center">
-                  <div className="w-[70%] h-[70%] rounded-full bg-[#635bff] relative">
-                    <p className="absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit whitespace-nowrap text-[10px] text-white bg-[#635bff] px-1 py-0.5 rounded-sm">
-                      {item.date.split(" - ")[0]}
-                    </p>
-                  </div>
+                {/* 본문 */}
+                <div className="min-w-0 flex-1">
+                  <span className="text-[15px] font-bold tracking-tight" style={{ color: INK }}>
+                    {e.org}
+                  </span>
+                  <p className="mt-0.5 text-[13px] leading-snug break-keep" style={{ color: SLATE }}>
+                    {e.role}
+                  </p>
                 </div>
 
-                <div className={`w-full pl-16 md:pl-0 md:w-1/2 ${isEven ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"}`}>
-                  <div className="group bg-white p-4 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-all duration-300 border border-[#e6ebf1] hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] relative flex flex-col gap-3">
-                    <div className={`flex flex-col gap-2 ${isEven ? "md:flex-row-reverse md:justify-between" : "md:flex-row md:justify-between"}`}>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[9px] font-bold text-[#425466] border border-[#e6ebf1] px-3 py-1 rounded-full">
-                          {item.date}
-                        </span>
-                      </div>
-                      <div className={`flex items-center gap-2 text-[9px] font-medium text-[#425466] bg-[#f6f9fc] px-1.5 rounded-md w-fit ${isEven ? "ml-auto md:ml-0" : ""}`}>
-                        <span className={`h-2 w-2 rounded-full ${item.status === "ACTIVE" || item.status === "STABLE" ? "bg-emerald-400 animate-pulse" : "bg-[#425466]/30"}`} />
-                        {item.status}
-                      </div>
-                    </div>
-
-                    <h3 className={`text-[14px] font-bold text-[#0a2540] flex items-center gap-2 ${isEven ? "md:flex-row-reverse" : ""}`}>
-                      {item.icon}
-                      {item.title}
-                    </h3>
-                    <p className="text-[12px] text-[#0a2540]/70 font-medium">{item.subtitle}</p>
-                    <p className="text-[#425466] text-[11px] leading-relaxed break-keep whitespace-normal">{item.desc}</p>
-
-                    <div className={`flex flex-wrap gap-2 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
-                      {item.tech.map((t) => (
-                        <span key={t} className="text-[9px] font-semibold text-[#0a2540] border border-[#e6ebf1] bg-[#f6f9fc] px-2 py-1 rounded-full">{t}</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                {/* WORK / EDU 태그 */}
+                <span
+                  className="shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider"
+                  style={{
+                    color: isWork ? "#0f766e" : "#b45309",
+                    background: isWork ? "#0d948814" : "#f59e0b14",
+                  }}
+                >
+                  {e.type}
+                </span>
               </motion.div>
             );
           })}

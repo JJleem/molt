@@ -8,7 +8,7 @@ import { ArrowRight, Github } from "lucide-react";
 
 const INK = "#0a2540";
 const SLATE = "#425466";
-const BLURPLE = "#635bff";
+const BLURPLE = "#0d9488";
 
 export default function FinalCTA() {
   return (
@@ -19,7 +19,7 @@ export default function FinalCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.55 }}
-          className="max-w-2xl"
+          className="mx-auto max-w-2xl text-center"
         >
           <p
             className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]"
@@ -33,15 +33,15 @@ export default function FinalCTA() {
             <br />
             찾고 계신가요?
           </h2>
-          <p className="mt-5 max-w-xl text-[17px] leading-relaxed break-keep" style={{ color: SLATE }}>
+          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed break-keep" style={{ color: SLATE }}>
             프론트엔드부터 AI 시스템까지 — 다음 탈피를 함께 만들 팀을 찾고 있습니다.
             편하게 연락 주세요.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-4">
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold text-white shadow-[0_8px_22px_-6px_rgba(99,91,255,0.6)] transition-transform hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold text-white shadow-[0_8px_22px_-6px_rgba(13,148,136,0.6)] transition-transform hover:-translate-y-0.5"
               style={{ background: BLURPLE }}
             >
               연락하기

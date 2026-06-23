@@ -19,7 +19,7 @@ import { localize } from "@/content/locale";
 
 const INK = "#0a2540";
 const SLATE = "#425466";
-const BLURPLE = "#635bff";
+const BLURPLE = "#0d9488";
 
 const ICONS: Record<string, LucideIcon> = {
   CloudLightning,
@@ -52,8 +52,8 @@ const SideProjects = () => {
           }}
           className="mb-12"
         >
-          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "#7c5cef" }}>
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#7c5cef" }} />
+          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "#10b981" }}>
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#10b981" }} />
             More Work
           </span>
           <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-5xl">사이드 프로젝트</h2>
@@ -62,7 +62,7 @@ const SideProjects = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:[&>*:last-child:nth-child(odd)]:col-span-2">
           {projects.map((project, index) => {
             const Icon = ICONS[project.iconName] ?? TerminalSquare;
             return (
@@ -92,12 +92,12 @@ const SideProjects = () => {
                         <h3 className="text-lg font-bold leading-tight tracking-tight" style={{ color: INK }}>{project.title}</h3>
                         <div className="ml-1 flex items-center gap-1">
                           {project.github && (
-                            <Link href={project.github} target="_blank" className="p-1 transition-colors hover:text-[#635bff]" style={{ color: SLATE }} title="View Github Repo">
+                            <Link href={project.github} target="_blank" className="p-1 transition-colors hover:text-[#0d9488]" style={{ color: SLATE }} title="View Github Repo">
                               <Github size={16} />
                             </Link>
                           )}
                           {project.link && (
-                            <Link href={project.link} target="_blank" className="p-1 transition-colors hover:text-[#635bff]" style={{ color: SLATE }} title="Visit Live Site">
+                            <Link href={project.link} target="_blank" className="p-1 transition-colors hover:text-[#0d9488]" style={{ color: SLATE }} title="Visit Live Site">
                               <ExternalLink size={16} />
                             </Link>
                           )}

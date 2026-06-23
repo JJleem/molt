@@ -51,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <head>
         {/* ✨ 2. 구글 애널리틱스 데이터 수집 스크립트 추가 */}
         <Script

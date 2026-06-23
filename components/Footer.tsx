@@ -18,7 +18,7 @@ const Footer = () => {
     >
       <SlantBg color="#0a2540" top bottom={false} />
       {/* subtle blurple glow */}
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[700px] -translate-x-1/2 rounded-full bg-[#635bff]/[0.08] blur-[100px]" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[700px] -translate-x-1/2 rounded-full bg-[#0d9488]/[0.08] blur-[100px]" />
 
       <div className="relative z-10 mx-auto flex max-w-[1140px] flex-col gap-10">
         <div className="flex flex-col items-center gap-8 text-center">
@@ -53,7 +53,7 @@ const Footer = () => {
             <div className="mx-1 h-6 w-px bg-white/10" />
             <button
               onClick={scrollToTop}
-              className="group flex items-center justify-center rounded-full bg-[#635bff] p-2.5 text-white shadow-lg transition-transform hover:-translate-y-0.5"
+              className="group flex items-center justify-center rounded-full bg-[#0d9488] p-2.5 text-white shadow-lg transition-transform hover:-translate-y-0.5"
               title="맨 위로"
             >
               <ArrowUp size={18} className="transition-transform group-hover:-translate-y-0.5" />

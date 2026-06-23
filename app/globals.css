@@ -2,12 +2,13 @@
 
 @theme {
   --font-sans: var(--font-pretendard), ui-sans-serif, system-ui, sans-serif;
-  /* Stripe-inspired white theme — ink navy + blurple accent */
+  /* White theme — ink navy + deep teal/emerald (molt: 성장·탈피), amber accent */
   --color-resume-bg: #ffffff;
   --color-resume-card: #f6f9fc;
-  --color-resume-primary: #635bff;
+  --color-resume-primary: #0d9488;
   --color-resume-secondary: #0a2540;
-  --color-resume-accent-purple: #7a73ff;
+  --color-resume-accent-teal: #14b8a6;
+  --color-resume-accent-amber: #f59e0b;
   --color-resume-text-main: #0a2540;
   --color-resume-text-sub: #425466;
   --color-resume-badge-bg: #eef0f3;
@@ -26,19 +27,19 @@ body {
 }
 
 ::selection {
-  background-color: rgba(99, 91, 255, 0.15);
+  background-color: rgba(13, 148, 136, 0.15);
 }
 
-/* 헤딩 그라데이션 — blurple → ink navy */
+/* 헤딩 그라데이션 — teal → ink navy */
 .text-gradient {
-  background-image: linear-gradient(135deg, #635bff 0%, #0a2540 100%);
+  background-image: linear-gradient(135deg, #0d9488 0%, #0a2540 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .text-gradient-dim {
-  background-image: linear-gradient(135deg, #7a73ff 0%, #425466 100%);
+  background-image: linear-gradient(135deg, #14b8a6 0%, #425466 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -58,4 +59,39 @@ body {
   .aurora {
     animation: none;
   }
+}
+
+/* ── 히어로 시트: Stripe식 메시 그라데이션 ──
+   4색 블롭이 아주 천천히 떠다니며 섞임 + 진입 시 우아하게 페이드인 (순수 CSS) */
+@keyframes mesh-a { 0%,100%{transform:translate3d(0,0,0) scale(1.1);} 50%{transform:translate3d(7%,5%,0) scale(1.25);} }
+@keyframes mesh-b { 0%,100%{transform:translate3d(0,0,0) scale(1.2);} 50%{transform:translate3d(-9%,4%,0) scale(1.05);} }
+@keyframes mesh-c { 0%,100%{transform:translate3d(0,0,0) scale(1);} 50%{transform:translate3d(6%,-7%,0) scale(1.2);} }
+@keyframes mesh-d { 0%,100%{transform:translate3d(0,0,0) scale(1.15);} 50%{transform:translate3d(-5%,-6%,0) scale(1.32);} }
+@keyframes sheet-fade-in { from{opacity:0;} to{opacity:1;} }
+
+.hero-sheet { animation: sheet-fade-in 1.4s ease-out both; }
+
+/* Hero SVG animation — 폼 필드 선 그리기 */
+@keyframes hero-draw { to { stroke-dashoffset: 0; } }
+@keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* DemoCard 카드 뒤집기 */
+@keyframes card-flip-out {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(90deg); }
+}
+@keyframes card-flip-in {
+  from { transform: rotateY(-90deg); }
+  to   { transform: rotateY(0deg); }
+}
+
+/* DemoCard 행 순차 등장 */
+@keyframes row-slide-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sheet { animation: none; }
+  .hero-sheet-blob { animation: none !important; }
 }

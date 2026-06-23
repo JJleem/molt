@@ -1,5 +1,4 @@
 import VariantH from "@/components/prototype/hero/VariantH";
-import HeroSheet from "@/components/sections/HeroSheet";
 import CapabilitiesStrip from "@/components/sections/CapabilitiesStrip";
 import QuoteCard from "@/components/sections/QuoteCard";
 import TechLogoWall from "@/components/sections/TechLogoWall";
@@ -16,12 +15,8 @@ export default function Home() {
     <div>
       <Header />
 
-      {/* ── 히어로 + 4-피처: three.js 단일 시트 1장이 둘을 관통(일렁이는 대각, 경계 이음매 없음) ── */}
-      <div className="relative overflow-hidden bg-white">
-        <HeroSheet />
-        <VariantH />
-        <CapabilitiesStrip />
-      </div>
+      <VariantH />
+      <CapabilitiesStrip />
 
       <CosmicHustle />
       <QuoteCard />

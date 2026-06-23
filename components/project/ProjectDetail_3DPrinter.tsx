@@ -23,7 +23,7 @@ import SlantBg from "@/components/sections/SlantBg";
 
 const INK = "#0a2540";
 const SLATE = "#425466";
-const BLURPLE = "#635bff";
+const BLURPLE = "#0d9488";
 const CARD = "border border-[#e6ebf1] bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)]";
 
 interface LiveMetricProps {
@@ -82,7 +82,7 @@ const LiveMetric = ({ label, value, icon: Icon, delay }: LiveMetricProps) => (
       <Icon size={16} />
     </div>
     <div>
-      <p className="text-[10px] uppercase tracking-wider font-bold" style={{ color: SLATE }}>{label}</p>
+      <p className="text-[11px] uppercase tracking-wider font-bold" style={{ color: SLATE }}>{label}</p>
       <p className="text-sm font-bold" style={{ color: INK }}>{value}</p>
     </div>
   </motion.div>
@@ -197,7 +197,7 @@ const ProjectDetail_CaseStudy = () => {
                 <Users size={14} style={{ color: SLATE }} />
                 <span className="text-xs font-bold" style={{ color: INK }}>Backend 1 + Frontend 1 <span style={{ color: BLURPLE }}>(Me)</span></span>
               </div>
-              <p className="text-[11px]" style={{ color: SLATE }}>기획(50%) + 디자인(100%) + 퍼블리싱(100%) + 프론트엔드(100%)</p>
+              <p className="text-[12px]" style={{ color: SLATE }}>기획(50%) + 디자인(100%) + 퍼블리싱(100%) + 프론트엔드(100%)</p>
               <div className="flex items-center gap-2 pt-1 border-t border-[#e6ebf1]">
                 <Image src="/assets/gs.png" alt="GS인증로고" width={36} height={45} />
                 <span className="text-xs font-bold text-amber-700">GS인증 1등급 취득</span>
@@ -206,7 +206,7 @@ const ProjectDetail_CaseStudy = () => {
 
             {/* Links */}
             <div className="flex flex-wrap gap-3">
-              <Link href="https://c-hub.info/" target="_blank" className="group flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-bold text-white shadow-[0_6px_18px_-4px_rgba(99,91,255,0.5)] transition-transform hover:-translate-y-0.5" style={{ background: BLURPLE }}>
+              <Link href="https://c-hub.info/" target="_blank" className="group flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-bold text-white shadow-[0_6px_18px_-4px_rgba(13,148,136,0.5)] transition-transform hover:-translate-y-0.5" style={{ background: BLURPLE }}>
                 <Globe size={14} /> Live Service
                 <ExternalLink size={11} className="opacity-70" />
               </Link>
@@ -219,12 +219,6 @@ const ProjectDetail_CaseStudy = () => {
               </Link>
             </div>
 
-            {/* 메트릭 */}
-            <div className="flex flex-col gap-3 pt-2">
-              <LiveMetric icon={Zap} label="Latency" value="< 85ms" delay={0.2} />
-              <LiveMetric icon={Database} label="Data Integrity" value="99.9%" delay={0.3} />
-              <LiveMetric icon={Lock} label="Security" value="Level 4" delay={0.4} />
-            </div>
           </motion.div>
 
           {/* Right: gallery + terminal */}
@@ -232,6 +226,13 @@ const ProjectDetail_CaseStudy = () => {
             <ProjectGallery gallery={cHubGallery} />
             <TerminalBlock />
           </motion.div>
+        </div>
+
+        {/* ── 핵심 지표 (full-width 3-up) ── */}
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <LiveMetric icon={Zap} label="Latency" value="< 85ms" delay={0.2} />
+          <LiveMetric icon={Database} label="Data Integrity" value="99.9%" delay={0.3} />
+          <LiveMetric icon={Lock} label="Security" value="Level 4" delay={0.4} />
         </div>
 
         {/* ── Challenge & Solution (full-width) ── */}

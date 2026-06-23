@@ -14,28 +14,28 @@ type Cap = { accent: string; eyebrow: string; title: string; desc: string; icon:
 
 const CAPS: Cap[] = [
   {
-    accent: "#0e9bb5",
+    accent: "#0891b2",
     eyebrow: "Interface",
     title: "화면을 끝까지",
     desc: "프로덕션 React·Next.js로 실시간·반응형 UI를 직접 설계하고 구현합니다.",
     icon: LayoutTemplate,
   },
   {
-    accent: "#635bff",
+    accent: "#0d9488",
     eyebrow: "AI Systems",
     title: "LLM을 부려",
     desc: "멀티 에이전트 파이프라인·LLM 오케스트레이션으로 제품의 핵심 로직을 만듭니다.",
     icon: Cpu,
   },
   {
-    accent: "#7c5cef",
+    accent: "#10b981",
     eyebrow: "Growth",
     title: "사용자를 들어오게",
     desc: "계측·SEO·자동 발행 파이프라인으로 실제 트래픽과 사용자를 만듭니다.",
     icon: LineChart,
   },
   {
-    accent: "#c45c8a",
+    accent: "#f59e0b",
     eyebrow: "Ownership",
     title: "끝에서 끝까지",
     desc: "기획·디자인·개발·배포·운영까지 제품의 처음부터 끝을 직접 책임집니다.",
@@ -80,7 +80,7 @@ export default function CapabilitiesStrip() {
                 <h3 className="mt-1.5 text-[18px] font-bold tracking-tight" style={{ color: INK }}>
                   {cap.title}
                 </h3>
-                <p className="mt-2 text-[13.5px] leading-relaxed break-keep" style={{ color: SLATE }}>
+                <p className="mt-2 text-[14px] leading-relaxed break-keep" style={{ color: SLATE }}>
                   {cap.desc}
                 </p>
               </motion.div>

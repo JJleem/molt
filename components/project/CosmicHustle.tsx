@@ -17,7 +17,7 @@ import { blogGallery, engineGallery } from "@/content/galleries";
 
 const INK = "#0a2540";
 const SLATE = "#425466";
-const BLURPLE = "#635bff";
+const BLURPLE = "#0d9488";
 const CARD = "border border-[#e6ebf1] bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)]";
 
 function CapabilityItem({ cap, index }: { cap: CapabilityCard; index: number }) {
@@ -110,7 +110,7 @@ export default function CosmicHustle() {
                   <Link
                     href={c.links.live}
                     target="_blank"
-                    className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-[0_6px_18px_-4px_rgba(99,91,255,0.5)] transition-transform hover:-translate-y-0.5"
+                    className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-[0_6px_18px_-4px_rgba(13,148,136,0.5)] transition-transform hover:-translate-y-0.5"
                     style={{ background: BLURPLE }}
                   >
                     라이브 블로그

@@ -41,7 +41,7 @@ export default function TechLogoWall() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.4, delay: (i % 6) * 0.05 }}
-              className="cursor-default text-[17px] font-bold tracking-tight text-[#9aa5b5] transition-colors duration-200 hover:text-[#635bff] md:text-[19px]"
+              className="cursor-default text-[17px] font-bold tracking-tight text-[#5b6b7f] transition-colors duration-200 hover:text-[#0d9488] md:text-[19px]"
             >
               {t}
             </motion.span>

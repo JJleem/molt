@@ -9,7 +9,7 @@ const NOISE =
 
 export default function QuoteCard() {
   return (
-    <section className="relative bg-white py-16">
+    <section className="relative bg-white py-20">
       <div className="mx-auto max-w-[1140px] px-6">
         <motion.figure
           initial={{ opacity: 0, y: 24 }}
@@ -18,8 +18,8 @@ export default function QuoteCard() {
           transition={{ duration: 0.6 }}
           className="relative overflow-hidden rounded-3xl px-8 py-14 md:px-16 md:py-20"
           style={{
-            background: "linear-gradient(120deg, #5b54f0 0%, #635bff 42%, #8f69eb 100%)",
-            boxShadow: "0 40px 80px -32px rgba(99,91,255,0.55)",
+            background: "linear-gradient(120deg, #0f766e 0%, #0d9488 42%, #10b981 100%)",
+            boxShadow: "0 40px 80px -32px rgba(13,148,136,0.55)",
           }}
         >
           {/* grain */}
