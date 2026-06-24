@@ -12,11 +12,10 @@ export const cosmicHustle: Localized<FlagshipProject> = {
     title: "Cosmic Hustle",
     tagline: "11명의 AI 에이전트가 직원처럼 협업하는 멀티에이전트 시스템",
     concept:
-      'CEO(사용자)가 주제를 던지면 "우주 리서치 회사"의 AI 에이전트 11명이 역할을 나눠 리서치하는 인터랙티브 "리서치 엔진"(기능 구현 완료, 미배포)으로 시작했습니다. 사용자를 확보하기 위해 — 같은 에이전트들이 매일 글을 자동 발행하는 별도의 경량 플로우 "AI 블로그"(blog.cosmic-hustle.com, 운영 중)를 만들어 제품으로 전환했습니다.',
+      'CEO(사용자)가 주제를 던지면 "우주 리서치 회사"의 AI 에이전트 11명이 역할을 나눠 리서치하는 인터랙티브 "리서치 엔진"(기능 구현 완료, 미배포)으로 시작했습니다. 사용자를 확보하기 위해 — 같은 에이전트들이 매일 글을 자동 발행하는 별도의 경량 플로우 "AI 블로그"(cosmic-hustle.ai.kr, 운영 중)를 만들어 제품으로 전환했습니다.',
     links: {
-      live: "https://blog.cosmic-hustle.com",
-      github: "https://github.com/JJleem/cosmic-hustle", // 백엔드(오케스트레이션) 레포
-      blog_repo: "https://github.com/JJleem/cosmic-hustle-blog", // 프론트 레포
+      live: "https://cosmic-hustle.ai.kr/", // 블로그(제품) 프론트
+      github: "https://github.com/JJleem/cosmic-hustle", // 백엔드(오케스트레이션) 레포 — public. 프론트 레포는 private.
     },
     metrics: [
       { label: "AI 에이전트", value: "11명", hint: "3개 부서 역할 분담" },
@@ -25,12 +24,12 @@ export const cosmicHustle: Localized<FlagshipProject> = {
       { label: "실사용자", value: "161+", hint: "GA 측정 · 운영 보름" },
     ],
     pipeline: [
-      { id: "plan", label: "플랜", desc: "기획 · 태스크 정의" },
-      { id: "research", label: "위키 + 포케", desc: "병렬 리서치" },
-      { id: "analyze", label: "카", desc: "분석 · 인사이트" },
-      { id: "write", label: "오버 · 버즈 · 픽셀 · 런", desc: "태스크별 작성" },
-      { id: "fact", label: "팩트", desc: "검토 · 팩트체크" },
-      { id: "learn", label: "핑 + 위키", desc: "아이디어 · 지식 누적" },
+      { id: "plan", label: "플랜", desc: "기획 · 태스크 정의", agentIds: ["plan"] },
+      { id: "research", label: "위키 + 포케", desc: "병렬 리서치", agentIds: ["wiki", "pocke"] },
+      { id: "analyze", label: "카", desc: "분석 · 인사이트", agentIds: ["ka"] },
+      { id: "write", label: "오버 · 버즈 · 픽셀 · 런", desc: "태스크별 작성", agentIds: ["over", "buzz", "pixel", "run"] },
+      { id: "fact", label: "팩트", desc: "검토 · 팩트체크", agentIds: ["fact"] },
+      { id: "learn", label: "핑 + 위키", desc: "아이디어 · 지식 누적", agentIds: ["ping", "wiki"] },
     ],
     capabilities: [
       // ===== 제품: AI 블로그 (운영 중) =====
@@ -81,13 +80,13 @@ export const cosmicHustle: Localized<FlagshipProject> = {
       },
       {
         id: "infra",
-        title: "지식 인프라 & 배포",
-        desc: "검색·배포를 떠받치는 공통 인프라를 혼자 끝까지 운영.",
+        title: "지식 인프라",
+        desc: "검색·지식 누적을 떠받치는 데이터 인프라를 직접 설계·구현.",
         group: "engine",
         points: [
-          "pgvector 시맨틱 검색(로컬 임베딩)",
-          "AWS Lightsail 배포 + GitHub Actions 자동화",
-          "PostgreSQL + Alembic 마이그레이션",
+          "pgvector 시맨틱 검색 (로컬 임베딩)",
+          "SQLAlchemy + asyncpg 비동기 DB 레이어",
+          "PostgreSQL + Alembic 스키마 마이그레이션",
         ],
       },
     ],
@@ -101,19 +100,58 @@ export const cosmicHustle: Localized<FlagshipProject> = {
         "동적 OG 이미지 · llms.txt · 접근성",
       ],
     },
-    techStack: [
-      "Next.js 15 (App Router)",
-      "React 19",
-      "TypeScript",
-      "FastAPI (Python 3.12)",
-      "PostgreSQL 16 + pgvector",
-      "Claude (Code SDK + API, Haiku 4.5 / Sonnet)",
-      "sentence-transformers",
-      "fal.ai (Flux)",
-      "GA4 / GSC API",
-      "AWS Lightsail",
-      "Vercel",
-      "GitHub Actions",
-    ],
+    techStack: {
+      // 제품: AI 블로그 (cosmic-hustle.ai.kr, 운영 중)
+      blog: [
+        {
+          label: "Frontend",
+          items: ["Next.js 15 (App Router)", "React 19", "TypeScript"],
+        },
+        {
+          label: "Backend",
+          items: ["FastAPI (Python 3.12)", "PostgreSQL 16", "APScheduler"],
+        },
+        {
+          label: "AI / ML",
+          items: ["Claude (API)", "fal.ai (Flux)", "RAG"],
+        },
+        {
+          label: "Infra / SEO",
+          items: ["AWS Lightsail", "Vercel", "GitHub Actions", "GA4 / GSC API"],
+        },
+      ],
+      // 기술 코어: 멀티에이전트 리서치 엔진 (cosmic-research, 미배포 — 배포 인프라 없음)
+      engine: [
+        {
+          label: "Frontend",
+          items: [
+            "Next.js 16",
+            "React 19",
+            "TypeScript",
+            "Three.js (R3F)",
+            "D3",
+            "Zustand",
+          ],
+        },
+        {
+          label: "Backend",
+          items: [
+            "FastAPI (Python)",
+            "SQLAlchemy + asyncpg",
+            "PostgreSQL + pgvector",
+            "Alembic",
+            "SSE 스트리밍",
+          ],
+        },
+        {
+          label: "AI / Orchestration",
+          items: [
+            "Claude (Code SDK + API · Haiku 4.5 / Sonnet)",
+            "asyncio 병렬 파이프라인",
+            "sentence-transformers (로컬 임베딩)",
+          ],
+        },
+      ],
+    },
   },
 };

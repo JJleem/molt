@@ -38,7 +38,7 @@ export const cHubMobileGallery: Gallery = {
 // ===== 🌟 Cosmic Hustle — AI 블로그 (배포 제품) =====
 export const blogGallery: Gallery = {
   accent: "#10b981", // emerald — 운영 중
-  frameUrl: "blog.cosmic-hustle.com",
+  frameUrl: "cosmic-hustle.ai.kr",
   ratio: "aspect-[16/10]",
   slides: [
     {

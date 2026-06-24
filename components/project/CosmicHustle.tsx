@@ -11,7 +11,6 @@ import PipelineDiagram from "./PipelineDiagram";
 import CountUp from "@/components/ui/CountUp";
 import LiveFeed from "@/components/cosmic/LiveFeed";
 import AgentConstellation from "@/components/hero/AgentConstellation";
-import AgentCast from "@/components/cosmic/AgentCast";
 import ProjectGallery from "@/components/ui/ProjectGallery";
 import { blogGallery, engineGallery } from "@/content/galleries";
 
@@ -41,6 +40,38 @@ function CapabilityItem({ cap, index }: { cap: CapabilityCard; index: number }) 
         ))}
       </ul>
     </motion.div>
+  );
+}
+
+// 레이어별 기술 스택 — 블로그/엔진 각각 자기 블록 안에서 렌더링.
+function TechStack({
+  title,
+  groups,
+}: {
+  title: string;
+  groups: { label: string; items: string[] }[];
+}) {
+  return (
+    <div className="mt-10 border-t border-[#e6ebf1] pt-7">
+      <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: SLATE }}>{title}</h4>
+      <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+        {groups.map((group) => (
+          <div key={group.label}>
+            <p className="mb-2.5 flex items-center gap-2 text-[13px] font-bold" style={{ color: INK }}>
+              <span className="h-3 w-[3px] rounded-full" style={{ background: BLURPLE }} />
+              {group.label}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {group.items.map((t) => (
+                <span key={t} className="rounded-full border border-[#e6ebf1] bg-[#f6f9fc] px-3 py-1 text-xs font-semibold" style={{ color: INK }}>
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -136,7 +167,7 @@ export default function CosmicHustle() {
                     className="inline-flex items-center gap-2 rounded-full border border-[#e6ebf1] px-5 py-2.5 text-sm font-bold transition-colors hover:bg-[#f6f9fc]"
                     style={{ color: INK }}
                   >
-                    <Github size={15} /> GitHub
+                    <Github size={15} /> 백엔드 GitHub
                   </Link>
                 )}
               </div>
@@ -175,6 +206,9 @@ export default function CosmicHustle() {
               <LiveFeed />
             </div>
           </div>
+
+          {/* 블로그 기술 스택 — 엔진과 별개 시스템 */}
+          <TechStack title="Tech Stack · AI 블로그" groups={c.techStack.blog} />
         </div>
 
         {/* ── 멀티에이전트 리서치 엔진 — stripe-3/4 스타일: 인트로 + 교차 피처 행 + How it works ── */}
@@ -222,25 +256,40 @@ export default function CosmicHustle() {
             </div>
           </motion.div>
 
-          {/* 피처 행 2: 캐스트 좌 / 텍스트 우 (교차, stripe-4) */}
+          {/* 엔진 파이프라인 — 설명문 조금 + SideProjects식 카드 슬라이더 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5 }}
-            className="mt-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16"
+            className="mt-14"
           >
-            <div className="order-2 rounded-2xl border border-[#e6ebf1] bg-white p-6 shadow-[0_2px_10px_rgba(0,0,0,0.05)] lg:order-1">
-              <p className="mb-4 text-sm font-bold" style={{ color: INK }}>캐스트 — 3개 부서 11명</p>
-              <AgentCast />
+            <span className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: BLURPLE }}>How it works</span>
+            <h4 className="mt-3 text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>
+              주제 → 지식까지, 6단계 자동 흐름
+            </h4>
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>
+              CEO가 주제를 던지면 플랜이 태스크로 쪼개고, 병렬 리서치 → 분석 → 작성 → 팩트체크를 거쳐 지식으로 누적됩니다.
+              각 단계를 역할이 다른 에이전트가 맡아 이어받습니다.
+            </p>
+            <div className="mt-6">
+              <PipelineDiagram steps={c.pipeline} />
             </div>
-            <div className="order-1 lg:order-2">
-              <h4 className="text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>{infra.title}</h4>
-              <p className="mt-3 text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>{infra.desc}</p>
-              <ul className="mt-5 space-y-3">
-                {infra.points.map((pt, i) => <CheckItem key={i} text={pt} />)}
-              </ul>
-            </div>
+          </motion.div>
+
+          {/* 피처 행 2: 지식 인프라 (텍스트만) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="mt-16 max-w-2xl"
+          >
+            <h4 className="text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>{infra.title}</h4>
+            <p className="mt-3 text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>{infra.desc}</p>
+            <ul className="mt-5 space-y-3">
+              {infra.points.map((pt, i) => <CheckItem key={i} text={pt} />)}
+            </ul>
           </motion.div>
 
           {/* 엔진 화면 쇼케이스 — stripe-3/4 제품 비주얼 (사진 추가 예정) */}
@@ -263,33 +312,8 @@ export default function CosmicHustle() {
             <ProjectGallery gallery={engineGallery} />
           </motion.div>
 
-          {/* How it works: 파이프라인 — stripe-4 세로 바 라벨 */}
-          <div className="mt-16">
-            <div className="flex gap-3">
-              <span className="mt-1 w-[3px] flex-shrink-0 rounded-full" style={{ background: BLURPLE }} />
-              <div>
-                <p className="text-sm font-bold" style={{ color: INK }}>엔진 파이프라인</p>
-                <p className="mt-1 max-w-xl text-sm leading-relaxed break-keep" style={{ color: SLATE }}>
-                  CEO가 주제를 던지면 플랜 → 병렬 리서치 → 분석 → 작성 → 팩트체크 → 지식 누적의 6단계로 흐릅니다.
-                </p>
-              </div>
-            </div>
-            <div className="mt-6">
-              <PipelineDiagram steps={c.pipeline} />
-            </div>
-          </div>
-        </div>
-
-        {/* 기술 스택 */}
-        <div className="mt-12 border-t border-[#e6ebf1] pt-8">
-          <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: SLATE }}>Tech Stack</h4>
-          <div className="flex flex-wrap gap-2">
-            {c.techStack.map((t) => (
-              <span key={t} className="rounded-full border border-[#e6ebf1] bg-[#f6f9fc] px-3 py-1 text-xs font-semibold" style={{ color: INK }}>
-                {t}
-              </span>
-            ))}
-          </div>
+          {/* 엔진 기술 스택 — 블로그와 별개 시스템 */}
+          <TechStack title="Tech Stack · 리서치 엔진" groups={c.techStack.engine} />
         </div>
       </div>
     </section>

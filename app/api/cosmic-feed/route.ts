@@ -5,9 +5,16 @@ import { NextResponse } from "next/server";
 // 백엔드 HTTPS 이전 시 COSMIC_API_BASE 환경변수만 바꾸면 됨.
 
 const API_BASE = process.env.COSMIC_API_BASE ?? "http://3.36.239.214:8000";
-const SITE = process.env.COSMIC_SITE ?? "https://blog.cosmic-hustle.com";
+const SITE = process.env.COSMIC_SITE ?? "https://cosmic-hustle.ai.kr";
 
 export const revalidate = 300; // 5분 캐시
+
+// 백엔드는 타임존 표시 없는 UTC(naive datetime)를 준다 → Z를 붙여 UTC로 고정.
+// 안 붙이면 클라이언트가 로컬(KST)로 해석해 9시간 과거로 밀린다.
+function toUtcIso(s: string): string {
+  if (!s) return s;
+  return /[zZ]$|[+-]\d{2}:?\d{2}$/.test(s) ? s : `${s}Z`;
+}
 
 interface BackendPost {
   slug: string;
@@ -33,7 +40,7 @@ export async function GET() {
     const posts = (data.posts ?? []).slice(0, 5).map((p) => ({
       title: p.title,
       url: `${SITE}/${p.slug}`,
-      date: p.published_at,
+      date: toUtcIso(p.published_at),
       agentId: (p.agent_id || "").split("+")[0], // 조합 글은 첫 에이전트로
       views: p.view_count ?? 0,
     }));

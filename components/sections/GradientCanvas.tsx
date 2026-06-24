@@ -104,8 +104,10 @@ void main(){ gl_FragColor=vec4(v_color,1.); }`;
 // ── WebGL 렌더러 ──────────────────────────────────────────────────────────────
 
 function initGradient(canvas: HTMLCanvasElement): () => void {
-  const gl = canvas.getContext("webgl", { antialias: true });
-  if (!gl) return () => {};
+  const glCtx = canvas.getContext("webgl", { antialias: true });
+  if (!glCtx) return () => {};
+  // 비-null 타입 별칭 — 클로저 안에서는 narrowing이 유지되지 않으므로 명시 타입으로 고정.
+  const gl: WebGLRenderingContext = glCtx;
 
   // 캔버스 크기 — CSS height에서 읽어 WebGL 버퍼와 맞춤
   let width = 0, height = 0;

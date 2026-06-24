@@ -42,6 +42,8 @@ export interface PipelineStep {
   id: string;
   label: string;
   desc: string;
+  /** 이 단계를 담당하는 에이전트 id들 (아바타 표시용, agents.ts의 id) */
+  agentIds?: string[];
 }
 
 export interface CapabilityCard {
@@ -116,5 +118,12 @@ export interface FlagshipProject {
     desc: string;
     points: string[];
   };
-  techStack: string[];
+  /**
+   * 기술 스택 — 블로그(제품)와 리서치 엔진(코어)은 별개 시스템이라 분리한다.
+   * 각 스택은 풀스택 구조가 보이도록 레이어별로 묶는다.
+   */
+  techStack: {
+    blog: { label: string; items: string[] }[];
+    engine: { label: string; items: string[] }[];
+  };
 }
