@@ -110,8 +110,8 @@ export default function CosmicHustle() {
             Flagship Project
           </span>
           <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-5xl">{c.title}</h2>
-          <p className="mt-4 max-w-2xl text-lg font-light leading-snug" style={{ color: INK }}>{c.tagline}</p>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed break-keep" style={{ color: SLATE }}>{c.concept}</p>
+          <p className="mt-4 max-w-2xl text-lg font-light leading-snug lg:max-w-[50%]" style={{ color: INK }}>{c.tagline}</p>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed break-keep lg:max-w-[50%]" style={{ color: SLATE }}>{c.concept}</p>
         </motion.div>
 
         {/* ── AI 블로그 — 2-col ── */}
@@ -125,7 +125,7 @@ export default function CosmicHustle() {
             <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700">배포 · 운영 중</span>
           </div>
 
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[5fr_7fr]">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
             {/* Left: 설명 + capabilities + CTAs */}
             <div className="flex flex-col">
               <p className="text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>{c.ownership.desc}</p>
@@ -221,7 +221,7 @@ export default function CosmicHustle() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5 }}
-            className="max-w-2xl"
+            className="max-w-2xl lg:max-w-[50%]"
           >
             <span className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: BLURPLE }}>
               Core Engine
@@ -270,7 +270,7 @@ export default function CosmicHustle() {
             <h4 className="mt-3 text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>
               주제 → 지식까지, 6단계 자동 흐름
             </h4>
-            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed break-keep lg:max-w-[50%]" style={{ color: SLATE }}>
               CEO가 주제를 던지면 플랜이 태스크로 쪼개고, 병렬 리서치 → 분석 → 작성 → 팩트체크를 거쳐 지식으로 누적됩니다.
               각 단계를 역할이 다른 에이전트가 맡아 이어받습니다.
             </p>
@@ -285,7 +285,7 @@ export default function CosmicHustle() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5 }}
-            className="mt-16 max-w-2xl"
+            className="mt-16 max-w-2xl lg:max-w-[50%]"
           >
             <h4 className="text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>{infra.title}</h4>
             <p className="mt-3 text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>{infra.desc}</p>
