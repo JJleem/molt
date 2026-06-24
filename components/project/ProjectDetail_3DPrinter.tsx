@@ -15,6 +15,7 @@ import Image from "next/image";
 import ProjectGallery from "@/components/ui/ProjectGallery";
 import { cHubGallery, cHubMobileGallery } from "@/content/galleries";
 import SlantBg from "@/components/sections/SlantBg";
+import GridGuides from "@/components/ui/GridGuides";
 
 // ── 흰 카드 내부 — 다른 섹션과 동일한 라이트 톤 ──
 const INK = "#0a2540";
@@ -111,6 +112,7 @@ const ProjectDetail_CaseStudy = () => {
         />
       </div>
 
+      <GridGuides columns={4} tone="dark" />
       <div className="relative z-10 max-w-[1140px] mx-auto px-6">
         {/* ── 섹션 헤더 (CosmicHustle 헤더 구조) ── */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>

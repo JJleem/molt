@@ -9,6 +9,7 @@ import { localize } from "@/content/locale";
 import type { CapabilityCard } from "@/content/types";
 import PipelineDiagram from "./PipelineDiagram";
 import CountUp from "@/components/ui/CountUp";
+import GridGuides from "@/components/ui/GridGuides";
 import LiveFeed from "@/components/cosmic/LiveFeed";
 import AgentConstellation from "@/components/hero/AgentConstellation";
 import ProjectGallery from "@/components/ui/ProjectGallery";
@@ -26,7 +27,7 @@ function CapabilityItem({ cap, index }: { cap: CapabilityCard; index: number }) 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.45, delay: (index - 1) * 0.06 }}
-      className="border-t border-[#e6ebf1] pt-5 pb-5"
+      className="pt-5 pb-5"
     >
       <span className="text-sm font-bold tabular-nums" style={{ color: BLURPLE }}>[{index}]</span>
       <h4 className="mt-2 text-[15px] font-bold tracking-tight" style={{ color: INK }}>{cap.title}</h4>
@@ -52,7 +53,7 @@ function TechStack({
   groups: { label: string; items: string[] }[];
 }) {
   return (
-    <div className="mt-10 border-t border-[#e6ebf1] pt-7">
+    <div className="mt-10 pt-7">
       <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: SLATE }}>{title}</h4>
       <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
         {groups.map((group) => (
@@ -94,7 +95,8 @@ export default function CosmicHustle() {
 
   return (
     <section id="cosmic-hustle" className="relative z-20 scroll-mt-16 overflow-hidden bg-white py-24" style={{ color: INK }}>
-      <div className="mx-auto max-w-[1140px] px-6">
+      <GridGuides columns={4} />
+      <div className="relative z-10 mx-auto max-w-[1140px] px-6">
 
         {/* ── 섹션 헤더 ── */}
         <motion.div
@@ -113,7 +115,7 @@ export default function CosmicHustle() {
         </motion.div>
 
         {/* ── AI 블로그 — 2-col ── */}
-        <div className="mt-16 border-t border-[#e6ebf1] pt-10">
+        <div className="mt-16 pt-10">
           <div className="mb-8 flex flex-wrap items-center gap-3">
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -212,7 +214,7 @@ export default function CosmicHustle() {
         </div>
 
         {/* ── 멀티에이전트 리서치 엔진 — stripe-3/4 스타일: 인트로 + 교차 피처 행 + How it works ── */}
-        <div className="mt-24 border-t border-[#e6ebf1] pt-16">
+        <div className="mt-24 pt-16">
           {/* 인트로: eyebrow + 큰 헤드라인 + 본문 (stripe-3 상단) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

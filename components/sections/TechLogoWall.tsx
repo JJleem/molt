@@ -4,6 +4,7 @@
 // 회색 단조 텍스트 로고. 호버 시 blurple로 살짝 살아남. 연회색 면.
 import { motion } from "framer-motion";
 import SlantBg from "@/components/sections/SlantBg";
+import GridGuides from "@/components/ui/GridGuides";
 
 const SLATE = "#425466";
 
@@ -26,6 +27,7 @@ export default function TechLogoWall() {
   return (
     <section className="relative py-20">
       <SlantBg color="#f6f9fc" top bottom={false} />
+      <GridGuides columns={4} />
       <div className="relative z-10 mx-auto max-w-[1140px] px-6">
         <p
           className="mb-8 text-center text-[11px] font-bold uppercase tracking-[0.2em]"

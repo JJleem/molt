@@ -5,6 +5,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Github } from "lucide-react";
+import GridGuides from "@/components/ui/GridGuides";
 
 const INK = "#0a2540";
 const SLATE = "#425466";
@@ -13,7 +14,8 @@ const BLURPLE = "#0d9488";
 export default function FinalCTA() {
   return (
     <section className="relative bg-white py-24">
-      <div className="mx-auto max-w-[1140px] px-6">
+      <GridGuides columns={4} />
+      <div className="relative z-10 mx-auto max-w-[1140px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

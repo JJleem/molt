@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import GridGuides from "@/components/ui/GridGuides";
 import { sideProjects } from "@/content/side-projects";
 import { localize } from "@/content/locale";
 import type { SideProject } from "@/content/types";
@@ -145,7 +146,8 @@ const SideProjects = () => {
 
   return (
     <section id="side" className="relative z-20 scroll-mt-16 overflow-hidden bg-white py-24" style={{ color: INK }}>
-      <div className="mx-auto max-w-[1140px] px-6">
+      <GridGuides columns={4} />
+      <div className="relative z-10 mx-auto max-w-[1140px] px-6">
         <motion.div
           ref={ref}
           initial="hidden"
@@ -194,6 +196,7 @@ const SideProjects = () => {
       {/* 가로 슬라이드 트랙 — 풀폭으로 풀고, 첫 카드만 컨테이너 왼쪽 끝에 정렬.
           스크롤하면 카드가 화면 양쪽 끝으로 자연스럽게 흘러나간다. */}
       <motion.div
+        className="relative z-10"
         initial="hidden"
         animate={controls}
         variants={{
