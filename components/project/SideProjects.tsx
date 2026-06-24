@@ -159,9 +159,9 @@ const SideProjects = () => {
           className="mb-10 flex items-end justify-between gap-6"
         >
           <div>
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "#10b981" }}>
+            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]">
               <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#10b981" }} />
-              More Work
+              <span className="text-gradient">More Work</span>
             </span>
             <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-5xl">사이드 프로젝트</h2>
             <p className="mt-4 max-w-2xl text-sm leading-relaxed break-keep md:text-base" style={{ color: SLATE }}>

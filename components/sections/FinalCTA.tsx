@@ -23,12 +23,9 @@ export default function FinalCTA() {
           transition={{ duration: 0.55 }}
           className="mx-auto max-w-2xl text-center"
         >
-          <p
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]"
-            style={{ color: BLURPLE }}
-          >
+          <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]">
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: BLURPLE }} />
-            Let&apos;s build
+            <span className="text-gradient">Let&apos;s build</span>
           </p>
           <h2 className="mt-4 text-[34px] font-bold leading-[1.12] tracking-tight md:text-[44px]" style={{ color: INK }}>
             제품을 끝까지 만들 사람,

@@ -105,9 +105,9 @@ export default function CosmicHustle() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "#0e9bb5" }}>
+          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]">
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#0e9bb5" }} />
-            Flagship Project
+            <span className="text-gradient">Flagship Project</span>
           </span>
           <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-5xl">{c.title}</h2>
           <p className="mt-4 max-w-2xl text-lg font-light leading-snug lg:max-w-[50%]" style={{ color: INK }}>{c.tagline}</p>
@@ -223,7 +223,7 @@ export default function CosmicHustle() {
             transition={{ duration: 0.5 }}
             className="max-w-2xl lg:max-w-[50%]"
           >
-            <span className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: BLURPLE }}>
+            <span className="text-gradient text-xs font-bold uppercase tracking-[0.18em]">
               Core Engine
             </span>
             <h3 className="mt-3 text-3xl font-bold leading-[1.15] tracking-tight md:text-[40px]" style={{ color: INK }}>
@@ -266,7 +266,7 @@ export default function CosmicHustle() {
             transition={{ duration: 0.5 }}
             className="mt-14"
           >
-            <span className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: BLURPLE }}>How it works</span>
+            <span className="text-gradient text-xs font-bold uppercase tracking-[0.18em]">How it works</span>
             <h4 className="mt-3 text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>
               주제 → 지식까지, 6단계 자동 흐름
             </h4>
