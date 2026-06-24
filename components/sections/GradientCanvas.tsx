@@ -297,9 +297,12 @@ function initGradient(canvas: HTMLCanvasElement): () => void {
   function resize() {
     width = canvas.clientWidth || window.innerWidth;
     height = canvas.clientHeight || 480;
-    canvas.width  = width;
-    canvas.height = height;
-    gl.viewport(0, 0, width, height);
+    // 백킹 해상도를 DPR배로 — skew된 대각 경계가 계단지지 않고 매끄럽게 렌더된다.
+    // (camera/geometry는 논리 width/height 그대로, viewport만 device px로 매핑)
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width  = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    gl.viewport(0, 0, canvas.width, canvas.height);
     setCamera();
     indexCount = buildGeometry();
   }
@@ -355,7 +358,7 @@ export default function GradientCanvas() {
       aria-hidden
       className="pointer-events-none absolute z-[5]"
       style={{
-        bottom: "-300px",
+        bottom: "-170px",
         left: 0,
         width: "100vw",
         height: "330px",
@@ -363,6 +366,10 @@ export default function GradientCanvas() {
         transform: visible ? "skewY(-13deg) translateY(0px)" : "skewY(-13deg) translateY(40px)",
         opacity: visible ? 1 : 0,
         transition: "opacity 1.5s cubic-bezier(0.22,1,0.36,1), transform 1.5s cubic-bezier(0.22,1,0.36,1)",
+        // skew된 불투명 캔버스의 대각 경계가 합성 에일리어싱으로 계단지는 것 방지 —
+        // 상·하단 ~3px를 페더링해 경계에 AA(부드러운 알파 램프)를 준다.
+        maskImage: "linear-gradient(to bottom, transparent 0px, #000 3px, #000 calc(100% - 3px), transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, transparent 0px, #000 3px, #000 calc(100% - 3px), transparent 100%)",
       }}
     />
   );

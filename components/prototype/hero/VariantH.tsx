@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import GradientCanvas from "@/components/sections/GradientCanvas";
+import GridGuides from "@/components/ui/GridGuides";
 
 const INK    = "#0a2540";
 const SLATE  = "#425466";
@@ -475,6 +476,8 @@ export default function VariantH() {
       className="relative min-h-screen w-full bg-transparent"
       style={{ color: INK }}
     >
+      {/* 그리드 점선 — z-0(기본)이라 띠(z-5)·오버레이(z-7) 아래로 깔린다 → 띠 위엔 점선 안 보임 */}
+      <GridGuides columns={4} />
       <GradientCanvas />
       <div
         className="pointer-events-none absolute inset-y-0 left-0 z-[7] w-full bg-white/90 lg:w-[58%] lg:bg-transparent lg:bg-gradient-to-r lg:from-white lg:via-white/90 lg:to-transparent"

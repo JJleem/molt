@@ -11,8 +11,10 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/Footer";
 
 export default function Home() {
+  // overflow-x-clip: 히어로 띠(100vw, skew)로 인한 가로 스크롤만 차단.
+  // clip은 스크롤 컨테이너를 안 만들어 sticky를 안 깨고, 세로(띠 흘러내림)는 그대로 둔다.
   return (
-    <div>
+    <div className="overflow-x-clip">
       <Header />
 
       <VariantH />
