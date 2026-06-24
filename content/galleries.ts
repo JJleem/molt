@@ -76,32 +76,75 @@ export const blogGallery: Gallery = {
 
 // ===== 🛰️ Cosmic Hustle — 멀티에이전트 리서치 엔진 (코어 기술, 미배포) =====
 export const engineGallery: Gallery = {
-  accent: "#f59e0b", // amber — 코어/미배포
-  ratio: "aspect-[16/9]",
+  accent: "#0d9488", // teal — 사이트 시그니처(다크 네이비 스크린샷과 조화)
+  // 0·10은 16:9, 1~9 다수가 16:10 → 잘림이 가장 적은 16:10으로 프레임 고정.
+  ratio: "aspect-[16/10]",
   slides: [
     {
-      src: "/assets/cosmic/architecture.png",
-      alt: "멀티에이전트 아키텍처 다이어그램",
-      caption: "아키텍처 — 에이전트 ↔ FastAPI ↔ pgvector ↔ 스케줄러",
-      hint: "엔진 아키텍처 도식 · architecture.png",
+      src: "/assets/projects/research/0.png",
+      alt: "리서치 엔진 메인 화면",
+      caption: "메인 화면 — 멀티에이전트 리서치 엔진 콘솔 진입점",
+      hint: "엔진 메인 화면 · research/0.png",
     },
     {
-      src: "/assets/cosmic/engine-ceo.png",
-      alt: "CEO 인터랙티브 리서치 화면",
-      caption: "CEO 콘솔 — 주제를 던지면 11명이 역할을 나눠 착수",
-      hint: "CEO 인터랙티브 화면 · engine-ceo.png",
+      src: "/assets/projects/research/1.png",
+      alt: "위키 지식 데이터베이스",
+      caption: "지식 데이터베이스 — 위키가 관리하는 옵시디언식 지식 그래프",
+      hint: "위키 DB(옵시디언 느낌) · research/1.png",
     },
     {
-      src: "/assets/cosmic/engine-stream.png",
-      alt: "실시간 스트리밍 리서치 진행",
-      caption: "실시간 스트리밍 — 에이전트별 작업이 토큰 단위로 흐른다",
-      hint: "실시간 스트리밍 진행 화면 · engine-stream.png",
+      src: "/assets/projects/research/2.png",
+      alt: "프로젝트 착수 설정",
+      caption: "프로젝트 착수 — 새 리서치를 시작하며 범위를 설정",
+      hint: "프로젝트 시작 설정 화면 · research/2.png",
     },
     {
-      src: "/assets/cosmic/engine-result.png",
-      alt: "리서치 결과 리포트",
-      caption: "리서치 리포트 — 팩트체크를 거친 종합 결과물",
-      hint: "최종 리서치 리포트 · engine-result.png",
+      src: "/assets/projects/research/3.png",
+      alt: "플랜이 주제와 진행 방식을 설계",
+      caption: "플랜(PM) — 주제를 잡고 어떤 방식으로 나아갈지 설계",
+      hint: "플랜의 주제·전략 수립 · research/3.png",
+    },
+    {
+      src: "/assets/projects/research/4.png",
+      alt: "위키가 지식 데이터베이스를 조회",
+      caption: "위키(사서) — 이미 가진 지식인지 자기 DB를 먼저 조회",
+      hint: "위키의 DB 조회 단계 · research/4.png",
+    },
+    {
+      src: "/assets/projects/research/5.png",
+      alt: "포케가 데이터를 리서치",
+      caption: "포케(리서처) — 외부 데이터를 수집·리서치",
+      hint: "포케의 데이터 리서치 · research/5.png",
+    },
+    {
+      src: "/assets/projects/research/6.png",
+      alt: "카가 데이터를 분석",
+      caption: "카(분석가) — 수집된 데이터를 분석",
+      hint: "카의 데이터 분석 · research/6.png",
+    },
+    {
+      src: "/assets/projects/research/7.png",
+      alt: "오버가 글을 작성",
+      caption: "오버(작가) — 분석 결과를 글로 작성",
+      hint: "오버의 작성 단계 · research/7.png",
+    },
+    {
+      src: "/assets/projects/research/8.png",
+      alt: "팩트가 글을 검토",
+      caption: "팩트(검토자) — 작성된 글을 팩트체크·검토",
+      hint: "팩트의 검토 단계 · research/8.png",
+    },
+    {
+      src: "/assets/projects/research/9.png",
+      alt: "핑이 아이디어를 수집",
+      caption: "핑(아이디어 수집가) — 다음 주제 아이디어를 수집",
+      hint: "핑의 아이디어 수집 · research/9.png",
+    },
+    {
+      src: "/assets/projects/research/10.png",
+      alt: "최종 리서치 결과물",
+      caption: "최종 결과물 — 지식으로 누적된 리서치 리포트",
+      hint: "엔진 최종 결과물 · research/10.png",
     },
   ],
 };

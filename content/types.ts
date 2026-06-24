@@ -36,6 +36,8 @@ export interface Metric {
   label: string;
   value: string;
   hint?: string;
+  // 설정 시 /api/cosmic-feed 의 라이브 값으로 value/hint를 덮어쓴다 (value는 SSR 폴백).
+  live?: "posts" | "views";
 }
 
 export interface PipelineStep {

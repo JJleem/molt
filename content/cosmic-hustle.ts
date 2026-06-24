@@ -10,9 +10,9 @@ import type { Localized } from "./locale";
 export const cosmicHustle: Localized<FlagshipProject> = {
   ko: {
     title: "Cosmic Hustle",
-    tagline: "11명의 AI 에이전트가 직원처럼 협업하는 멀티에이전트 시스템",
+    tagline: "11명의 AI 에이전트가 직원처럼 일하며 스스로 운영하는 AI 블로그",
     concept:
-      'CEO(사용자)가 주제를 던지면 "우주 리서치 회사"의 AI 에이전트 11명이 역할을 나눠 리서치하는 인터랙티브 "리서치 엔진"(기능 구현 완료, 미배포)으로 시작했습니다. 사용자를 확보하기 위해 — 같은 에이전트들이 매일 글을 자동 발행하는 별도의 경량 플로우 "AI 블로그"(cosmic-hustle.ai.kr, 운영 중)를 만들어 제품으로 전환했습니다.',
+      "주제 선정부터 리서치·작성·검토·발행, 댓글 토론까지 — 사람 손 없이 11명의 에이전트가 직접 굴리는 자율 운영 블로그입니다. 독자 반응을 학습해 매일 글이 더 좋아집니다.",
     links: {
       live: "https://cosmic-hustle.ai.kr/", // 블로그(제품) 프론트
       github: "https://github.com/JJleem/cosmic-hustle", // 백엔드(오케스트레이션) 레포 — public. 프론트 레포는 private.
@@ -20,8 +20,8 @@ export const cosmicHustle: Localized<FlagshipProject> = {
     metrics: [
       { label: "AI 에이전트", value: "11명", hint: "3개 부서 역할 분담" },
       { label: "자동 발행", value: "매일 09:00", hint: "KST · APScheduler" },
-      { label: "누적 발행", value: "31글", hint: "2026.06.15 기준" },
-      { label: "실사용자", value: "161+", hint: "GA 측정 · 운영 보름" },
+      { label: "누적 발행", value: "39글", hint: "실시간", live: "posts" },
+      { label: "누적 조회수", value: "1,026", hint: "라이브", live: "views" },
     ],
     pipeline: [
       { id: "plan", label: "플랜", desc: "기획 · 태스크 정의", agentIds: ["plan"] },
@@ -35,24 +35,24 @@ export const cosmicHustle: Localized<FlagshipProject> = {
       // ===== 제품: AI 블로그 (운영 중) =====
       {
         id: "daily-publish",
-        title: "매일 자동 발행",
-        desc: "매일 09:00, 에이전트가 스스로 글을 발행하는 경량 자동화 플로우.",
+        title: "매일 스스로 발행",
+        desc: "11명이 각자 맡은 분야에서 매일 알아서 글을 쓴다 — 사람 개입 없이.",
         group: "blog",
         points: [
-          "트렌드 수집 → 글 생성 → 썸네일(Flux)까지 자동",
-          "정시 스케줄 발행 · 익명 참여 · 웹푸시 알림",
-          "토론·투표·퀴즈 등 콘텐츠 포맷 다양화",
+          "에이전트마다 다른 분야와 목소리 (리서처·분석가·작가·마케터)",
+          "트렌드 수집부터 썸네일까지 한 번에 자동",
+          "최근에 쓴 주제는 알아서 피해 중복 없이",
         ],
       },
       {
         id: "self-learning",
-        title: "자가학습 & 성과 평가",
-        desc: "글의 반응을 학습해 다음 글에 반영하고, 성과를 스스로 채점한다.",
+        title: "스스로 배우고 고친다",
+        desc: "반응을 보고 뭐가 먹히는지 스스로 판단해, 다음 글을 더 잘 쓴다.",
         group: "blog",
         points: [
-          "조회수·댓글 반응 기반 자가학습",
-          "글별 3축 점수(성과·비용·품질) 자동 산출",
-          "페어와이즈 LLM 판사로 품질 평가",
+          "조회·좋아요·댓글로 잘 된 글을 가려냄",
+          "매일 슬랙으로 그날의 성과를 자체 보고",
+          "그 결과를 다음 프롬프트에 반영하는 자가개선 루프",
         ],
       },
       {
@@ -92,7 +92,7 @@ export const cosmicHustle: Localized<FlagshipProject> = {
     ],
     ownership: {
       title: "만들고 끝이 아니라, 사용자가 들어오게 만든다",
-      desc: "AI 블로그를 만드는 데서 멈추지 않고, 검색 노출·유입까지 직접 챙긴다. (GTM/GA4 외주 경험 기반)",
+      desc: "띄우는 걸로 끝이 아니라, 검색 노출부터 실제 사용자 유입까지 직접 챙깁니다. 실무에서 다룬 GA4·GTM 경험이 그대로 들어갔어요.",
       points: [
         "GA4 · GTM · GSC 계측 전 과정",
         "Bing · 네이버 · Google 검색 색인 (IndexNow)",

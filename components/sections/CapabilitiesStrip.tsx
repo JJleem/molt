@@ -52,7 +52,7 @@ export default function CapabilitiesStrip() {
   // 배경 시트는 부모 래퍼(page.tsx)가 한 장으로 그림 → 여기는 투명. features는 시트 아래에 오도록 pt 확보.
   // 레이아웃: stripe-2 4-피처 밴드 = 아이콘 + (컬러 세로 바 + 타이틀) + 설명. 컬럼 사이 옅은 세로 구분선.
   return (
-    <section className="relative z-20 bg-transparent pb-20 pt-[240px] md:pt-[330px]" style={{ color: INK }}>
+    <section className="relative z-20 bg-transparent pb-20 pt-[140px] md:pt-[200px]" style={{ color: INK }}>
       <GridGuides columns={4} top="top-[240px] md:top-[330px]" />
       <div className="relative z-10 mx-auto max-w-[1140px] px-6">
         {/* 컬럼 사이 세로 구분은 섹션의 점선 GridGuides가 담당 */}

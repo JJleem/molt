@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ImageIcon, Maximize2, X } from "lucide-react";
 import Image from "next/image";
@@ -93,7 +93,18 @@ export default function ProjectGallery({
   const [dir, setDir] = useState(1);
   const [paused, setPaused] = useState(false);
   const [lightbox, setLightbox] = useState(false);
+  const thumbsRef = useRef<HTMLDivElement>(null);
   const count = slides.length;
+
+  // 활성 썸네일을 가로 스트립 안에서 항상 보이도록 스크롤.
+  // ⚠ scrollIntoView는 페이지 전체까지 스크롤하므로 금지 — 컨테이너만 가로 이동시킨다.
+  useEffect(() => {
+    const container = thumbsRef.current;
+    const el = container?.querySelector<HTMLElement>('[data-active="true"]');
+    if (!container || !el) return;
+    const target = el.offsetLeft - (container.clientWidth - el.clientWidth) / 2;
+    container.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+  }, [active]);
 
   const go = useCallback(
     (next: number, d: number) => {
@@ -245,9 +256,32 @@ export default function ProjectGallery({
         )}
       </div>
 
-      {/* 썸네일 스트립 */}
+      {/* 도트 인디케이터 — 항상 보이는 직접 네비게이션(터치 기기 포함) */}
       {count > 1 && (
-        <div className="mt-4 grid grid-cols-4 gap-2.5 sm:grid-cols-5">
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+          {slides.map((s, i) => {
+            const isActive = i === active;
+            return (
+              <button
+                key={s.src}
+                type="button"
+                onClick={() => go(i, i > active ? 1 : -1)}
+                aria-label={`${i + 1}번 이미지로 이동`}
+                aria-current={isActive}
+                className="h-2 rounded-full transition-all duration-300"
+                style={{
+                  width: isActive ? 22 : 8,
+                  background: isActive ? accent : "rgba(10,37,64,0.18)",
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
+
+      {/* 썸네일 스트립 — 가로 슬라이드(SideProjects식). 장수가 많아도 한 줄로 스크롤된다. */}
+      {count > 1 && (
+        <div ref={thumbsRef} className="no-scrollbar mt-3 flex snap-x gap-2.5 overflow-x-auto px-1 py-2">
           {slides.map((s, i) => {
             const isActive = i === active;
             return (
@@ -257,7 +291,8 @@ export default function ProjectGallery({
                 onClick={() => go(i, i > active ? 1 : -1)}
                 aria-label={`${i + 1}번 이미지로 이동: ${s.caption}`}
                 aria-current={isActive}
-                className="group/thumb relative aspect-[4/3] overflow-hidden rounded-xl border bg-resume-card transition-all duration-300"
+                data-active={isActive}
+                className="group/thumb relative aspect-[4/3] w-[104px] shrink-0 snap-start overflow-hidden rounded-xl border bg-resume-card transition-all duration-300 sm:w-[124px]"
                 style={{
                   borderColor: isActive ? accent : "rgba(255,255,255,0.12)",
                   boxShadow: isActive ? `0 0 0 2px ${accent}, 0 8px 24px -8px ${accent}99` : "none",

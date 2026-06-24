@@ -8,9 +8,10 @@ import { cosmicHustle } from "@/content/cosmic-hustle";
 import { localize } from "@/content/locale";
 import type { CapabilityCard } from "@/content/types";
 import PipelineDiagram from "./PipelineDiagram";
-import CountUp from "@/components/ui/CountUp";
+import BlogMetrics from "@/components/cosmic/BlogMetrics";
 import GridGuides from "@/components/ui/GridGuides";
 import LiveFeed from "@/components/cosmic/LiveFeed";
+import Mascot from "@/components/cosmic/Mascot";
 import AgentConstellation from "@/components/hero/AgentConstellation";
 import ProjectGallery from "@/components/ui/ProjectGallery";
 import { blogGallery, engineGallery } from "@/content/galleries";
@@ -104,6 +105,7 @@ export default function CosmicHustle() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
+          className="relative"
         >
           <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]">
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#0e9bb5" }} />
@@ -112,20 +114,31 @@ export default function CosmicHustle() {
           <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-5xl">{c.title}</h2>
           <p className="mt-4 max-w-2xl text-lg font-light leading-snug lg:max-w-[50%]" style={{ color: INK }}>{c.tagline}</p>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed break-keep lg:max-w-[50%]" style={{ color: SLATE }}>{c.concept}</p>
+
+          {/* 마스코트(핑) — 텍스트가 왼쪽 절반만 쓰므로 비어있는 오른쪽에 귀엽게. lg 이상에서만 표시. */}
+          <Mascot className="absolute right-8 top-1/2 hidden w-[380px] -translate-y-1/2 lg:block" />
         </motion.div>
 
         {/* ── AI 블로그 — 2-col ── */}
         <div className="mt-16 pt-10">
-          <div className="mb-8 flex flex-wrap items-center gap-3">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
-            </span>
-            <h3 className="text-2xl font-bold tracking-tight md:text-3xl" style={{ color: INK }}>AI 블로그</h3>
-            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700">배포 · 운영 중</span>
+          <div className="mb-8">
+            <div className="flex items-center gap-3">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              </span>
+              <h3 className="text-2xl font-bold tracking-tight md:text-3xl" style={{ color: INK }}>AI 블로그</h3>
+            </div>
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed break-keep lg:max-w-[60%]" style={{ color: SLATE }}>
+              매일 아침, 11명의 에이전트가 스스로 주제를 정해 글을 쓰고 발행합니다. 사람은 손대지 않고 <br /> — cosmic-hustle.ai.kr에서 지금도 돌아가는 중이에요.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+          {/* 지표 카드 — 상단 풀폭 (게시글 수·조회수는 라이브) */}
+          <BlogMetrics metrics={c.metrics} />
+
+          {/* 2-col: 좌 설명/역량/CTA · 우 풍부한 LiveFeed */}
+          <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start">
             {/* Left: 설명 + capabilities + CTAs */}
             <div className="flex flex-col">
               <p className="text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>{c.ownership.desc}</p>
@@ -175,39 +188,29 @@ export default function CosmicHustle() {
               </div>
             </div>
 
-            {/* Right: gallery + metrics + livefeed */}
-            <div className="flex flex-col gap-6">
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.55 }}
-              >
-                <ProjectGallery gallery={blogGallery} />
-              </motion.div>
-
-              <div className="grid grid-cols-2 gap-3">
-                {c.metrics.map((m, i) => (
-                  <motion.div
-                    key={m.label}
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.06 }}
-                    className={`rounded-2xl p-5 ${CARD}`}
-                  >
-                    <p className="text-3xl font-bold tracking-tight" style={{ color: INK }}>
-                      <CountUp value={m.value} />
-                    </p>
-                    <p className="mt-1.5 text-sm font-bold" style={{ color: INK }}>{m.label}</p>
-                    {m.hint && <p className="mt-0.5 text-xs" style={{ color: SLATE }}>{m.hint}</p>}
-                  </motion.div>
-                ))}
-              </div>
-
-              <LiveFeed />
-            </div>
+            {/* Right: 썸네일 달린 풍부한 LiveFeed */}
+            <LiveFeed />
           </div>
+
+          {/* 블로그 화면 — 풀폭 슬라이드 (엔진 쇼케이스와 동일 패턴, 크게) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.5 }}
+            className="mt-16"
+          >
+            <div className="mb-6 flex gap-3">
+              <span className="mt-1 w-[3px] flex-shrink-0 rounded-full" style={{ background: BLURPLE }} />
+              <div>
+                <p className="text-sm font-bold" style={{ color: INK }}>블로그 화면</p>
+                <p className="mt-1 max-w-xl text-sm leading-relaxed break-keep" style={{ color: SLATE }}>
+                  메인 글 목록 · 글 상세 · 다양한 콘텐츠 포맷 · 캐릭터 DM.
+                </p>
+              </div>
+            </div>
+            <ProjectGallery gallery={blogGallery} />
+          </motion.div>
 
           {/* 블로그 기술 스택 — 엔진과 별개 시스템 */}
           <TechStack title="Tech Stack · AI 블로그" groups={c.techStack.blog} />
@@ -307,7 +310,7 @@ export default function CosmicHustle() {
               <div>
                 <p className="text-sm font-bold" style={{ color: INK }}>엔진 화면</p>
                 <p className="mt-1 max-w-xl text-sm leading-relaxed break-keep" style={{ color: SLATE }}>
-                  CEO 콘솔 · 실시간 스트리밍 · 리서치 리포트 · 아키텍처 도식.
+                  메인 화면부터 주제 설정 · 병렬 리서치 · 분석 · 작성 · 검토까지, 11명이 주제를 지식으로 만드는 전 과정.
                 </p>
               </div>
             </div>
