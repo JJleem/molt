@@ -6,6 +6,7 @@
 // 각 컬럼: 아이콘(틴트 사각) + 컬러 eyebrow + 한글 타이틀 + 설명. 색은 히어로 그라데이션 4톤.
 import { motion } from "framer-motion";
 import { LayoutTemplate, Cpu, LineChart, Workflow, type LucideIcon } from "lucide-react";
+import GridGuides from "@/components/ui/GridGuides";
 
 const INK = "#0a2540";
 const SLATE = "#425466";
@@ -16,29 +17,29 @@ const CAPS: Cap[] = [
   {
     accent: "#0891b2",
     eyebrow: "Interface",
-    title: "화면을 끝까지",
-    desc: "프로덕션 React·Next.js로 실시간·반응형 UI를 직접 설계하고 구현합니다.",
+    title: "프로덕션 UI",
+    desc: "React·Next.js로 실시간·반응형 UI를 프로덕션 수준으로 설계·구현합니다.",
     icon: LayoutTemplate,
   },
   {
     accent: "#0d9488",
     eyebrow: "AI Systems",
-    title: "LLM을 부려",
-    desc: "멀티 에이전트 파이프라인·LLM 오케스트레이션으로 제품의 핵심 로직을 만듭니다.",
+    title: "멀티에이전트 시스템",
+    desc: "에이전트 파이프라인·LLM 오케스트레이션으로 제품의 핵심 로직을 구축합니다.",
     icon: Cpu,
   },
   {
     accent: "#10b981",
     eyebrow: "Growth",
-    title: "사용자를 들어오게",
-    desc: "계측·SEO·자동 발행 파이프라인으로 실제 트래픽과 사용자를 만듭니다.",
+    title: "트래픽 · 전환",
+    desc: "계측·SEO·자동 발행으로 실제 트래픽과 전환을 만들어냅니다.",
     icon: LineChart,
   },
   {
     accent: "#f59e0b",
     eyebrow: "Ownership",
-    title: "끝에서 끝까지",
-    desc: "기획·디자인·개발·배포·운영까지 제품의 처음부터 끝을 직접 책임집니다.",
+    title: "엔드투엔드 오너십",
+    desc: "기획·디자인·개발·배포·운영까지 제품 전 과정을 직접 책임집니다.",
     icon: Workflow,
   },
 ];
@@ -52,8 +53,9 @@ export default function CapabilitiesStrip() {
   // 레이아웃: stripe-2 4-피처 밴드 = 아이콘 + (컬러 세로 바 + 타이틀) + 설명. 컬럼 사이 옅은 세로 구분선.
   return (
     <section className="relative z-20 bg-transparent pb-20 pt-[240px] md:pt-[330px]" style={{ color: INK }}>
-      <div className="relative mx-auto max-w-[1140px] px-6">
-        {/* lg(4컬럼 한 줄)에서만 컬럼 사이 옅은 세로 구분선 — stripe-2의 '장부' 느낌 */}
+      <GridGuides columns={4} top="top-[240px] md:top-[330px]" />
+      <div className="relative z-10 mx-auto max-w-[1140px] px-6">
+        {/* 컬럼 사이 세로 구분은 섹션의 점선 GridGuides가 담당 */}
         <div className="grid grid-cols-1 gap-x-0 gap-y-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4 lg:gap-x-0">
           {CAPS.map((cap, i) => {
             const Icon = cap.icon;
@@ -64,7 +66,7 @@ export default function CapabilitiesStrip() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="relative lg:px-7 lg:[&:nth-child(n+2)]:border-l lg:[&:nth-child(n+2)]:border-[#e6ebf1] lg:[&:first-child]:pl-0"
+                className="relative lg:px-7 lg:[&:first-child]:pl-0"
               >
                 <span
                   className="inline-flex h-9 w-9 items-center justify-center rounded-xl"

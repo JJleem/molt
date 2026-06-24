@@ -39,7 +39,7 @@ function CheckItem({ text }: { text: string }) {
   );
 }
 
-/* Challenge 항목 (CosmicHustle CapabilityItem과 동일 패턴) — 다크 배경 위, border-t 구분 */
+/* Challenge 항목 (CosmicHustle CapabilityItem과 동일 패턴) — 다크 배경 위, 여백으로 구분 */
 function ChallengeItem({ index, title, context, solution, outcome }: { index: number; title: string; context: string; solution: string[]; outcome?: string }) {
   return (
     <motion.div
@@ -47,7 +47,7 @@ function ChallengeItem({ index, title, context, solution, outcome }: { index: nu
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.45, delay: (index - 1) * 0.05 }}
-      className="border-t border-white/10 pt-5"
+      className="pt-5"
     >
       <span className="text-sm font-bold tabular-nums" style={{ color: TEAL_HI }}>[{index}]</span>
       <h4 className="mt-2 text-[15px] font-bold tracking-tight" style={{ color: ONDARK }}>{title}</h4>
@@ -121,10 +121,10 @@ const ProjectDetail_CaseStudy = () => {
             Work Experience
           </span>
           <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight" style={{ color: ONDARK }}>실무 경험</h2>
-          <p className="mt-4 max-w-2xl text-lg font-light leading-snug" style={{ color: ONDARK }}>
+          <p className="mt-4 max-w-2xl text-lg font-light leading-snug lg:max-w-[50%]" style={{ color: ONDARK }}>
             산업용 3D 프린터 통합 관제 솔루션 — <span style={{ color: TEAL_HI }}>C-HUB V2.0</span>
           </p>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed break-keep" style={{ color: ONDARK_SUB }}>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed break-keep lg:max-w-[50%]" style={{ color: ONDARK_SUB }}>
             분산된 이기종 장비의 통합 관제를 위해 기획·디자인·개발 전 과정을 리딩한 프로젝트. 실시간 제어 환경을
             구현하고 UI/UX 전체 영문화로 글로벌 시장에 최적화, 현재 베트남 등 글로벌 산업 현장에 도입되어 가동 중입니다.
           </p>
@@ -136,7 +136,7 @@ const ProjectDetail_CaseStudy = () => {
         </motion.div>
 
         {/* ── 제품 블록 — 2-col [5fr_7fr] (CosmicHustle AI 블로그 구조) ── */}
-        <div className="mt-16 border-t border-white/10 pt-10">
+        <div className="mt-16 pt-10">
           <div className="mb-8 flex flex-wrap items-center gap-3">
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -147,7 +147,7 @@ const ProjectDetail_CaseStudy = () => {
             <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 text-xs font-bold text-amber-300">GS인증 1등급</span>
           </div>
 
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[5fr_7fr]">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
             {/* Left: 설명 + 핵심 성과 + 팀 카드 + CTA */}
             <div className="flex flex-col">
               <div className="w-fit rounded-lg bg-white px-3 py-1.5">
@@ -200,7 +200,7 @@ const ProjectDetail_CaseStudy = () => {
         </div>
 
         {/* ── Challenge & Solution — 항목식 2-col (CapabilityItem 구조) ── */}
-        <div className="mt-16 border-t border-white/10 pt-12">
+        <div className="mt-16 pt-12">
           <div className="mb-8 flex gap-3">
             <span className="mt-1 w-[3px] flex-shrink-0 rounded-full" style={{ background: TEAL_HI }} />
             <div>
@@ -218,7 +218,7 @@ const ProjectDetail_CaseStudy = () => {
         </div>
 
         {/* ── 모바일 앱 확장 — stripe식 피처 행 (text | 폰 갤러리) ── */}
-        <div className="mt-16 border-t border-white/10 pt-12">
+        <div className="mt-16 pt-12">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
               <div className="flex items-center gap-2">
@@ -250,7 +250,7 @@ const ProjectDetail_CaseStudy = () => {
         </div>
 
         {/* ── Tech Stack ── */}
-        <div className="mt-14 border-t border-white/10 pt-8">
+        <div className="mt-14 pt-8">
           <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-4" style={{ color: ONDARK_SUB }}>Tech Stack (Web)</h4>
           <div className="flex flex-wrap gap-2">
             {["React", "TypeScript", "SCSS", "Recoil", "TanStack Query", "Recharts", "Framer Motion", "react-hook-form", "lottie-react", "Axios", "JSZip", "Crypto-js", "WebSocket", "@dnd-kit", "WebRTC"].map((tech) => (
@@ -265,7 +265,7 @@ const ProjectDetail_CaseStudy = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
-          className="mt-20 border-t border-white/10 pt-12"
+          className="mt-20 pt-12"
         >
           <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "#67e8f9" }}>Previously</span>
           <div className="mt-3 flex flex-wrap items-center gap-3">
@@ -274,7 +274,7 @@ const ProjectDetail_CaseStudy = () => {
             <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2.5 py-1 text-xs font-bold text-cyan-300">POC</span>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-[5fr_7fr]">
+          <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-2">
             {/* Left: 로고 + 메타 + 설명 + 팀 */}
             <div className="flex flex-col">
               <div className="w-fit rounded-lg bg-white px-3 py-1.5">
