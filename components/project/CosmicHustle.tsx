@@ -12,7 +12,6 @@ import BlogMetrics from "@/components/cosmic/BlogMetrics";
 import GridGuides from "@/components/ui/GridGuides";
 import LiveFeed from "@/components/cosmic/LiveFeed";
 import Mascot from "@/components/cosmic/Mascot";
-import AgentConstellation from "@/components/hero/AgentConstellation";
 import ProjectGallery from "@/components/ui/ProjectGallery";
 import { blogGallery, engineGallery } from "@/content/galleries";
 
@@ -241,7 +240,7 @@ export default function CosmicHustle() {
             </span>
           </motion.div>
 
-          {/* 피처 행 1: 텍스트 좌 / 별자리 우 */}
+          {/* 피처 행 1: 텍스트 좌 / overfact 캐릭터 클립 우 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -256,8 +255,13 @@ export default function CosmicHustle() {
                 {orchestration.points.map((pt, i) => <CheckItem key={i} text={pt} />)}
               </ul>
             </div>
-            <div className="flex justify-center rounded-2xl border border-[#e6ebf1] bg-[#f6f9fc] p-6">
-              <div className="w-full max-w-[360px]"><AgentConstellation /></div>
+            {/* 지식 인프라 — 검색·지식 누적을 떠받치는 데이터 레이어 (오케스트레이션과 동일 레이아웃) */}
+            <div>
+              <h4 className="text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>{infra.title}</h4>
+              <p className="mt-3 text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>{infra.desc}</p>
+              <ul className="mt-5 space-y-3">
+                {infra.points.map((pt, i) => <CheckItem key={i} text={pt} />)}
+              </ul>
             </div>
           </motion.div>
 
@@ -280,21 +284,6 @@ export default function CosmicHustle() {
             <div className="mt-6">
               <PipelineDiagram steps={c.pipeline} />
             </div>
-          </motion.div>
-
-          {/* 피처 행 2: 지식 인프라 (텍스트만) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5 }}
-            className="mt-16 max-w-2xl lg:max-w-[50%]"
-          >
-            <h4 className="text-xl font-bold tracking-tight md:text-2xl" style={{ color: INK }}>{infra.title}</h4>
-            <p className="mt-3 text-[15px] leading-relaxed break-keep" style={{ color: SLATE }}>{infra.desc}</p>
-            <ul className="mt-5 space-y-3">
-              {infra.points.map((pt, i) => <CheckItem key={i} text={pt} />)}
-            </ul>
           </motion.div>
 
           {/* 엔진 화면 쇼케이스 — stripe-3/4 제품 비주얼 (사진 추가 예정) */}

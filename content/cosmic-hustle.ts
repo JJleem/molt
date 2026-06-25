@@ -24,11 +24,11 @@ export const cosmicHustle: Localized<FlagshipProject> = {
       { label: "누적 조회수", value: "1,026", hint: "라이브", live: "views" },
     ],
     pipeline: [
-      { id: "plan", label: "플랜", desc: "기획 · 태스크 정의", agentIds: ["plan"] },
+      { id: "plan", label: "플랜", desc: "기획 · 태스크 정의", agentIds: ["plan"], checkpoint: "CEO 확인·수정" },
       { id: "research", label: "위키 + 포케", desc: "병렬 리서치", agentIds: ["wiki", "pocke"] },
       { id: "analyze", label: "카", desc: "분석 · 인사이트", agentIds: ["ka"] },
-      { id: "write", label: "오버 · 버즈 · 픽셀 · 런", desc: "태스크별 작성", agentIds: ["over", "buzz", "pixel", "run"] },
-      { id: "fact", label: "팩트", desc: "검토 · 팩트체크", agentIds: ["fact"] },
+      { id: "write", label: "오버 · 버즈 · 픽셀 · 런", desc: "태스크별 작성", agentIds: ["over", "buzz", "pixel", "run"], handoffMedia: "/assets/projects/research/overfact.mp4" },
+      { id: "fact", label: "팩트", desc: "검토 · 팩트체크", agentIds: ["fact"], checkpoint: "CEO 확인·수정" },
       { id: "learn", label: "핑 + 위키", desc: "아이디어 · 지식 누적", agentIds: ["ping", "wiki"] },
     ],
     capabilities: [

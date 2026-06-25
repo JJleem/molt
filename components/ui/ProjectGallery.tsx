@@ -17,6 +17,7 @@ function GalleryImage({
   variant,
   hint,
   index,
+  fit = "cover",
 }: {
   src: string;
   alt: string;
@@ -24,6 +25,7 @@ function GalleryImage({
   variant: "main" | "thumb";
   hint?: string;
   index?: number;
+  fit?: "cover" | "contain";
 }) {
   // 래퍼(메인/라이트박스 motion.div, 썸네일 button)가 src별로 key를 갖거나
   // src가 고정이라 src 변경 시 인스턴스가 리마운트된다 → 실패 상태 초기화 effect 불필요.
@@ -36,7 +38,7 @@ function GalleryImage({
         alt={alt}
         fill
         sizes={variant === "main" ? "(max-width: 768px) 100vw, 900px" : "200px"}
-        className="object-cover"
+        className={fit === "contain" ? "object-contain" : "object-cover"}
         onError={() => setFailed(true)}
         unoptimized
       />
@@ -82,12 +84,15 @@ export default function ProjectGallery({
   gallery,
   className = "",
   autoPlay = true,
+  tone = "light",
 }: {
   gallery: Gallery;
   className?: string;
   autoPlay?: boolean;
+  /** 배경 톤 — 다크 섹션 위에서는 비활성 도트를 밝게(어두운 배경에서 안 보이는 문제 방지). */
+  tone?: "light" | "dark";
 }) {
-  const { slides, accent, frameUrl } = gallery;
+  const { slides, accent, frameUrl, mockup } = gallery;
   const ratio = gallery.ratio ?? "aspect-[16/10]";
   // 폰 스샷 갤러리는 썸네일도 세로 비율 + 더 좁은 폭으로 (지정 시).
   const thumbRatio = gallery.thumbRatio ?? "aspect-[4/3]";
@@ -113,11 +118,14 @@ export default function ProjectGallery({
 
   // 활성 썸네일을 가로 스트립 안에서 항상 보이도록 스크롤.
   // ⚠ scrollIntoView는 페이지 전체까지 스크롤하므로 금지 — 컨테이너만 가로 이동시킨다.
+  // ⚠ offsetLeft는 offsetParent 기준이라 스트립이 positioned가 아니면 어긋난다 → rect로 계산.
   useEffect(() => {
     const container = thumbsRef.current;
     const el = container?.querySelector<HTMLElement>('[data-active="true"]');
     if (!container || !el) return;
-    const target = el.offsetLeft - (container.clientWidth - el.clientWidth) / 2;
+    const cRect = container.getBoundingClientRect();
+    const eRect = el.getBoundingClientRect();
+    const target = container.scrollLeft + (eRect.left - cRect.left) - (container.clientWidth - el.clientWidth) / 2;
     container.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
   }, [active]);
 
@@ -165,30 +173,32 @@ export default function ProjectGallery({
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0"
         >
-          <GalleryImage src={current.src} alt={current.alt} accent={accent} variant="main" hint={current.hint} />
+          <GalleryImage src={current.src} alt={current.alt} accent={accent} variant="main" hint={current.hint} fit={mockup ? "contain" : "cover"} />
         </motion.div>
       </AnimatePresence>
 
-      {/* 하단 캡션 그라데이션 */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent pt-16">
-        <div className="flex items-end justify-between gap-3 p-4 md:p-5">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={active}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.35 }}
-              className="max-w-[80%] text-[13px] font-semibold leading-snug text-white drop-shadow md:text-sm"
-            >
-              {current.caption}
-            </motion.p>
-          </AnimatePresence>
-          <span className="shrink-0 rounded-full bg-black/40 px-2.5 py-1 text-[11px] font-bold tabular-nums text-white backdrop-blur-sm">
-            {String(active + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
-          </span>
+      {/* 하단 캡션 그라데이션 — 자체 목업(mockup)이면 폰 UI를 덮지 않도록 생략(캡션은 아래로) */}
+      {!mockup && (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent pt-16">
+          <div className="flex items-end justify-between gap-3 p-4 md:p-5">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={active}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35 }}
+                className="max-w-[80%] text-[13px] font-semibold leading-snug text-white drop-shadow md:text-sm"
+              >
+                {current.caption}
+              </motion.p>
+            </AnimatePresence>
+            <span className="shrink-0 rounded-full bg-black/40 px-2.5 py-1 text-[11px] font-bold tabular-nums text-white backdrop-blur-sm">
+              {String(active + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
+            </span>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 좌우 화살표 */}
       {count > 1 && (
@@ -250,7 +260,10 @@ export default function ProjectGallery({
           className="pointer-events-none absolute -inset-3 -z-10 rounded-[2rem] opacity-60 blur-2xl"
           style={{ background: `radial-gradient(60% 60% at 50% 30%, ${accent}40, transparent 70%)` }}
         />
-        {frameUrl ? (
+        {mockup ? (
+          /* 자체 폰 목업 — 카드 chrome 없이 폰 전체를 그대로(투명 배경) */
+          MainImage
+        ) : frameUrl ? (
           <div className="overflow-hidden rounded-2xl border border-white/10 bg-resume-card shadow-[0_24px_70px_-20px_rgba(0,0,0,0.6)]">
             <div className="flex items-center gap-2 border-b border-white/5 bg-white/[0.03] px-4 py-2.5">
               <span className="flex gap-1.5">
@@ -272,6 +285,29 @@ export default function ProjectGallery({
         )}
       </div>
 
+      {/* 자체 목업 — 캡션을 이미지 아래로(폰 UI를 안 덮게) + 번호.
+          캡션 길이가 달라도 높이가 들썩이지 않게 2줄 높이를 고정 예약. */}
+      {mockup && (
+        <div className="mt-3 flex min-h-[2.75rem] items-center justify-center gap-2 px-2 text-center">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={active}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.3 }}
+              className="line-clamp-2 text-[13px] font-semibold leading-snug break-keep"
+              style={{ color: tone === "dark" ? "#eef3f9" : "#0a2540" }}
+            >
+              {current.caption}
+            </motion.p>
+          </AnimatePresence>
+          <span className="shrink-0 text-[11px] font-bold tabular-nums" style={{ color: accent }}>
+            {String(active + 1).padStart(2, "0")}/{String(count).padStart(2, "0")}
+          </span>
+        </div>
+      )}
+
       {/* 도트 인디케이터 — 항상 보이는 직접 네비게이션(터치 기기 포함) */}
       {count > 1 && (
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
@@ -287,7 +323,7 @@ export default function ProjectGallery({
                 className="h-2 rounded-full transition-all duration-300"
                 style={{
                   width: isActive ? 22 : 8,
-                  background: isActive ? accent : "rgba(10,37,64,0.18)",
+                  background: isActive ? accent : tone === "dark" ? "rgba(255,255,255,0.3)" : "rgba(10,37,64,0.18)",
                 }}
               />
             );

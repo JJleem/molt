@@ -147,19 +147,13 @@ const ProjectDetail_CaseStudy = () => {
             <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 text-xs font-bold text-amber-300">GS인증 1등급</span>
           </div>
 
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-            {/* Left: 설명 + 핵심 성과 + 팀 카드 + CTA */}
+          {/* 상단 2단 — 좌: 로고+팀카드+CTA / 우: 핵심 성과 (골프 블록과 동일 구조) */}
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+            {/* Left: 로고 + 팀 카드 + CTA */}
             <div className="flex flex-col">
               <div className="w-fit rounded-lg bg-white px-3 py-1.5">
                 <Image src="/assets/carima.png" alt="carima logo" width={100} height={30} />
               </div>
-
-              <ul className="mt-6 space-y-3">
-                <CheckItem text="기획·디자인·개발 전 과정 리딩 — 1인 프론트엔드, GS인증 1등급 취득" />
-                <CheckItem text="이기종 장비 통합 관제 — 웹소켓 기반 실시간 상태 동기화" />
-                <CheckItem text="상태 동기화 지연 1초 미만(3s → 0.8s)으로 최적화" />
-                <CheckItem text="UI/UX 영문화 100% — 베트남 등 글로벌 산업현장 도입·가동" />
-              </ul>
 
               {/* 팀/오너십 카드 — 흰 카드 */}
               <div className={`mt-6 rounded-2xl p-5 ${CARD} flex flex-col gap-3`}>
@@ -190,13 +184,21 @@ const ProjectDetail_CaseStudy = () => {
               </div>
             </div>
 
-            {/* Right: 갤러리 */}
-            <div className="flex flex-col gap-6">
-              <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55 }}>
-                <ProjectGallery gallery={cHubGallery} />
-              </motion.div>
+            {/* Right: 핵심 성과 */}
+            <div className="flex flex-col">
+              <ul className="space-y-3">
+                <CheckItem text="기획·디자인·개발 전 과정 리딩 — 1인 프론트엔드, GS인증 1등급 취득" />
+                <CheckItem text="이기종 장비 통합 관제 — 웹소켓 기반 실시간 상태 동기화" />
+                <CheckItem text="상태 동기화 지연 1초 미만(3s → 0.8s)으로 최적화" />
+                <CheckItem text="UI/UX 영문화 100% — 베트남 등 글로벌 산업현장 도입·가동" />
+              </ul>
             </div>
           </div>
+
+          {/* 풀폭 슬라이더 — 다른 섹션과 동일하게 크게 */}
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55 }} className="mt-10">
+            <ProjectGallery gallery={cHubGallery} tone="dark" />
+          </motion.div>
         </div>
 
         {/* ── Challenge & Solution — 항목식 2-col (CapabilityItem 구조) ── */}
@@ -222,29 +224,30 @@ const ProjectDetail_CaseStudy = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: TEAL_HI }}>Extending to Mobile</span>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 text-[11px] font-bold text-amber-300">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" /> 마무리 단계
+                <span className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: TEAL_HI }}>Native Mobile App</span>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-1 text-[11px] font-bold text-emerald-300">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> 개발 완료
                 </span>
               </div>
-              <h3 className="mt-3 text-2xl font-bold leading-tight tracking-tight md:text-3xl" style={{ color: ONDARK }}>모바일 앱으로 확장 중</h3>
+              <h3 className="mt-3 text-2xl font-bold leading-tight tracking-tight md:text-3xl" style={{ color: ONDARK }}>네이티브 모바일 앱</h3>
               <p className="mt-4 text-[15px] leading-relaxed break-keep" style={{ color: ONDARK_SUB }}>
-                웹으로 검증된 산업용 관제 시스템을 네이티브 모바일 앱으로 이식하며 <span className="font-semibold" style={{ color: ONDARK }}>앱화(App-ification)</span>를 진행 중입니다.
+                산업용 관제 시스템을 <span className="font-semibold" style={{ color: ONDARK }}>React Native로 새로 개발</span>했습니다. 기존 웹과
+                <span className="font-semibold" style={{ color: ONDARK }}> 동일한 API</span>를 그대로 사용해, 현장에서 폰으로도 똑같이 관제할 수 있습니다.
               </p>
               <ul className="mt-5 space-y-3">
                 <CheckItem text="현장에서 폰으로 장비를 실시간 제어·모니터링" />
                 <CheckItem text="푸시 알림 등 모바일 네이티브 경험에 맞춰 재설계" />
-                <CheckItem text="웹과 동일 기능을 네이티브로 이식" />
+                <CheckItem text="기존 웹과 동일한 API — 백엔드 변경 없이 네이티브로 신규 구현" />
               </ul>
               <div className="mt-5 flex flex-wrap gap-2">
-                {["Expo", "React Native", "expo-router", "NativeWind", "TanStack Query", "React Native Skia", "expo-notifications", "i18next"].map((t) => (
+                {["Expo", "React Native", "expo-router", "NativeWind", "TanStack Query", "Zustand", "react-hook-form", "Reanimated", "react-native-svg", "expo-notifications", "i18next"].map((t) => (
                   <span key={t} className="rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-xs font-semibold" style={{ color: ONDARK_SUB }}>{t}</span>
                 ))}
               </div>
             </div>
 
             <div className="mx-auto w-full max-w-[280px]">
-              <ProjectGallery gallery={cHubMobileGallery} />
+              <ProjectGallery gallery={cHubMobileGallery} tone="dark" />
             </div>
           </motion.div>
         </div>

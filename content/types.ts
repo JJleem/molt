@@ -46,6 +46,10 @@ export interface PipelineStep {
   desc: string;
   /** 이 단계를 담당하는 에이전트 id들 (아바타 표시용, agents.ts의 id) */
   agentIds?: string[];
+  /** 이 단계 → 다음 단계로 넘어가는 연결부에 말풍선으로 띄울 영상 (예: 작성→검토 핸드오프) */
+  handoffMedia?: string;
+  /** 이 단계 직후 CEO(사람)가 확인·수정하는 체크인 지점 라벨 (예: 기획 뒤 / 검토 뒤) */
+  checkpoint?: string;
 }
 
 export interface CapabilityCard {
@@ -82,6 +86,8 @@ export interface Gallery {
   accent: string;
   /** 메인 이미지를 브라우저 목업으로 감쌀 때의 URL (웹 제품) */
   frameUrl?: string;
+  /** 이미지가 이미 폰 베젤을 포함한 자체 목업일 때 — 카드 chrome 없이 전체를 보여주고(contain) 캡션을 아래로 뺀다 */
+  mockup?: boolean;
   /** 메인 이미지 종횡비 유틸 클래스 (기본 aspect-[16/10]) */
   ratio?: string;
   /** 썸네일 종횡비 유틸 클래스 (기본 aspect-[4/3]). 폰 스샷이면 세로(예: aspect-[9/16]) */
