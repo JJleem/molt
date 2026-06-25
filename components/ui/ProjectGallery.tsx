@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ImageIcon, Maximize2, X } from "lucide-react";
 import Image from "next/image";
@@ -94,6 +95,8 @@ export default function ProjectGallery({
 }) {
   const { slides, accent, frameUrl, mockup } = gallery;
   const ratio = gallery.ratio ?? "aspect-[16/10]";
+  // 라이트박스에서 뷰포트에 맞춰 통이미지를 보여주기 위한 숫자 비율("16 / 10").
+  const ratioValue = ratio.match(/\[(.+)\]/)?.[1]?.replace("/", " / ") ?? "16 / 10";
   // 폰 스샷 갤러리는 썸네일도 세로 비율 + 더 좁은 폭으로 (지정 시).
   const thumbRatio = gallery.thumbRatio ?? "aspect-[4/3]";
   const thumbWidth = gallery.thumbRatio ? "w-[56px] sm:w-[64px]" : "w-[104px] sm:w-[124px]";
@@ -102,6 +105,10 @@ export default function ProjectGallery({
   const [paused, setPaused] = useState(false);
   const [lightbox, setLightbox] = useState(false);
   const [inView, setInView] = useState(false);
+  // 라이트박스를 document.body로 포털 → 조상 transform이 만든 stacking context를 탈출해
+  // 헤더(sticky z-50) 위로 확실히 올라오게 한다. SSR에서는 document가 없어 마운트 후에만.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const rootRef = useRef<HTMLDivElement>(null);
   const thumbsRef = useRef<HTMLDivElement>(null);
   const count = slides.length;
@@ -365,7 +372,8 @@ export default function ProjectGallery({
       )}
 
       {/* 라이트박스 */}
-      <AnimatePresence>
+      {mounted && createPortal(
+        <AnimatePresence>
         {lightbox && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -388,10 +396,15 @@ export default function ProjectGallery({
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-5xl"
+              className="relative flex w-full max-w-5xl flex-col items-center"
             >
-              <div className={`relative ${ratio} w-full overflow-hidden rounded-xl bg-resume-card`}>
-                <GalleryImage src={current.src} alt={current.alt} accent={accent} variant="main" hint={current.hint} />
+              {/* 뷰포트 높이(80vh)를 기준으로 비율대로 폭을 잡고, 폭은 컨테이너를 넘지 않게 클램프 →
+                  세로 폰 스샷·가로 와이드 스샷 모두 잘림 없이 통째로 보인다. */}
+              <div
+                className="relative max-h-[80vh] max-w-full overflow-hidden rounded-xl"
+                style={{ aspectRatio: ratioValue, height: "80vh" }}
+              >
+                <GalleryImage src={current.src} alt={current.alt} accent={accent} variant="main" hint={current.hint} fit="contain" />
               </div>
               <p className="mt-3 text-center text-sm font-medium text-white/90">{current.caption}</p>
             </motion.div>
@@ -418,7 +431,9 @@ export default function ProjectGallery({
             )}
           </motion.div>
         )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
     </div>
   );
 }
