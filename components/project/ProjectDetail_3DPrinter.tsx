@@ -16,6 +16,7 @@ import ProjectGallery from "@/components/ui/ProjectGallery";
 import { cHubGallery, cHubMobileGallery } from "@/content/galleries";
 import SlantBg from "@/components/sections/SlantBg";
 import GridGuides from "@/components/ui/GridGuides";
+import PrinterBuild from "@/components/project/PrinterBuild";
 
 // ── 흰 카드 내부 — 다른 섹션과 동일한 라이트 톤 ──
 const INK = "#0a2540";
@@ -96,8 +97,9 @@ const CHALLENGES = [
 ];
 
 const ProjectDetail_CaseStudy = () => {
+  const sectionRef = React.useRef<HTMLElement>(null);
   return (
-    <section id="work" className="relative z-20 scroll-mt-16 overflow-hidden py-28 font-sans" style={{ color: ONDARK }}>
+    <section ref={sectionRef} id="work" className="relative z-20 scroll-mt-16 overflow-x-clip py-28 font-sans" style={{ color: ONDARK }}>
       <SlantBg color={BG} top bottom />
       {/* 오른쪽 상단 모서리 — 히어로 띠 색의 소프트 코너 글로우(고급 무드).
           SlantBg(size 72)와 동일한 사선으로 클립 → 경사선 위로 새어나가지 않음. */}
@@ -113,6 +115,15 @@ const ProjectDetail_CaseStudy = () => {
       </div>
 
       <GridGuides columns={4} tone="dark" />
+
+      {/* 적층 빌드 3D — 실무 섹션 전체에 걸쳐 우측에 sticky로 머물며,
+          섹션을 내릴수록 빌드된다. 콘텐츠(z-10) 뒤, 배경(SlantBg z-0) 위. */}
+      <div className="pointer-events-none absolute inset-0 z-[2] hidden lg:block">
+        <div className="mx-auto h-full max-w-[1140px] px-6">
+          <PrinterBuild sectionRef={sectionRef} className="sticky top-[14vh] ml-auto h-[64vh] w-[44%]" />
+        </div>
+      </div>
+
       <div className="relative z-10 max-w-[1140px] mx-auto px-6">
         {/* ── 섹션 헤더 (CosmicHustle 헤더 구조) ── */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
