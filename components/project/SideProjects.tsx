@@ -18,6 +18,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import GridGuides from "@/components/ui/GridGuides";
+import ProjectDetail_Underduck from "@/components/project/ProjectDetail_Underduck";
 import { sideProjects } from "@/content/side-projects";
 import { localize } from "@/content/locale";
 import type { SideProject } from "@/content/types";
@@ -156,16 +157,32 @@ const SideProjects = () => {
             hidden: { opacity: 0, y: 16 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
           }}
-          className="mb-10 flex items-end justify-between gap-6"
+          className="mb-10"
         >
+          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]">
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#10b981" }} />
+            <span className="text-gradient">More Work</span>
+          </span>
+          <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-5xl">사이드 프로젝트</h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed break-keep md:text-base" style={{ color: SLATE }}>
+            업무 밖에서 직접 만들고 운영하며 검증한 작업들입니다.
+          </p>
+        </motion.div>
+      </div>
+
+      {/* 대표 사이드 프로젝트 — 헤더와 슬라이더 사이에 풀 디테일로 노출 (UNDERDUCK FC) */}
+      <ProjectDetail_Underduck />
+
+      {/* 그 외 사이드 프로젝트 — 슬라이더 인트로 + 네비게이션 (슬라이더 바로 위로 이동) */}
+      <div className="relative z-10 mx-auto mb-6 max-w-[1140px] px-6">
+        <div className="flex items-end justify-between gap-6 border-t border-[#e6ebf1] pt-10">
           <div>
             <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]">
               <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#10b981" }} />
-              <span className="text-gradient">More Work</span>
+              <span className="text-gradient">More Projects</span>
             </span>
-            <h2 className="text-gradient mt-3 pb-1 text-4xl font-bold tracking-tight md:text-5xl">사이드 프로젝트</h2>
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed break-keep md:text-base" style={{ color: SLATE }}>
-              업무 밖에서 직접 만들고 운영하며 검증한 작업들입니다.
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed break-keep md:text-base" style={{ color: SLATE }}>
+              위 UNDERDUCK FC 외에도, AI·데이터를 중심으로 직접 만들고 검증한 개인 프로젝트들입니다. 좌우로 넘겨 보세요.
             </p>
           </div>
 
@@ -190,7 +207,7 @@ const SideProjects = () => {
               <ChevronRight size={18} />
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* 가로 슬라이드 트랙 — 풀폭으로 풀고, 첫 카드만 컨테이너 왼쪽 끝에 정렬.

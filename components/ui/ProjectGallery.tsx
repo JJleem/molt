@@ -89,12 +89,27 @@ export default function ProjectGallery({
 }) {
   const { slides, accent, frameUrl } = gallery;
   const ratio = gallery.ratio ?? "aspect-[16/10]";
+  // 폰 스샷 갤러리는 썸네일도 세로 비율 + 더 좁은 폭으로 (지정 시).
+  const thumbRatio = gallery.thumbRatio ?? "aspect-[4/3]";
+  const thumbWidth = gallery.thumbRatio ? "w-[56px] sm:w-[64px]" : "w-[104px] sm:w-[124px]";
   const [active, setActive] = useState(0);
   const [dir, setDir] = useState(1);
   const [paused, setPaused] = useState(false);
   const [lightbox, setLightbox] = useState(false);
+  const [inView, setInView] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
   const thumbsRef = useRef<HTMLDivElement>(null);
   const count = slides.length;
+
+  // 뷰포트에 실제로 보일 때만 오토플레이 — 화면 밖에서 미리 넘어가 4~5번째 장부터
+  // 보이는 문제 방지(사용자 도착 시 항상 1번 장부터 시작).
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.3 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // 활성 썸네일을 가로 스트립 안에서 항상 보이도록 스크롤.
   // ⚠ scrollIntoView는 페이지 전체까지 스크롤하므로 금지 — 컨테이너만 가로 이동시킨다.
@@ -116,12 +131,12 @@ export default function ProjectGallery({
   const next = useCallback(() => go(active + 1, 1), [active, go]);
   const prev = useCallback(() => go(active - 1, -1), [active, go]);
 
-  // 오토플레이 (hover/lightbox 시 일시정지)
+  // 오토플레이 (hover/lightbox/화면 밖일 때 일시정지)
   useEffect(() => {
-    if (!autoPlay || paused || lightbox || count <= 1) return;
+    if (!autoPlay || paused || lightbox || count <= 1 || !inView) return;
     const t = setInterval(() => setActive((a) => (a + 1) % count), AUTOPLAY_MS);
     return () => clearInterval(t);
-  }, [autoPlay, paused, lightbox, count, active]);
+  }, [autoPlay, paused, lightbox, count, active, inView]);
 
   // 키보드 ← →, Esc(라이트박스)
   useEffect(() => {
@@ -208,7 +223,7 @@ export default function ProjectGallery({
       </button>
 
       {/* 오토플레이 진행 바 */}
-      {autoPlay && !paused && !lightbox && count > 1 && (
+      {autoPlay && !paused && !lightbox && inView && count > 1 && (
         <motion.div
           key={active}
           className="absolute inset-x-0 top-0 h-[3px] origin-left"
@@ -223,6 +238,7 @@ export default function ProjectGallery({
 
   return (
     <div
+      ref={rootRef}
       className={className}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -292,7 +308,7 @@ export default function ProjectGallery({
                 aria-label={`${i + 1}번 이미지로 이동: ${s.caption}`}
                 aria-current={isActive}
                 data-active={isActive}
-                className="group/thumb relative aspect-[4/3] w-[104px] shrink-0 snap-start overflow-hidden rounded-xl border bg-resume-card transition-all duration-300 sm:w-[124px]"
+                className={`group/thumb relative ${thumbRatio} ${thumbWidth} shrink-0 snap-start overflow-hidden rounded-xl border bg-resume-card transition-all duration-300`}
                 style={{
                   borderColor: isActive ? accent : "rgba(255,255,255,0.12)",
                   boxShadow: isActive ? `0 0 0 2px ${accent}, 0 8px 24px -8px ${accent}99` : "none",

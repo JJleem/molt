@@ -84,6 +84,8 @@ export interface Gallery {
   frameUrl?: string;
   /** 메인 이미지 종횡비 유틸 클래스 (기본 aspect-[16/10]) */
   ratio?: string;
+  /** 썸네일 종횡비 유틸 클래스 (기본 aspect-[4/3]). 폰 스샷이면 세로(예: aspect-[9/16]) */
+  thumbRatio?: string;
   slides: GallerySlide[];
 }
 

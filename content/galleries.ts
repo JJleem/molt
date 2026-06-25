@@ -149,6 +149,53 @@ export const engineGallery: Gallery = {
   ],
 };
 
+// ===== 🦆 UNDERDUCK FC — 조기축구 동아리 운영 대시보드 (사이드, 배포·운영 중) =====
+// 모바일 우선(max-w-md) 제품이라 폰 세로(9:19.5, 잘림 최소) 프레임. 0~5.png 드롭하면 즉시 반영.
+export const underduckGallery: Gallery = {
+  accent: "#ec4899", // pink — UNDERDUCK 브랜드(핑크+블랙)
+  ratio: "aspect-[1080/2340]",
+  thumbRatio: "aspect-[9/16]", // 폰 스샷이라 썸네일도 세로
+
+  slides: [
+    {
+      src: "/assets/projects/underduck/0.png",
+      alt: "페이스온 라인업 에디터",
+      caption: "페이스온 라인업 — 7가지 포메이션 DnD 편성, 인스타 스토리 포맷으로 공유",
+      hint: "라인업/포메이션 화면 · underduck/0.png",
+    },
+    {
+      src: "/assets/projects/underduck/1.png",
+      alt: "메인 홈 — 투표·공지",
+      caption: "메인 홈 — 다음 경기 투표와 공지사항을 한 화면에",
+      hint: "메인 홈(투표·공지) 화면 · underduck/1.png",
+    },
+    {
+      src: "/assets/projects/underduck/2.png",
+      alt: "마이페이지 — 기록",
+      caption: "마이페이지 — 최고의 듀오, 보유 칭호, 경기·골·도움 누적 기록",
+      hint: "마이페이지(듀오·칭호·스탯) 화면 · underduck/2.png",
+    },
+    {
+      src: "/assets/projects/underduck/3.png",
+      alt: "마이페이지 — 인사이트",
+      caption: "마이페이지 — 시즌 베스트 경기, 자주 함께 뛴 선수, 어시 관계, 포지션 분포·출석률",
+      hint: "마이페이지-2(인사이트) 화면 · underduck/3.png",
+    },
+    {
+      src: "/assets/projects/underduck/4.png",
+      alt: "투표 시스템",
+      caption: "투표 — 상대·날씨·경기장·일정 + 참석/미정/불참/미투표 + 투표 댓글",
+      hint: "투표 상세 화면 · underduck/4.png",
+    },
+    {
+      src: "/assets/projects/underduck/5.png",
+      alt: "칭호 도감",
+      caption: "칭호 도감 — 전체 타이틀을 한눈에 보는 컬렉션",
+      hint: "칭호 도감 화면 · underduck/5.png",
+    },
+  ],
+};
+
 // ===== 🏭 C-HUB V2.0 — 산업용 3D 프린터 통합 관제 솔루션 (실무, 배포·운영 중) =====
 export const cHubGallery: Gallery = {
   accent: "#6366f1", // indigo — resume-primary
