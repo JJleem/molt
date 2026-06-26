@@ -16,7 +16,7 @@ import ProjectGallery from "@/components/ui/ProjectGallery";
 import { cHubGallery, cHubMobileGallery } from "@/content/galleries";
 import SlantBg from "@/components/sections/SlantBg";
 import GridGuides from "@/components/ui/GridGuides";
-import PrinterBuild from "@/components/project/PrinterBuild";
+import SphereBuild from "@/components/project/SphereBuild";
 
 // ── 흰 카드 내부 — 다른 섹션과 동일한 라이트 톤 ──
 const INK = "#0a2540";
@@ -116,11 +116,10 @@ const ProjectDetail_CaseStudy = () => {
 
       <GridGuides columns={4} tone="dark" />
 
-      {/* 적층 빌드 3D — 실무 섹션 전체에 걸쳐 우측에 sticky로 머물며,
-          섹션을 내릴수록 빌드된다. 콘텐츠(z-10) 뒤, 배경(SlantBg z-0) 위. */}
-      <div className="pointer-events-none absolute inset-0 z-[2] hidden lg:block">
+      {/* 구체 — 텍스트(z-10) 뒤, 오른쪽 끝으로 밀어 컨텐츠와 겹침 최소화 */}
+      <div className="pointer-events-none absolute inset-0 z-[2] hidden lg:block overflow-visible">
         <div className="mx-auto h-full max-w-[1140px] px-6">
-          <PrinterBuild sectionRef={sectionRef} className="sticky top-[14vh] ml-auto h-[64vh] w-[44%]" />
+          <SphereBuild sectionRef={sectionRef} className="sticky top-[0vh] ml-auto w-[85%] translate-x-[28%]" />
         </div>
       </div>
 
