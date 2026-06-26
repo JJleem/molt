@@ -42,6 +42,24 @@ export const sideProjects: Localized<SideProject[]> = {
       link: "https://centiment.vercel.app",
     },
     {
+      id: "centinel",
+      title: "Centinel",
+      category: "AI / 게임 마케팅 경쟁 분석 자동화",
+      period: "Personal Project",
+      description:
+        "Google Play·App Store 게임 차트를 실시간 모니터링하고, Claude 멀티스테이지 앙상블로 경쟁작을 분석해 광고 소재 6종을 자동 생성하는 마케팅 자동화 플랫폼입니다.",
+      tech: ["Next.js 16", "TypeScript", "Tailwind CSS v4", "Claude (Sonnet 4 / Haiku 4.5)", "Supabase", "Vercel Cron", "SSE"],
+      achievements: [
+        "차트 모니터링(글로벌·매출·캐주얼·급상승) + 시간별 스냅샷으로 순위 변동 자동 추적",
+        "4단계 Claude 앙상블 파이프라인(트렌드 분석 → 인사이트 → 광고 소재 → 큐레이터 선별), Vision으로 스크린샷 최대 10장 분석",
+        "광고 카피 6종 자동 생성, 고정 URL 공유·PDF·CSV 내보내기, Supabase 분석 히스토리 관리",
+      ],
+      iconName: "Radar",
+      color: "bg-sky-500/15 text-sky-400",
+      github: "https://github.com/JJleem/centinel",
+      link: "https://centinel-beta.vercel.app/",
+    },
+    {
       id: "naver-ads",
       title: "Naver Ad Data Pipeline",
       category: "Freelance / Data Engineering",
@@ -76,24 +94,6 @@ export const sideProjects: Localized<SideProject[]> = {
       github: "https://github.com/JJleem/Mockitup",
       link: "https://jjleem.github.io/Mockitup/",
       logo: "/assets/mockitup.png",
-    },
-    {
-      id: "gecko-hub",
-      title: "GeckoHub (MVP)",
-      category: "Full-Stack / Pet Management Service",
-      period: "Personal Project",
-      description:
-        "크레스티드 게코의 혈통과 성장 과정을 기록하는 풀스택 웹 서비스입니다. Next.js와 Django를 연동하고, AI 툴을 활용한 Vibe Coding으로 핵심 로직 구현에 집중했습니다.",
-      tech: ["Next.js 14", "Python", "Typescript", "Django (DRF)", "Supabase", "NextAuth", "Tailwind"],
-      achievements: [
-        "Self-referencing 모델링으로 부모-자식 개체 간의 '혈통 가계도' 시각화 로직 구현",
-        "NextAuth(Social)와 Django JWT 인증 시스템을 통합하여 보안 로그인 환경 구축",
-        "Vercel Serverless Function으로 프론트/백엔드를 통합 배포하여 운영 비용 최적화",
-      ],
-      iconName: "Dna",
-      color: "bg-green-500/15 text-green-400",
-      github: "https://github.com/JJleem/gecko-hub",
-      link: "https://gecko-hub-web.vercel.app/",
     },
   ],
 };

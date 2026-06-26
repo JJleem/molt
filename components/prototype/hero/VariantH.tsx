@@ -11,230 +11,282 @@ const SPRING = "cubic-bezier(0.68,-0.55,0.27,1.55)";
 const FLIP_E = "cubic-bezier(0.68,-0.25,0.27,1.0)";
 const DUR_OUT = 750;
 const DUR_IN  = 900;
-const HOLD_MS = 3200;
+const HOLD_MS = 2500;
+const INTRO_DELAY = 600; // SVG 가 그려지자마자(≈460ms) 곧바로 첫 카드가 올라온다
 
-type GroupName = "mobileWallet" | "contact" | "shippingDetails" | "paymentDetails";
+/* ─── 실제 사이트 스크린샷 설정 ─────────────────────────────────────────────── */
+const SHOT = "/assets/projects";
 
-const CARD_GROUPS: GroupName[][] = [
-  ["mobileWallet", "contact", "shippingDetails", "paymentDetails"],
-  ["mobileWallet", "contact", "paymentDetails"],
-  ["contact", "shippingDetails", "paymentDetails"],
-];
+type ShotSpec = { label: string; url: string; image: string };
 
-function rowStyle(animKey: number, i: number): React.CSSProperties {
-  return {
-    animationName: animKey > 0 ? "row-slide-in" : "none",
-    animationDuration: "0.38s",
-    animationTimingFunction: "cubic-bezier(0.65,0.05,0.36,1)",
-    animationFillMode: "backwards",
-    animationDelay: `${430 + i * 110}ms`,
-  };
-}
+const BLOG_SHOT:    ShotSpec = { label: "AI Blog · Cosmic Hustle", url: "cosmic-hustle.ai.kr", image: `${SHOT}/blog/2.png` };
+const CHUB_SHOT:    ShotSpec = { label: "C-Hub · 3D 프린터 원격제어", url: "c-hub.info",        image: `${SHOT}/c-hub/1.png` };
+const CHUBAPP_SHOT: ShotSpec = { label: "C-Hub App · 원격 모니터링",  url: "c-hub.info",        image: `${SHOT}/c-hub-app/4.png` };
+const UNDERDUCK_SHOT: ShotSpec = { label: "UNDERDUCK FC",            url: "underduck.app",     image: `${SHOT}/underduck/0.png` };
 
-/* ─── Card 0: BabyBlue (AI Pipeline) ─────────────────────────────────────── */
-function BabyBlueCard({ ak }: { ak: number }) {
+/* ─── 공통: 브라우저 크롬 ─────────────────────────────────────────────────── */
+function BrowserChrome({ url, dark }: { url: string; dark?: boolean }) {
   return (
-    <div style={{ background: "#e3f5ff", borderRadius: 16, width: 400, overflow: "hidden",
-      boxShadow: "0 2px 4px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.09),0 28px 56px rgba(0,0,0,0.12)" }}>
-      <div style={{ padding: "26px 22px 0", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-          <div style={{ width:36, height:36, background:BRAND, borderRadius:10,
-            display:"flex", alignItems:"center", justifyContent:"center", color:"white", fontSize:14, fontWeight:800 }}>
-            M
-          </div>
-          <div>
-            <div style={{ fontSize:14, fontWeight:700, color:INK, lineHeight:1.2 }}>AI Blog Pipeline</div>
-            <div style={{ fontSize:11, color:BRAND, fontWeight:600, marginTop:2 }}>E2E AI</div>
-          </div>
-        </div>
-        <span style={{ fontSize:10, fontWeight:700, background:"#dcfce7", color:"#059669",
-          borderRadius:20, padding:"4px 12px", display:"flex", alignItems:"center", gap:4 }}>
-          <span style={{ width:6, height:6, background:"#10b981", borderRadius:"50%", display:"inline-block" }}/>
-          Running
-        </span>
+    <div style={{
+      background: dark ? "#1c2128" : "#f0f0f0",
+      padding: "9px 12px",
+      borderBottom: `1px solid ${dark ? "#30363d" : "#dedede"}`,
+      display: "flex", alignItems: "center", gap: 8,
+    }}>
+      <div style={{ display: "flex", gap: 5, flexShrink: 0 }}>
+        <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57" }}/>
+        <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#febc2e" }}/>
+        <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840" }}/>
       </div>
-
-      <div style={{ margin:"20px 22px", background:"white", borderRadius:12, padding:"18px 18px" }}>
-        <div style={{ fontSize:9, color:"#9ca3af", fontWeight:700, letterSpacing:"0.08em",
-          textTransform:"uppercase", marginBottom:14 }}>Pipeline Flow</div>
-        <div style={{ display:"flex", alignItems:"center" }}>
-          {(["🔍 Crawl","✍️ AI Write","🚀 Publish"] as const).map((s, i) => (
-            <div key={s} style={{ display:"flex", alignItems:"center", flex: i<2 ? "0 0 auto" : 1 }}>
-              <div style={{ textAlign:"center" }}>
-                <div style={{ fontSize:26, marginBottom:6 }}>{s.split(" ")[0]}</div>
-                <div style={{ fontSize:11, fontWeight:600,
-                  color:["#0d9488","#0891b2","#6366f1"][i] }}>{s.split(" ")[1]}</div>
-              </div>
-              {i < 2 && (
-                <div style={{ padding:"0 10px", color:"#cbd5e1", fontSize:16, marginBottom:10 }}>→</div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div key={ak} style={{ padding:"0 22px" }}>
-        {([
-          { label:"Stack",    value:"Next.js · LangGraph · Vercel" },
-          { label:"Agents",   value:"11 Active" },
-          { label:"Schedule", value:"24/7 Auto-Publish" },
-        ] as const).map(({ label, value }, i) => (
-          <div key={label} style={{
-            ...rowStyle(ak, i),
-            display:"flex", justifyContent:"space-between", alignItems:"center",
-            background:"rgba(255,255,255,0.65)", borderRadius:10,
-            padding:"13px 16px", marginBottom:10,
-          }}>
-            <span style={{ fontSize:11, color:SLATE, fontWeight:500 }}>{label}</span>
-            <span style={{ fontSize:12, color:INK, fontWeight:600 }}>{value}</span>
-          </div>
-        ))}
-      </div>
-
-      <div style={{ padding:"14px 22px 28px" }}>
-        <button style={{ width:"100%", background:BRAND, color:"white", border:"none",
-          borderRadius:10, padding:"14px 0", fontSize:14, fontWeight:600, cursor:"pointer" }}>
-          파이프라인 보기 →
-        </button>
+      <div style={{
+        flex: 1, background: dark ? "#2d333b" : "#e2e2e2",
+        borderRadius: 5, padding: "3px 10px",
+        fontSize: 10, color: dark ? "#8b949e" : "#888", textAlign: "center",
+        fontFamily: "system-ui, sans-serif",
+      }}>
+        {url}
       </div>
     </div>
   );
 }
 
-/* ─── Card 1: Lakers/Purple (C-HUB) ──────────────────────────────────────── */
-function LakersCard({ ak }: { ak: number }) {
+/* ─── 데스크톱 실제 스크린샷 카드 (AI Blog, C-Hub) ──────────────────────────── */
+function BrowserShot({ spec }: { spec: ShotSpec }) {
   return (
-    <div style={{ background:"#6366f1", borderRadius:16, width:360, overflow:"hidden",
-      boxShadow:"0 2px 4px rgba(0,0,0,0.08),0 8px 24px rgba(99,102,241,0.35),0 28px 56px rgba(0,0,0,0.16)" }}>
-      <div style={{ padding:"26px 24px 18px", borderBottom:"1px solid rgba(255,255,255,0.15)" }}>
-        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-          <span style={{ fontSize:10, fontWeight:700, background:"rgba(255,255,255,0.2)",
-            color:"white", borderRadius:20, padding:"4px 12px" }}>GS 1등급 인증</span>
-          <span style={{ fontSize:10, fontWeight:700, background:"#dcfce7", color:"#059669",
-            borderRadius:20, padding:"4px 12px", display:"flex", alignItems:"center", gap:4 }}>
-            <span style={{ width:6, height:6, background:"#10b981", borderRadius:"50%", display:"inline-block" }}/>
-            Live
-          </span>
-        </div>
-        <div style={{ marginTop:16, color:"white", fontSize:22, fontWeight:800, lineHeight:1.2 }}>
-          C-HUB 2.0
-        </div>
-        <div style={{ color:"rgba(255,255,255,0.7)", fontSize:13, marginTop:6 }}>
-          공공기관 통합 업무 플랫폼
-        </div>
-      </div>
-
-      <div style={{ display:"flex", padding:"20px 24px", gap:12 }}>
-        {([
-          { label:"사용자", value:"500+" },
-          { label:"인증",   value:"GS" },
-          { label:"배포",   value:"On-prem" },
-        ] as const).map(({ label, value }) => (
-          <div key={label} style={{ flex:1, background:"rgba(255,255,255,0.12)", borderRadius:10, padding:"12px 10px" }}>
-            <div style={{ fontSize:10, color:"rgba(255,255,255,0.6)", fontWeight:500 }}>{label}</div>
-            <div style={{ fontSize:16, fontWeight:800, color:"white", marginTop:4 }}>{value}</div>
-          </div>
-        ))}
-      </div>
-
-      <div key={ak} style={{ padding:"0 24px" }}>
-        {([
-          "✓  실시간 협업 (WebSocket)",
-          "✓  전자결재 워크플로우",
-          "✓  공지·일정·문서 통합관리",
-          "✓  React · Node · PostgreSQL",
-        ] as const).map((text, i) => (
-          <div key={text} style={{
-            ...rowStyle(ak, i),
-            fontSize:12, color:"rgba(255,255,255,0.85)", fontWeight:500,
-            padding:"12px 0", borderBottom: i < 3 ? "1px solid rgba(255,255,255,0.1)" : "none",
-          }}>
-            {text}
-          </div>
-        ))}
-      </div>
-
-      <div style={{ padding:"20px 24px 28px" }}>
-        <button style={{ width:"100%", background:"white", color:"#6366f1", border:"none",
-          borderRadius:10, padding:"14px 0", fontSize:14, fontWeight:700, cursor:"pointer" }}>
-          프로젝트 보기 →
-        </button>
+    <div style={{
+      background: "#fff", borderRadius: 14, width: 448, overflow: "hidden",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.05),0 8px 24px rgba(0,0,0,0.10),0 30px 60px rgba(0,0,0,0.16)",
+    }}>
+      <BrowserChrome url={spec.url} />
+      <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 9", overflow: "hidden", background: "#0b0f17" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={spec.image}
+          alt={spec.label}
+          draggable={false}
+          style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover", objectPosition: "top center",
+            animation: "shot-fade 0.55s ease both, ken-burns 9s ease-out both",
+          }}
+        />
       </div>
     </div>
   );
 }
 
-/* ─── Card 2: Tron/Dark (Research Engine) ────────────────────────────────── */
-function TronCard({ ak }: { ak: number }) {
+/* ─── 모바일 실제 스크린샷 카드 (C-Hub App, UNDERDUCK — 이미지에 폰 베젤 포함) ── */
+function PhoneShot({ spec }: { spec: ShotSpec }) {
   return (
-    <div style={{ background:"#0a2540", borderRadius:16, width:382, overflow:"hidden",
-      boxShadow:"0 2px 4px rgba(0,0,0,0.12),0 8px 24px rgba(0,0,0,0.3),0 28px 56px rgba(0,0,0,0.2)" }}>
-      <div style={{ padding:"26px 22px 18px", borderBottom:"1px solid rgba(255,255,255,0.08)" }}>
-        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-          <div style={{ fontSize:10, fontWeight:700, color:BRAND, letterSpacing:"0.1em",
-            textTransform:"uppercase" }}>Multi-Agent RAG</div>
-          <span style={{ fontSize:10, fontWeight:700, background:"rgba(139,92,246,0.2)", color:"#a78bfa",
-            borderRadius:20, padding:"4px 12px", display:"flex", alignItems:"center", gap:4 }}>
-            <span style={{ width:6, height:6, background:"#8b5cf6", borderRadius:"50%", display:"inline-block" }}/>
-            Active
-          </span>
-        </div>
-        <div style={{ marginTop:12, color:"white", fontSize:20, fontWeight:800 }}>Research Engine</div>
-        <div style={{ color:"rgba(255,255,255,0.45)", fontSize:12, marginTop:5 }}>
-          Python · LangGraph · Vector DB
-        </div>
-      </div>
-
-      <div style={{ margin:"18px 22px", background:"rgba(255,255,255,0.05)", borderRadius:10, padding:"16px 16px" }}>
-        <div style={{ fontSize:9, color:"rgba(255,255,255,0.3)", fontWeight:700,
-          letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:10 }}>Query</div>
-        <div style={{ fontSize:13, color:"rgba(255,255,255,0.6)", fontStyle:"italic", lineHeight:1.5 }}>
-          "최신 AI 트렌드 시장 분석..."
-        </div>
-      </div>
-
-      <div key={ak} style={{ padding:"0 22px" }}>
-        {([
-          { step:"01", label:"Vector Search", color:BRAND },
-          { step:"02", label:"Reranking",     color:"#0891b2" },
-          { step:"03", label:"GPT-4o 생성",   color:"#8b5cf6" },
-        ] as const).map(({ step, label, color }, i) => (
-          <div key={step} style={{
-            ...rowStyle(ak, i),
-            display:"flex", alignItems:"center", gap:10,
-            padding:"13px 0", borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.06)" : "none",
-          }}>
-            <span style={{ fontSize:10, fontWeight:700, color, minWidth:20 }}>{step}</span>
-            <span style={{ fontSize:12, color:"rgba(255,255,255,0.7)", fontWeight:500 }}>{label}</span>
-            <span style={{ marginLeft:"auto", fontSize:10, color:"rgba(255,255,255,0.3)" }}>→</span>
-          </div>
-        ))}
-      </div>
-
-      <div style={{ margin:"16px 22px", background:"rgba(13,148,136,0.1)", borderRadius:10,
-        padding:"14px 16px", border:"1px solid rgba(13,148,136,0.2)" }}>
-        <span style={{ fontSize:11, color:BRAND, fontWeight:600 }}>✓ Report generated</span>
-        <span style={{ fontSize:11, color:"rgba(255,255,255,0.35)", marginLeft:8 }}>2.3s</span>
-      </div>
-
-      <div style={{ padding:"4px 22px 28px" }}>
-        <button style={{ width:"100%", background:BRAND, color:"white", border:"none",
-          borderRadius:10, padding:"14px 0", fontSize:14, fontWeight:600, cursor:"pointer" }}>
-          에이전트 보기 →
-        </button>
-      </div>
+    <div style={{
+      background: "#fff", borderRadius: 30, width: 264, overflow: "hidden",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.06),0 12px 32px rgba(0,0,0,0.18),0 34px 64px rgba(0,0,0,0.20)",
+    }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={spec.image}
+        alt={spec.label}
+        draggable={false}
+        style={{ display: "block", width: "100%", height: "auto", animation: "shot-fade 0.55s ease both" }}
+      />
     </div>
   );
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   HeroAnimation — 3 cards always in DOM, simultaneous crossfade
-   Z 레이어: SVG(z=3) < GradientCanvas(z=5) < DemoCard(z=10)
+   배경 블루프린트 씬 — 활성 카드에 맞춰 와이어프레임이 "그려지는" 애니메이션
+   draw(): stroke-dashoffset 1→0 (pathLength=1) · pop(): 페이드업 · grow(): 막대
+   ───────────────────────────────────────────────────────────────────────────── */
+function draw(delay: number, dur = 0.7): React.CSSProperties {
+  return { strokeDasharray: 1, strokeDashoffset: 1, animation: `hero-draw ${dur}s ease ${delay}s forwards` };
+}
+function pop(delay: number): React.CSSProperties {
+  return { opacity: 0, animation: `hero-fade-up 0.5s ease ${delay}s forwards` };
+}
+function grow(delay: number): React.CSSProperties {
+  return { transformBox: "fill-box", transformOrigin: "bottom", transform: "scaleY(0)", animation: `hero-grow 0.5s cubic-bezier(0.22,1,0.36,1) ${delay}s forwards` };
+}
+
+// SVG 블루프린트 글자 — 사이트와 동일한 Pretendard 사용 (svg 에 한 번 걸어 상속)
+const BLUEPRINT_FONT = "var(--font-pretendard), ui-sans-serif, system-ui, sans-serif";
+
+/* Scene — AI Blog (teal) : 상·하단 밴드 */
+function SceneBlog() {
+  const A = "#0d9488";
+  const tags = [
+    { x: 26, w: 50, t: "Next.js" },
+    { x: 82, w: 38, t: "LLM" },
+    { x: 126, w: 38, t: "SEO" },
+    { x: 170, w: 70, t: "11 Agents" },
+  ];
+  const bars = [30, 46, 38, 64, 52, 78];
+  return (
+    <g>
+      <text x={26} y={52} fontSize={14} fontWeight={800} fill={A} style={pop(0)}>AI BLOG</text>
+      <text x={26} y={70} fontSize={10} fill="#94a3b8" style={pop(0.1)}>Cosmic Hustle · 자동 발행 파이프라인</text>
+      <path d="M26 80 H190" stroke={A} strokeWidth={2} strokeLinecap="round" pathLength={1} style={draw(0.2, 0.5)} />
+      {tags.map((tg, i) => (
+        <g key={tg.t}>
+          <rect x={tg.x} y={96} width={tg.w} height={18} rx={9} stroke="#CBD5E1" fill="none" pathLength={1} style={draw(0.35 + i * 0.08, 0.5)} />
+          <text x={tg.x + tg.w / 2} y={108} fontSize={8} fill="#94a3b8" textAnchor="middle" style={pop(0.55 + i * 0.08)}>{tg.t}</text>
+        </g>
+      ))}
+      <path d="M360 132 H516" stroke="#CBD5E1" strokeWidth={1} pathLength={1} style={draw(0.3, 0.5)} />
+      {bars.map((h, i) => (
+        <rect key={i} x={362 + i * 26} y={132 - h} width={16} height={h} rx={2} fill={A} opacity={0.7} style={grow(0.5 + i * 0.07)} />
+      ))}
+      <text x={360} y={48} fontSize={9} fill="#94a3b8" style={pop(0.4)}>auto-publish ↗</text>
+
+      <text x={26} y={486} fontSize={9} fontWeight={700} letterSpacing="0.12em" fill="#94a3b8" style={pop(0.5)}>RECENT POSTS</text>
+      {[0, 1, 2].map(i => (
+        <g key={i}>
+          <circle cx={30} cy={505 + i * 22} r={3} fill={A} style={pop(0.6 + i * 0.1)} />
+          <path d={`M42 ${505 + i * 22} H${260 - i * 30}`} stroke="#CBD5E1" strokeWidth={2} strokeLinecap="round" pathLength={1} style={draw(0.62 + i * 0.1, 0.5)} />
+        </g>
+      ))}
+      <text x={516} y={500} fontSize={26} fontWeight={800} fill={A} textAnchor="end" style={pop(0.7)}>24/7</text>
+      <text x={516} y={516} fontSize={9} fill="#94a3b8" textAnchor="end" style={pop(0.8)}>publishing</text>
+    </g>
+  );
+}
+
+/* Scene — C-Hub (indigo) : 3D 프린터 원격제어 대시보드 */
+function SceneChub() {
+  const A = "#6366f1";
+  const stats = [
+    { x: 26, t: "프린팅", v: "5", c: "#059669" },
+    { x: 130, t: "대기", v: "8", c: "#6366f1" },
+    { x: 234, t: "오프라인", v: "1", c: "#94a3b8" },
+  ];
+  const jobs = [
+    { t: "benchy_v3 · 67%", p: 0.67 },
+    { t: "bracket_A12 · 41%", p: 0.41 },
+    { t: "gear_set · 88%", p: 0.88 },
+  ];
+  return (
+    <g>
+      <text x={26} y={52} fontSize={14} fontWeight={800} fill={A} style={pop(0)}>C-HUB</text>
+      <text x={26} y={70} fontSize={10} fill="#94a3b8" style={pop(0.1)}>carima · 3D 프린터 원격제어</text>
+      <path d="M26 80 H210" stroke={A} strokeWidth={2} strokeLinecap="round" pathLength={1} style={draw(0.2, 0.5)} />
+      <g style={pop(0.25)}>
+        <circle cx={462} cy={48} r={4} fill="#10b981" />
+        <text x={472} y={52} fontSize={10} fill="#94a3b8">Live</text>
+      </g>
+      {stats.map((s, i) => (
+        <g key={s.t}>
+          <rect x={s.x} y={94} width={92} height={40} rx={7} stroke="#CBD5E1" fill="none" pathLength={1} style={draw(0.35 + i * 0.1, 0.55)} />
+          <text x={s.x + 12} y={118} fontSize={18} fontWeight={800} fill={s.c} style={pop(0.6 + i * 0.1)}>{s.v}</text>
+          <text x={s.x + 12} y={130} fontSize={8} fill="#94a3b8" style={pop(0.66 + i * 0.1)}>{s.t}</text>
+        </g>
+      ))}
+
+      <text x={26} y={486} fontSize={9} fontWeight={700} letterSpacing="0.12em" fill="#94a3b8" style={pop(0.5)}>프린트 큐 · 원격 제어</text>
+      {jobs.map((j, i) => {
+        const y = 500 + i * 30;
+        return (
+          <g key={j.t}>
+            <rect x={26} y={y - 8} width={360} height={24} rx={6} stroke="#CBD5E1" fill="none" pathLength={1} style={draw(0.58 + i * 0.1, 0.55)} />
+            <circle cx={40} cy={y + 4} r={3} fill={A} style={pop(0.7 + i * 0.1)} />
+            <text x={52} y={y + 7} fontSize={9} fill="#94a3b8" style={pop(0.74 + i * 0.1)}>{j.t}</text>
+            <path d={`M250 ${y + 4} H374`} stroke="#E2E8F0" strokeWidth={3} strokeLinecap="round" pathLength={1} style={draw(0.78 + i * 0.1, 0.4)} />
+            <path d={`M250 ${y + 4} H${250 + 124 * j.p}`} stroke={A} strokeWidth={3} strokeLinecap="round" pathLength={1} style={draw(0.9 + i * 0.1, 0.5)} />
+          </g>
+        );
+      })}
+      <text x={516} y={500} fontSize={26} fontWeight={800} fill="#059669" textAnchor="end" style={pop(0.7)}>8</text>
+      <text x={516} y={516} fontSize={9} fill="#94a3b8" textAnchor="end" style={pop(0.8)}>online</text>
+    </g>
+  );
+}
+
+/* Scene — C-Hub App (purple) : 단일 장비 원격 모니터링 (폰이 중앙 → 좌·우 밴드) */
+function SceneChubApp() {
+  const A = "#8b5cf6";
+  return (
+    <g>
+      {/* 좌측 밴드 */}
+      <text x={10} y={64} fontSize={12} fontWeight={800} fill={A} style={pop(0)}>C-HUB APP</text>
+      <text x={10} y={80} fontSize={9} fill="#94a3b8" letterSpacing="0.1em" style={pop(0.12)}>원격 모니터링</text>
+      {/* 프린터 와이어프레임 */}
+      <rect x={14} y={150} width={104} height={96} rx={8} stroke="#CBD5E1" fill="none" pathLength={1} style={draw(0.25, 0.8)} />
+      <path d="M66 150 V134" stroke="#CBD5E1" strokeWidth={2} strokeLinecap="round" pathLength={1} style={draw(0.5, 0.4)} />
+      <rect x={30} y={216} width={72} height={14} rx={2} stroke="#CBD5E1" fill="none" pathLength={1} style={draw(0.55, 0.5)} />
+      {/* 카메라 피드 박스 */}
+      <rect x={14} y={262} width={104} height={68} rx={6} stroke="#CBD5E1" fill="none" pathLength={1} style={draw(0.65, 0.6)} />
+      <circle cx={26} cy={276} r={3} fill="#ef4444" style={pop(0.95)} />
+      <text x={66} y={300} fontSize={8} fill="#94a3b8" textAnchor="middle" style={pop(1.0)}>LIVE CAM</text>
+      {/* 진행률 */}
+      <text x={14} y={362} fontSize={8} fill="#94a3b8" style={pop(0.85)}>진행률</text>
+      <path d="M14 374 H118" stroke="#E2E8F0" strokeWidth={4} strokeLinecap="round" pathLength={1} style={draw(0.9, 0.4)} />
+      <path d="M14 374 H89" stroke={A} strokeWidth={4} strokeLinecap="round" pathLength={1} style={draw(1.0, 0.5)} />
+      <text x={118} y={366} fontSize={11} fontWeight={700} fill={A} textAnchor="end" style={pop(1.1)}>72%</text>
+
+      {/* 우측 밴드 */}
+      <text x={530} y={150} fontSize={9} fill="#94a3b8" textAnchor="end" letterSpacing="0.12em" style={pop(0.2)}>PRINT STATUS</text>
+      <text x={530} y={184} fontSize={20} fontWeight={800} fill={A} textAnchor="end" style={pop(0.3)}>프린팅</text>
+      <path d="M438 198 H530" stroke={A} strokeWidth={2} strokeLinecap="round" pathLength={1} style={draw(0.4, 0.5)} />
+      {["레시피 · Default.xml", "노즐 210°C · 베드 60°C", "시작 14:14:33", "소요 1h 32m"].map((t, i) => (
+        <text key={t} x={530} y={224 + i * 20} fontSize={9} fill="#94a3b8" textAnchor="end" style={pop(0.5 + i * 0.1)}>{t}</text>
+      ))}
+    </g>
+  );
+}
+
+/* Scene — UNDERDUCK FC (pink) : 조기축구 동아리 운영 대시보드 (풀스택 PWA) */
+function SceneUnderduck() {
+  const A = "#ec4899";
+  const dots = [
+    [64, 430],
+    [28, 380], [52, 380], [76, 380], [100, 380],
+    [28, 320], [52, 320], [76, 320], [100, 320],
+    [44, 262], [84, 262],
+  ];
+  const mods = ["일정 관리", "출석 체크", "투표·공지", "스탯·전적"];
+  return (
+    <g>
+      {/* 좌측: 스쿼드 라인업 */}
+      <text x={16} y={70} fontSize={13} fontWeight={800} fill={A} style={pop(0)}>UNDERDUCK FC</text>
+      <text x={16} y={86} fontSize={9} fill="#94a3b8" letterSpacing="0.1em" style={pop(0.12)}>조기축구 운영 대시보드</text>
+      <rect x={16} y={150} width={96} height={300} rx={8} stroke="#CBD5E1" fill="none" pathLength={1} style={draw(0.25, 0.9)} />
+      <path d="M16 300 H112" stroke="#CBD5E1" strokeWidth={1} pathLength={1} style={draw(0.7, 0.5)} />
+      <circle cx={64} cy={300} r={20} stroke="#CBD5E1" strokeWidth={1} fill="none" pathLength={1} style={draw(0.8, 0.5)} />
+      {dots.map(([cx, cy], i) => (
+        <circle key={i} cx={cx} cy={cy} r={5} fill={A} opacity={0.8} style={pop(0.6 + i * 0.05)} />
+      ))}
+      <text x={64} y={470} fontSize={8} fill="#94a3b8" textAnchor="middle" letterSpacing="0.18em" style={pop(1.0)}>SQUAD · 4-4-2</text>
+
+      {/* 우측: 풀스택 PWA 운영 모듈 */}
+      <text x={524} y={150} fontSize={9} fill={A} textAnchor="end" letterSpacing="0.14em" style={pop(0.2)}>FULL-STACK PWA</text>
+      <path d="M430 160 H524" stroke={A} strokeWidth={2} strokeLinecap="round" pathLength={1} style={draw(0.3, 0.5)} />
+      {mods.map((m, i) => (
+        <g key={m}>
+          <rect x={428} y={178 + i * 30} width={96} height={22} rx={6} stroke="#CBD5E1" fill="none" pathLength={1} style={draw(0.4 + i * 0.1, 0.55)} />
+          <circle cx={442} cy={189 + i * 30} r={3} fill={A} style={pop(0.55 + i * 0.1)} />
+          <text x={454} y={193 + i * 30} fontSize={9} fill="#94a3b8" style={pop(0.6 + i * 0.1)}>{m}</text>
+        </g>
+      ))}
+      <text x={524} y={336} fontSize={26} fontWeight={800} fill={A} textAnchor="end" style={pop(0.95)}>82%</text>
+      <text x={524} y={352} fontSize={9} fill="#94a3b8" textAnchor="end" style={pop(1.05)}>출석률 · 회원 18</text>
+    </g>
+  );
+}
+
+/* ─── 카드 정의 (순서 = 사이클 순서) ──────────────────────────────────────── */
+const CARDS = [
+  { kind: "browser" as const, spec: BLOG_SHOT,      Scene: SceneBlog },
+  { kind: "browser" as const, spec: CHUB_SHOT,      Scene: SceneChub },
+  { kind: "phone"   as const, spec: CHUBAPP_SHOT,   Scene: SceneChubApp },
+  { kind: "phone"   as const, spec: UNDERDUCK_SHOT, Scene: SceneUnderduck },
+];
+const N = CARDS.length;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   HeroAnimation — N cards always in DOM, simultaneous crossfade
+   Z 레이어: SVG 블루프린트(z=3) < GradientCanvas(z=5) < DemoCard(z=10)
    ───────────────────────────────────────────────────────────────────────────── */
 function HeroAnimation() {
-  const [idx, setIdx]       = useState(0);
-  const [rowAnimKeys, setRowAnimKeys] = useState<[number, number, number]>([0, 0, 0]);
+  const [idx, setIdx] = useState(0);
+  const [sceneKeys, setSceneKeys] = useState<number[]>(() => Array(N).fill(0));
   const idxRef = useRef(0);
 
   const [frameOn, setFrameOn] = useState(false);
@@ -245,20 +297,9 @@ function HeroAnimation() {
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
-  const mobileWalletRef = useRef<SVGGElement>(null);
-  const contactRef      = useRef<SVGGElement>(null);
-  const shippingRef     = useRef<SVGGElement>(null);
-  const paymentRef      = useRef<SVGGElement>(null);
-
-  // 6 refs — 3 wrap (opacity+scale) + 3 card (rotateY)
-  const wrap0 = useRef<HTMLDivElement>(null);
-  const wrap1 = useRef<HTMLDivElement>(null);
-  const wrap2 = useRef<HTMLDivElement>(null);
-  const card0 = useRef<HTMLDivElement>(null);
-  const card1 = useRef<HTMLDivElement>(null);
-  const card2 = useRef<HTMLDivElement>(null);
-  const wrapRefs = [wrap0, wrap1, wrap2];
-  const cardRefs = [card0, card1, card2];
+  // wrap = opacity+scale, card = rotateY
+  const wrapRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const dr = (perim: number, delay: number): React.CSSProperties => ({
     strokeDasharray: perim,
@@ -270,66 +311,40 @@ function HeroAnimation() {
     transition: svgOn ? `opacity 0.4s ease ${delay}s` : "none",
   });
 
-  function groupEl(name: GroupName): SVGGElement | null {
-    if (name === "mobileWallet")    return mobileWalletRef.current;
-    if (name === "contact")         return contactRef.current;
-    if (name === "shippingDetails") return shippingRef.current;
-    if (name === "paymentDetails")  return paymentRef.current;
-    return null;
-  }
-
   useEffect(() => {
-    const w0 = wrap0.current;
-    const k0 = card0.current;
+    const w0 = wrapRefs.current[0];
+    const k0 = cardRefs.current[0];
     if (!w0 || !k0) return;
 
-    // intro: 최종 상태(opacity:1) 미리 커밋 → 애니메이션 종료 후 자연 복귀, onfinish 불필요
+    // intro: 최종 상태(opacity:1) 미리 커밋 → 애니메이션 종료 후 자연 복귀
     w0.style.opacity = "1";
     w0.animate(
       [{ opacity: 0, transform: "scale(0.82)" }, { opacity: 1, transform: "scale(1)" }],
-      { duration: 1100, easing: SPRING, delay: 1850, fill: "backwards" }
+      { duration: 1100, easing: SPRING, delay: INTRO_DELAY, fill: "backwards" }
     );
     k0.animate(
       [{ transform: "rotateY(0deg)" }, { transform: "rotateY(25deg)" }, { transform: "rotateY(0deg)" }],
-      { duration: 1100, easing: FLIP_E, delay: 1850 }
+      { duration: 1100, easing: FLIP_E, delay: INTRO_DELAY }
     );
 
     let loopId: ReturnType<typeof setInterval>;
     const startT = setTimeout(() => {
       loopId = setInterval(() => {
         const cur = idxRef.current;
-        const nxt = (cur + 1) % 3;
-        const curG = CARD_GROUPS[cur];
-        const nxtG = CARD_GROUPS[nxt];
-        const leaving  = curG.filter(g => !nxtG.includes(g));
-        const entering = nxtG.filter(g => !curG.includes(g));
+        const nxt = (cur + 1) % N;
 
         // 이전 사이클 잔류 애니메이션 정리
-        for (let i = 0; i < 3; i++) {
-          wrapRefs[i].current?.getAnimations().forEach(a => a.cancel());
-        }
+        wrapRefs.current.forEach(w => w?.getAnimations().forEach(a => a.cancel()));
 
-        // SVG: fade out leaving groups immediately
-        leaving.forEach(name => {
-          const el = groupEl(name);
-          if (!el) return;
-          el.style.transition = "opacity 0.35s ease, transform 0.35s ease";
-          el.style.opacity    = "0";
-          el.style.transform  = "scale(0.88) translateY(-6px)";
-        });
+        const wCur = wrapRefs.current[cur];
+        const kCur = cardRefs.current[cur];
+        const wNxt = wrapRefs.current[nxt];
+        const kNxt = cardRefs.current[nxt];
 
-        const wCur = wrapRefs[cur].current;
-        const kCur = cardRefs[cur].current;
-        const wNxt = wrapRefs[nxt].current;
-        const kNxt = cardRefs[nxt].current;
-
-        // 핵심: 애니메이션 시작 전 최종 inline style 미리 커밋
-        // WAAPI는 재생 중에만 inline을 오버라이드, fill:none(기본)으로 끝나면 여기 값으로 복귀
-        // → onfinish / fill:forwards / cancel 구조 제거, 불발 버그 원천 차단
+        // 애니메이션 시작 전 최종 inline style 미리 커밋 (fill:none 복귀 대비)
         if (wCur) { wCur.style.opacity = "0"; wCur.style.transform = ""; }
         if (wNxt) { wNxt.style.opacity = "1"; wNxt.style.transform = ""; }
 
-        // OUT + IN 동시 시작 (fill 없음 = 기본 fill:none)
         if (wCur) wCur.animate(
           [{ opacity: 1, transform: "scale(1)" }, { opacity: 0, transform: "scale(0.85)" }],
           { duration: DUR_OUT, easing: SPRING }
@@ -349,40 +364,22 @@ function HeroAnimation() {
 
         idxRef.current = nxt;
         setIdx(nxt);
-        setRowAnimKeys(prev => {
-          const next = [...prev] as [number, number, number];
+        // 다음 카드의 블루프린트 씬 remount → 그리기 애니메이션 재생
+        setSceneKeys(prev => {
+          const next = [...prev];
           next[nxt] = prev[nxt] + 1;
           return next;
         });
-
-        // SVG entering groups: onfinish 대신 setTimeout
-        if (entering.length > 0) {
-          setTimeout(() => {
-            entering.forEach((name, i) => {
-              const el = groupEl(name);
-              if (!el) return;
-              el.style.transition = "none";
-              el.style.opacity    = "0";
-              el.style.transform  = "scale(0.88) translateY(8px)";
-              requestAnimationFrame(() => requestAnimationFrame(() => {
-                el.style.transition = `opacity 0.4s ease ${i * 0.13}s, transform 0.4s ease ${i * 0.13}s`;
-                el.style.opacity    = "1";
-                el.style.transform  = "scale(1) translateY(0px)";
-              }));
-            });
-          }, DUR_IN);
-        }
       }, HOLD_MS);
-    }, 1850 + 1100 + 600);
+    }, INTRO_DELAY + 1100 + 700);
 
     return () => { clearTimeout(startT); clearInterval(loopId); };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    // 루트: position:relative, z-index 없음 → stacking context 미생성
-    <div className="relative select-none" style={{ width: 540, height: 620, flexShrink: 0 }}>
+    <div className="relative select-none" style={{ width: 540, height: 600, flexShrink: 0 }}>
 
-      {/* ── SVG 프레임: z=3 (GradientCanvas z=5 아래) ── */}
+      {/* ── SVG 블루프린트: z=3 ── */}
       <div
         aria-hidden
         style={{
@@ -395,72 +392,37 @@ function HeroAnimation() {
         <svg
           width="540" height="600" viewBox="0 0 540 600" fill="none"
           className="absolute top-0 left-0 pointer-events-none"
+          style={{ fontFamily: BLUEPRINT_FONT }}
         >
-          <rect x="0.5" y="0.5" width="539" height="599" rx="7.5" fill="#F6F9FB" stroke="#AAB7C4" style={fd(0)}/>
-          <path d="M0 21.5H540" stroke="#AAB7C4" style={dr(540, 0.15)}/>
-          <circle cx="13" cy="11" r="4" fill="#CFD7DF" style={fd(0.25)}/>
-          <circle cx="27" cy="11" r="4" fill="#CFD7DF" style={fd(0.3)}/>
-          <circle cx="41" cy="11" r="4" fill="#CFD7DF" style={fd(0.35)}/>
-          <path d="M270 21.5V598.5" stroke="#CFD7DF" style={dr(577, 0.3)}/>
-          <path d="M24 54.5H68" stroke="#CFD7DF" strokeLinecap="round" style={fd(0.3)}/>
-          <text x="290" y="53" fill="#ABB5C5" fontSize="10" fontFamily="system-ui,sans-serif" style={fd(0.5)}>Order summary</text>
-          <path d="M288 68H412" stroke="#C4CCD8" strokeWidth="4" strokeLinecap="round" style={fd(0.7)}/>
-          <path d="M288 76H364" stroke="#C4CCD8" strokeWidth="4" strokeLinecap="round" style={fd(0.85)}/>
+          {/* 디바이스 프레임 (정적) */}
+          <rect x="0.5" y="0.5" width="539" height="599" rx="9.5" fill="#F8FAFC" stroke="#C7D2DE" style={fd(0)}/>
+          <path d="M0 31.5H540" stroke="#C7D2DE" style={dr(540, 0.15)}/>
+          <circle cx="16" cy="16" r="4" fill="#CFD7DF" style={fd(0.25)}/>
+          <circle cx="30" cy="16" r="4" fill="#CFD7DF" style={fd(0.3)}/>
+          <circle cx="44" cy="16" r="4" fill="#CFD7DF" style={fd(0.35)}/>
 
-          <g ref={mobileWalletRef}>
-            <rect x="12.5" y="93.5" width="165" height="53" rx="7.5" stroke="#CFD7DF" style={dr(436, 0.8)}/>
-            <text x="26" y="114" fill="#ABB5C5" fontSize="9" fontFamily="system-ui,sans-serif" style={fd(1.5)}>Mobile wallet</text>
-            <path d="M26 129H118" stroke="#C4CCD8" strokeWidth="4" strokeLinecap="round" style={fd(1.6)}/>
-          </g>
-
-          <g ref={contactRef}>
-            <rect x="12.5" y="163.5" width="165" height="53" rx="7.5" stroke="#CFD7DF" style={dr(436, 1.6)}/>
-            <text x="26" y="184" fill="#ABB5C5" fontSize="9" fontFamily="system-ui,sans-serif" style={fd(2.3)}>Contact</text>
-            <path d="M26 199H118" stroke="#C4CCD8" strokeWidth="4" strokeLinecap="round" style={fd(2.4)}/>
-          </g>
-
-          <g ref={shippingRef}>
-            <rect x="12.5" y="233.5" width="165" height="73" rx="7.5" stroke="#CFD7DF" style={dr(476, 2.4)}/>
-            <text x="26" y="252" fill="#ABB5C5" fontSize="9" fontFamily="system-ui,sans-serif" style={fd(3.1)}>Shipping details</text>
-            <path d="M26 269H118" stroke="#C4CCD8" strokeWidth="4" strokeLinecap="round" style={fd(3.2)}/>
-            <path d="M26 277H102" stroke="#C4CCD8" strokeWidth="4" strokeLinecap="round" style={fd(3.3)}/>
-          </g>
-
-          <g ref={paymentRef}>
-            <rect x="12.5" y="323.5" width="165" height="73" rx="7.5" stroke="#CFD7DF" style={dr(476, 3.2)}/>
-            <text x="26" y="342" fill="#ABB5C5" fontSize="9" fontFamily="system-ui,sans-serif" style={fd(3.9)}>Payment details</text>
-            <path d="M26 358H118" stroke="#C4CCD8" strokeWidth="4" strokeLinecap="round" style={fd(4.0)}/>
-            <path d="M26 366H118" stroke="#C4CCD8" strokeWidth="4" strokeLinecap="round" style={fd(4.1)}/>
-            <path d="M26 374H62"  stroke="#C4CCD8" strokeWidth="4" strokeLinecap="round" style={fd(4.2)}/>
-          </g>
+          {/* 카드별 테마 블루프린트 — 활성 1개만 보이고, 재활성 시 remount 로 재-그리기 */}
+          {CARDS.map(({ Scene }, i) => (
+            <g key={i} style={{ opacity: idx === i ? 1 : 0, transition: "opacity 0.55s ease" }}>
+              <g key={sceneKeys[i]}>
+                <Scene />
+              </g>
+            </g>
+          ))}
         </svg>
       </div>
 
-      {/* ── DemoCard: z=10 — 3장 항상 DOM에, 동시 crossfade ── */}
-      <div style={{ position: "absolute", right: -20, top: 180, zIndex: 10 }}>
-        <div style={{ position: "relative", width: 400, height: 560 }}>
-
-          {/* Card 0: BabyBlue */}
-          <div style={{ position: "absolute", right: 0, top: 0, perspective: "1200px" }}>
-            <div ref={wrap0} style={{ opacity: 0, transformStyle: "preserve-3d" }}>
-              <div ref={card0}><BabyBlueCard ak={rowAnimKeys[0]} /></div>
+      {/* ── DemoCard: z=10 — N장 항상 DOM에, 중앙 정렬, 동시 crossfade ── */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 10 }}>
+        {CARDS.map(({ kind, spec }, i) => (
+          <div key={i} style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%,-50%)", perspective: "1200px" }}>
+            <div ref={el => { wrapRefs.current[i] = el; }} style={{ opacity: 0, transformStyle: "preserve-3d" }}>
+              <div ref={el => { cardRefs.current[i] = el; }}>
+                {kind === "browser" ? <BrowserShot spec={spec} /> : <PhoneShot spec={spec} />}
+              </div>
             </div>
           </div>
-
-          {/* Card 1: Lakers */}
-          <div style={{ position: "absolute", right: 0, top: 0, perspective: "1200px" }}>
-            <div ref={wrap1} style={{ opacity: 0, transformStyle: "preserve-3d" }}>
-              <div ref={card1}><LakersCard ak={rowAnimKeys[1]} /></div>
-            </div>
-          </div>
-
-          {/* Card 2: Tron */}
-          <div style={{ position: "absolute", right: 0, top: 0, perspective: "1200px" }}>
-            <div ref={wrap2} style={{ opacity: 0, transformStyle: "preserve-3d" }}>
-              <div ref={card2}><TronCard ak={rowAnimKeys[2]} /></div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
@@ -476,7 +438,6 @@ export default function VariantH() {
       className="relative min-h-screen w-full bg-transparent"
       style={{ color: INK }}
     >
-      {/* 그리드 점선 — z-0(기본)이라 띠(z-5)·오버레이(z-7) 아래로 깔린다 → 띠 위엔 점선 안 보임 */}
       <GridGuides columns={4} />
       <GradientCanvas />
       <div
@@ -511,7 +472,7 @@ export default function VariantH() {
             </a>
           </div>
           <div className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-3 border-t pt-6 text-[13px] font-medium" style={{ borderColor: "#eaecef", color: SLATE }}>
-            {[["11","AI 에이전트 운영"],["24/7","자동 발행 파이프라인"],["E2E","FE → LLM → 계측"]].map(([k,v]) => (
+            {[["LLM","멀티에이전트 · RAG · Eval"],["Web·App·AI","풀스택 범위"],["E2E","기획 → 배포 → 운영"]].map(([k,v]) => (
               <div key={v} className="flex items-baseline gap-2">
                 <span className="text-[16px] font-bold tabular-nums" style={{ color: INK }}>{k}</span>
                 <span>{v}</span>

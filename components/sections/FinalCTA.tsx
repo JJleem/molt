@@ -33,7 +33,7 @@ export default function FinalCTA() {
             찾고 계신가요?
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed break-keep" style={{ color: SLATE }}>
-            프론트엔드부터 AI 시스템까지 — 다음 탈피를 함께 만들 팀을 찾고 있습니다.
+            프론트엔드부터 AI 시스템까지 — 다음 제품을 함께 만들 팀을 찾고 있습니다.
             편하게 연락 주세요.
           </p>
 

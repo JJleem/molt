@@ -7,7 +7,7 @@ import {
   LayoutTemplate,
   TerminalSquare,
   BarChart3,
-  Dna,
+  Radar,
   ExternalLink,
   Github,
   ArrowRight,
@@ -32,16 +32,16 @@ const ICONS: Record<string, LucideIcon> = {
   LayoutTemplate,
   TerminalSquare,
   BarChart3,
-  Dna,
+  Radar,
 };
 
 // 프로젝트 color 클래스(bg-xxx-500/15 text-xxx-400)에서 강조 색을 뽑아 목업 액센트로 사용.
 const ACCENTS: Record<string, string> = {
   "claude-console": "#f97316",
   centiment: "#8b5cf6",
+  centinel: "#0ea5e9",
   "naver-ads": "#14b8a6",
   mockitup: "#6366f1",
-  "gecko-hub": "#22c55e",
 };
 
 type Project = SideProject;

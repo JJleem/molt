@@ -91,6 +91,43 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* DemoCard 실제 스크린샷 — 교체 시 페이드 + 느린 켄번스 팬 */
+@keyframes shot-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ken-burns {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to   { transform: scale(1.08) translate3d(0, -2%, 0); }
+}
+
+/* 히어로 배경 블루프린트 — 선이 그려지는 애니메이션 (pathLength=1 정규화) */
+@keyframes hero-draw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-grow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+/* QuoteCard — 떠다니는 스파클 + 캐릭터 뒤 광선 */
+@keyframes quote-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.7); }
+  50%      { opacity: 0.9; transform: scale(1); }
+}
+@keyframes quote-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes quote-rays {
+  to { transform: rotate(360deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-sheet { animation: none; }
   .hero-sheet-blob { animation: none !important; }
