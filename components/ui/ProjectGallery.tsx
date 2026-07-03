@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ImageIcon, Maximize2, X } from "lucide-react";
@@ -8,6 +8,7 @@ import Image from "next/image";
 import type { Gallery } from "@/content/types";
 
 const AUTOPLAY_MS = 5000;
+const emptySubscribe = () => () => {};
 
 /* 이미지 1장 — 파일이 없으면(404) 우아한 accent 그라데이션 placeholder로 폴백.
    사용자는 해당 경로에 파일만 드롭하면 자동으로 스샷이 뜬다. */
@@ -107,8 +108,7 @@ export default function ProjectGallery({
   const [inView, setInView] = useState(false);
   // 라이트박스를 document.body로 포털 → 조상 transform이 만든 stacking context를 탈출해
   // 헤더(sticky z-50) 위로 확실히 올라오게 한다. SSR에서는 document가 없어 마운트 후에만.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
   const rootRef = useRef<HTMLDivElement>(null);
   const thumbsRef = useRef<HTMLDivElement>(null);
   const count = slides.length;
@@ -214,7 +214,7 @@ export default function ProjectGallery({
             type="button"
             onClick={prev}
             aria-label="이전 이미지"
-            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white opacity-0 shadow-lg backdrop-blur-sm transition-all hover:bg-black/70 group-hover/main:opacity-100"
+            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white opacity-0 shadow-lg backdrop-blur-sm transition-[opacity,background-color] duration-200 hover:bg-black/70 group-hover/main:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <ChevronLeft size={18} />
           </button>
@@ -222,7 +222,7 @@ export default function ProjectGallery({
             type="button"
             onClick={next}
             aria-label="다음 이미지"
-            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white opacity-0 shadow-lg backdrop-blur-sm transition-all hover:bg-black/70 group-hover/main:opacity-100"
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white opacity-0 shadow-lg backdrop-blur-sm transition-[opacity,background-color] duration-200 hover:bg-black/70 group-hover/main:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <ChevronRight size={18} />
           </button>
@@ -234,7 +234,7 @@ export default function ProjectGallery({
         type="button"
         onClick={() => setLightbox(true)}
         aria-label="크게 보기"
-        className="absolute right-3 top-3 rounded-full bg-black/50 p-2 text-white opacity-0 shadow-lg backdrop-blur-sm transition-all hover:bg-black/70 group-hover/main:opacity-100"
+        className="absolute right-3 top-3 rounded-full bg-black/50 p-2 text-white opacity-0 shadow-lg backdrop-blur-sm transition-[opacity,background-color] duration-200 hover:bg-black/70 group-hover/main:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
         <Maximize2 size={15} />
       </button>
@@ -327,7 +327,7 @@ export default function ProjectGallery({
                 onClick={() => go(i, i > active ? 1 : -1)}
                 aria-label={`${i + 1}번 이미지로 이동`}
                 aria-current={isActive}
-                className="h-2 rounded-full transition-all duration-300"
+                className="h-2 rounded-full transition-[width,background-color] duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d9488]"
                 style={{
                   width: isActive ? 22 : 8,
                   background: isActive ? accent : tone === "dark" ? "rgba(255,255,255,0.3)" : "rgba(10,37,64,0.18)",
@@ -351,7 +351,7 @@ export default function ProjectGallery({
                 aria-label={`${i + 1}번 이미지로 이동: ${s.caption}`}
                 aria-current={isActive}
                 data-active={isActive}
-                className={`group/thumb relative ${thumbRatio} ${thumbWidth} shrink-0 snap-start overflow-hidden rounded-xl border bg-resume-card transition-all duration-300`}
+                className={`group/thumb relative ${thumbRatio} ${thumbWidth} shrink-0 snap-start overflow-hidden rounded-xl border bg-resume-card transition-[border-color,box-shadow,transform] duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d9488]`}
                 style={{
                   borderColor: isActive ? accent : "rgba(255,255,255,0.12)",
                   boxShadow: isActive ? `0 0 0 2px ${accent}, 0 8px 24px -8px ${accent}99` : "none",

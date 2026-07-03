@@ -40,16 +40,16 @@ export default function FinalCTA() {
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold text-white shadow-[0_8px_22px_-6px_rgba(13,148,136,0.6)] transition-transform hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold text-white shadow-[0_8px_22px_-6px_rgba(13,148,136,0.6)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-6px_rgba(13,148,136,0.65)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d9488]"
               style={{ background: BLURPLE }}
             >
               연락하기
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-[3px]" />
             </Link>
             <Link
               href="https://github.com/JJleem"
               target="_blank"
-              className="inline-flex items-center gap-2 rounded-full border border-[#e6ebf1] px-6 py-3 text-[15px] font-semibold transition-colors hover:bg-[#f6f9fc]"
+              className="inline-flex items-center gap-2 rounded-full border border-[#e6ebf1] px-6 py-3 text-[15px] font-semibold transition-colors duration-200 hover:border-[#cfd9e4] hover:bg-[#f6f9fc] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d9488]"
               style={{ color: INK }}
             >
               <Github size={16} /> GitHub

@@ -4,9 +4,10 @@
 // ★ 히어로 그라데이션 시트가 이 섹션 상단으로 *그대로 흘러내려와* 흰색으로 페이드 → "띠 이어짐".
 //   (히어로 하단 시트 색 = teal(좌)→blurple→violet(우) 와 매칭, 그 위에 작은 teal→violet 리본 조각.)
 // 각 컬럼: 아이콘(틴트 사각) + 컬러 eyebrow + 한글 타이틀 + 설명. 색은 히어로 그라데이션 4톤.
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { LayoutTemplate, Cpu, LineChart, Workflow, type LucideIcon } from "lucide-react";
 import GridGuides from "@/components/ui/GridGuides";
+import { DUR, EASE_OUT, DIST, STAGGER } from "@/components/ui/motion-tokens";
 
 const INK = "#0a2540";
 const SLATE = "#425466";
@@ -51,21 +52,31 @@ function tint(hex: string) {
 export default function CapabilitiesStrip() {
   // 배경 시트는 부모 래퍼(page.tsx)가 한 장으로 그림 → 여기는 투명. features는 시트 아래에 오도록 pt 확보.
   // 레이아웃: stripe-2 4-피처 밴드 = 아이콘 + (컬러 세로 바 + 타이틀) + 설명. 컬럼 사이 옅은 세로 구분선.
+  const reduce = useReducedMotion() ?? false;
+
+  const item = {
+    hidden: { opacity: 0, y: DIST.md },
+    show: { opacity: 1, y: 0, transition: { duration: DUR.reveal * 0.85, ease: EASE_OUT } },
+  };
+
   return (
     <section className="relative z-20 bg-transparent pb-20 pt-[140px] md:pt-[200px]" style={{ color: INK }}>
       <GridGuides columns={4} top="top-[240px] md:top-[330px]" />
       <div className="relative z-10 mx-auto max-w-[1140px] px-6">
         {/* 컬럼 사이 세로 구분은 섹션의 점선 GridGuides가 담당 */}
-        <div className="grid grid-cols-1 gap-x-0 gap-y-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4 lg:gap-x-0">
-          {CAPS.map((cap, i) => {
+        <motion.div
+          className="grid grid-cols-1 gap-x-0 gap-y-12 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4 lg:gap-x-0"
+          initial={reduce ? false : "hidden"}
+          whileInView="show"
+          viewport={{ once: true, amount: 0.35 }}
+          variants={{ show: { transition: { staggerChildren: STAGGER } } }}
+        >
+          {CAPS.map((cap) => {
             const Icon = cap.icon;
             return (
               <motion.div
                 key={cap.eyebrow}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                variants={item}
                 className="relative lg:px-7 lg:[&:first-child]:pl-0"
               >
                 <span
@@ -98,7 +109,7 @@ export default function CapabilitiesStrip() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

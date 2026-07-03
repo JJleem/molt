@@ -180,11 +180,11 @@ const ProjectDetail_CaseStudy = () => {
 
               {/* CTA */}
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="https://c-hub.info/" target="_blank" className="group flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white shadow-[0_6px_18px_-4px_rgba(13,148,136,0.5)] transition-transform hover:-translate-y-0.5" style={{ background: BLURPLE }}>
+                <Link href="https://c-hub.info/" target="_blank" className="group flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white shadow-[0_6px_18px_-4px_rgba(13,148,136,0.5)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-5px_rgba(13,148,136,0.6)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2dd4bf]" style={{ background: BLURPLE }}>
                   <Globe size={15} /> Live Service
                   <ExternalLink size={12} className="opacity-70" />
                 </Link>
-                <Link href="https://hissing-seagull-77f.notion.site/IoT-3D-2e1cb3f80a7780c5ac84c4ac75fe9ab6?pvs=143" target="_blank" className="group flex items-center gap-2 px-5 py-2.5 border border-white/15 rounded-full text-sm font-bold transition-colors hover:bg-white/[0.06]" style={{ color: ONDARK }}>
+                <Link href="https://hissing-seagull-77f.notion.site/IoT-3D-2e1cb3f80a7780c5ac84c4ac75fe9ab6?pvs=143" target="_blank" className="group flex items-center gap-2 px-5 py-2.5 border border-white/15 rounded-full text-sm font-bold transition-colors duration-200 hover:border-white/30 hover:bg-white/[0.06] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2dd4bf]" style={{ color: ONDARK }}>
                   <div className="relative w-3.5 h-3.5">
                     <Image src="/assets/notion.png" alt="Notion" fill className="object-contain" />
                   </div>

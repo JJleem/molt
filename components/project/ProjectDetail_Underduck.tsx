@@ -108,14 +108,14 @@ const ProjectDetail_Underduck = () => {
 
             {/* CTA */}
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href={LIVE_URL} target="_blank" className="group flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-[0_6px_18px_-4px_rgba(236,72,153,0.5)] transition-transform hover:-translate-y-0.5" style={{ background: PINK }}>
+              <Link href={LIVE_URL} target="_blank" className="group flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-[0_6px_18px_-4px_rgba(236,72,153,0.5)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-5px_rgba(236,72,153,0.6)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ec4899]" style={{ background: PINK }}>
                 <Globe size={15} /> Live Service
                 <ExternalLink size={12} className="opacity-70" />
               </Link>
-              <Link href={FE_REPO} target="_blank" className="group flex items-center gap-2 rounded-full border border-[#e6ebf1] px-5 py-2.5 text-sm font-bold transition-colors hover:bg-[#f6f9fc]" style={{ color: INK }}>
+              <Link href={FE_REPO} target="_blank" className="group flex items-center gap-2 rounded-full border border-[#e6ebf1] px-5 py-2.5 text-sm font-bold transition-colors duration-200 hover:border-[#cfd9e4] hover:bg-[#f6f9fc] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ec4899]" style={{ color: INK }}>
                 <Github size={15} /> Frontend
               </Link>
-              <Link href={BE_REPO} target="_blank" className="group flex items-center gap-2 rounded-full border border-[#e6ebf1] px-5 py-2.5 text-sm font-bold transition-colors hover:bg-[#f6f9fc]" style={{ color: INK }}>
+              <Link href={BE_REPO} target="_blank" className="group flex items-center gap-2 rounded-full border border-[#e6ebf1] px-5 py-2.5 text-sm font-bold transition-colors duration-200 hover:border-[#cfd9e4] hover:bg-[#f6f9fc] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ec4899]" style={{ color: INK }}>
                 <Github size={15} /> Backend
               </Link>
             </div>

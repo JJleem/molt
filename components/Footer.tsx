@@ -29,7 +29,7 @@ const Footer = () => {
           <div className="flex items-center gap-3">
             <Link
               href="mailto:leemjaejun@gmail.com"
-              className="rounded-full border border-white/10 bg-white/5 p-2.5 transition-colors hover:bg-white/10 hover:text-white"
+              className="rounded-full border border-white/10 bg-white/5 p-2.5 transition-[background-color,color,transform] duration-200 hover:-translate-y-px hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2dd4bf]"
               title="Email"
             >
               <Mail size={18} />
@@ -37,7 +37,7 @@ const Footer = () => {
             <Link
               href="https://github.com/JJleem"
               target="_blank"
-              className="rounded-full border border-white/10 bg-white/5 p-2.5 transition-colors hover:bg-white/10 hover:text-white"
+              className="rounded-full border border-white/10 bg-white/5 p-2.5 transition-[background-color,color,transform] duration-200 hover:-translate-y-px hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2dd4bf]"
               title="GitHub"
             >
               <Github size={18} />
@@ -45,7 +45,7 @@ const Footer = () => {
             <Link
               href="https://velog.io/@leemjaejun/posts"
               target="_blank"
-              className="rounded-full border border-white/10 bg-white/5 p-2.5 transition-colors hover:bg-white/10 hover:text-white"
+              className="rounded-full border border-white/10 bg-white/5 p-2.5 transition-[background-color,color,transform] duration-200 hover:-translate-y-px hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2dd4bf]"
               title="Blog"
             >
               <LinkIcon size={18} />
@@ -53,7 +53,7 @@ const Footer = () => {
             <div className="mx-1 h-6 w-px bg-white/10" />
             <button
               onClick={scrollToTop}
-              className="group flex items-center justify-center rounded-full bg-[#0d9488] p-2.5 text-white shadow-lg transition-transform hover:-translate-y-0.5"
+              className="group flex items-center justify-center rounded-full bg-[#0d9488] p-2.5 text-white shadow-lg transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2dd4bf]"
               title="맨 위로"
             >
               <ArrowUp size={18} className="transition-transform group-hover:-translate-y-0.5" />

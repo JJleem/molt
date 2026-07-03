@@ -21,12 +21,16 @@ export default function CountUp({
   const target = match ? parseInt(match[1].replace(/,/g, ""), 10) : null;
   const suffix = match ? match[2] : "";
 
-  const [display, setDisplay] = useState<number>(
-    target !== null && !reduce ? 0 : target ?? 0
-  );
+  // SSR과 첫 클라이언트 렌더가 항상 0으로 일치해야 함 (reduce를 초기값에 쓰면 hydration 불일치)
+  const [display, setDisplay] = useState<number>(0);
 
   useEffect(() => {
-    if (target === null || reduce || !inView) return;
+    if (target === null || !inView) return;
+    if (reduce) {
+      // reduced-motion: 카운트업 없이 최종값 즉시 표시
+      const raf = requestAnimationFrame(() => setDisplay(target));
+      return () => cancelAnimationFrame(raf);
+    }
     let raf: number;
     const start = performance.now();
     const tick = (now: number) => {

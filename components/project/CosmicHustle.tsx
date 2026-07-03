@@ -64,7 +64,7 @@ function TechStack({
             </p>
             <div className="flex flex-wrap gap-2">
               {group.items.map((t) => (
-                <span key={t} className="rounded-full border border-[#e6ebf1] bg-[#f6f9fc] px-3 py-1 text-xs font-semibold" style={{ color: INK }}>
+                <span key={t} className="rounded-full border border-[#e6ebf1] bg-[#f6f9fc] px-3 py-1 text-xs font-semibold transition-colors duration-200 hover:border-[#0d9488]/40" style={{ color: INK }}>
                   {t}
                 </span>
               ))}
@@ -167,18 +167,18 @@ export default function CosmicHustle() {
                   <Link
                     href={c.links.live}
                     target="_blank"
-                    className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-[0_6px_18px_-4px_rgba(13,148,136,0.5)] transition-transform hover:-translate-y-0.5"
+                    className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-[0_6px_18px_-4px_rgba(13,148,136,0.5)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-5px_rgba(13,148,136,0.6)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d9488]"
                     style={{ background: BLURPLE }}
                   >
                     라이브 블로그
-                    <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </Link>
                 )}
                 {c.links.github && (
                   <Link
                     href={c.links.github}
                     target="_blank"
-                    className="inline-flex items-center gap-2 rounded-full border border-[#e6ebf1] px-5 py-2.5 text-sm font-bold transition-colors hover:bg-[#f6f9fc]"
+                    className="inline-flex items-center gap-2 rounded-full border border-[#e6ebf1] px-5 py-2.5 text-sm font-bold transition-colors duration-200 hover:border-[#cfd9e4] hover:bg-[#f6f9fc] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d9488]"
                     style={{ color: INK }}
                   >
                     <Github size={15} /> 백엔드 GitHub

@@ -193,7 +193,7 @@ const SideProjects = () => {
               aria-label="이전"
               onClick={() => scrollBy(-1)}
               disabled={!canPrev}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e6ebf1] bg-white text-[#0a2540] transition-all hover:border-[#0d9488] hover:text-[#0d9488] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[#e6ebf1] disabled:hover:text-[#0a2540]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e6ebf1] bg-white text-[#0a2540] transition-[border-color,color,opacity,transform] duration-200 hover:border-[#0d9488] hover:text-[#0d9488] active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d9488] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[#e6ebf1] disabled:hover:text-[#0a2540]"
             >
               <ChevronLeft size={18} />
             </button>
@@ -202,7 +202,7 @@ const SideProjects = () => {
               aria-label="다음"
               onClick={() => scrollBy(1)}
               disabled={!canNext}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e6ebf1] bg-white text-[#0a2540] transition-all hover:border-[#0d9488] hover:text-[#0d9488] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[#e6ebf1] disabled:hover:text-[#0a2540]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e6ebf1] bg-white text-[#0a2540] transition-[border-color,color,opacity,transform] duration-200 hover:border-[#0d9488] hover:text-[#0d9488] active:scale-[0.95] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0d9488] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[#e6ebf1] disabled:hover:text-[#0a2540]"
             >
               <ChevronRight size={18} />
             </button>
@@ -238,7 +238,7 @@ const SideProjects = () => {
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0, transition: { delay: index * 0.08, duration: 0.5 } },
                 }}
-                className="group relative flex w-[300px] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-[#e6ebf1] bg-white shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-12px_rgba(10,37,64,0.18)] sm:w-[340px]"
+                className="group relative flex w-[300px] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-[#e6ebf1] bg-white shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#d8e2ec] hover:shadow-[0_18px_40px_-12px_rgba(10,37,64,0.18)] sm:w-[340px]"
               >
                 {/* 상단 프리뷰 프레임 (Stripe식) */}
                 <ProjectPreview project={project} Icon={Icon} />
@@ -259,7 +259,7 @@ const SideProjects = () => {
                   <div className="mt-auto pt-4">
                     <div className="flex flex-wrap gap-1.5">
                       {project.tech.slice(0, 4).map((t) => (
-                        <span key={t} className="rounded-full border border-[#e6ebf1] bg-[#f6f9fc] px-2.5 py-1 text-[11px] font-semibold" style={{ color: INK }}>
+                        <span key={t} className="rounded-full border border-[#e6ebf1] bg-[#f6f9fc] px-2.5 py-1 text-[11px] font-semibold transition-colors duration-200 hover:border-[#0d9488]/40" style={{ color: INK }}>
                           {t}
                         </span>
                       ))}
