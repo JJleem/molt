@@ -110,6 +110,10 @@ export interface SideProject {
   github?: string;
   link?: string;
   logo?: string;
+  /** 수상 뱃지 라벨 — 있으면 프리뷰 좌상단에 트로피 뱃지로 표시 */
+  award?: string;
+  /** 카드에 표시할 핵심 지표 3칸 — 있을 때만 렌더링 */
+  metrics?: { value: string; label: string }[];
 }
 
 export interface FlagshipProject {

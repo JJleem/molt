@@ -8,6 +8,8 @@ import {
   TerminalSquare,
   BarChart3,
   Radar,
+  GraduationCap,
+  Trophy,
   ExternalLink,
   Github,
   ArrowRight,
@@ -33,10 +35,12 @@ const ICONS: Record<string, LucideIcon> = {
   TerminalSquare,
   BarChart3,
   Radar,
+  GraduationCap,
 };
 
 // 프로젝트 color 클래스(bg-xxx-500/15 text-xxx-400)에서 강조 색을 뽑아 목업 액센트로 사용.
 const ACCENTS: Record<string, string> = {
+  aistudy: "#f59e0b",
   "claude-console": "#f97316",
   centiment: "#8b5cf6",
   centinel: "#0ea5e9",
@@ -78,6 +82,16 @@ const ProjectPreview = ({ project, Icon }: { project: Project; Icon: LucideIcon 
         className="pointer-events-none absolute -bottom-10 -left-8 h-36 w-36 rounded-full opacity-100 blur-2xl transition-opacity duration-500 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100"
         style={{ background: "radial-gradient(circle, rgba(13,148,136,0.7) 0%, transparent 70%)" }}
       />
+
+      {/* 수상 뱃지 — 좌상단 트로피 pill (award가 있을 때만) */}
+      {project.award && (
+        <div className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 shadow-[0_4px_12px_-2px_rgba(10,37,64,0.22)] ring-1 ring-black/[0.04] backdrop-blur">
+          <Trophy size={13} color={accent} />
+          <span className="text-[11px] font-bold tracking-tight" style={{ color: INK }}>
+            {project.award}
+          </span>
+        </div>
+      )}
 
       {project.logo ? (
         <div className="relative h-[80%] w-[80%]">
@@ -228,6 +242,7 @@ const SideProjects = () => {
         >
           {projects.map((project, index) => {
             const Icon = ICONS[project.iconName] ?? TerminalSquare;
+            const accent = ACCENTS[project.id] ?? BLURPLE;
             return (
               <motion.article
                 key={project.id}
@@ -255,6 +270,22 @@ const SideProjects = () => {
                   <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed break-keep" style={{ color: SLATE }}>
                     {project.description}
                   </p>
+
+                  {/* 핵심 지표 3칸 — metrics가 있을 때만 (수상작 성과 노출용) */}
+                  {project.metrics && (
+                    <div className="mt-3.5 grid grid-cols-3 divide-x divide-[#e6ebf1] rounded-xl border border-[#e6ebf1] bg-[#f6f9fc] py-2.5">
+                      {project.metrics.map((m) => (
+                        <div key={m.label} className="px-1 text-center">
+                          <div className="text-[17px] font-bold leading-none tracking-tight" style={{ color: accent }}>
+                            {m.value}
+                          </div>
+                          <div className="mt-1 text-[10px] font-medium leading-tight" style={{ color: SLATE }}>
+                            {m.label}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="mt-auto pt-4">
                     <div className="flex flex-wrap gap-1.5">

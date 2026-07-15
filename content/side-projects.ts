@@ -7,6 +7,31 @@ import type { Localized } from "./locale";
 export const sideProjects: Localized<SideProject[]> = {
   ko: [
     {
+      id: "aistudy",
+      title: "AI's TUDY",
+      category: "Award / Socratic AI Learning Tutor",
+      period: "2026 HYCU AI 학습법 공모전 우수상",
+      award: "HYCU 우수상",
+      description:
+        "HYCU AI 학습법 공모전 우수상 수상작. Claude API 기반 소크라테스식 AI 튜터로, 학습자가 AI에게 개념을 설명하고 AI가 질문으로 이해를 유도하는 역할 반전 학습 도구입니다.",
+      tech: ["Next.js 16", "TypeScript", "Tailwind CSS", "Claude API", "SSE Streaming", "localStorage"],
+      metrics: [
+        { value: "8", label: "학습 세션" },
+        { value: "81", label: "평균 이해도" },
+        { value: "7턴", label: "평균 대화" },
+      ],
+      achievements: [
+        "AI가 설명하는 게 아니라 학습자가 AI에게 개념을 설명하게 하는 소크라테스식 역할 반전 튜터",
+        "Claude API 응답을 SSE로 실시간 스트리밍하고 학습 세션을 localStorage에 저장",
+        "총 8회 세션에서 평균 이해도 81/100점, 평균 7턴 대화로 알고리즘·자바 개념 학습에 활용",
+      ],
+      iconName: "GraduationCap",
+      color: "bg-amber-500/15 text-amber-400",
+      github: "https://github.com/JJleem/tudy",
+      link: "https://tudy-silk.vercel.app/",
+      logo: "/assets/aistudy.png",
+    },
+    {
       id: "claude-console",
       title: "Claude Console",
       category: "Personal / LLM Observability Dashboard",
